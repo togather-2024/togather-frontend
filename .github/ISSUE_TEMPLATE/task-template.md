@@ -1,9 +1,9 @@
 ---
-name: Custom issue template
-about: Describe this issue template's purpose here.
+name: Task Template
+about: Task Template
 title: ''
 labels: ''
-assignees: ''
+assignees: hjthebunny
 
 ---
 
