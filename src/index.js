@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import GlobalStyles from "./styles/GlobalStyles.styles";
+import Header from "./components/Header";
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
-    <h1>Togather FrontEnd 초기 상태입니다.</h1>
+    <Header />
   </React.StrictMode>,
   document.getElementById("root")
 );
