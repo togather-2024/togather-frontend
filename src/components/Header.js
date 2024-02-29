@@ -9,11 +9,6 @@ const Block = styled.header`
   height: 7vh;
   width: 100%;
 `;
-const Logo = styled.div`
-  /* border: 1px solid black; */
-  font-weight: 900;
-  font-size: 1.8rem;
-`;
 
 const RightDiv = styled.div`
   display: flex;
@@ -36,12 +31,17 @@ const Menu = styled.div`
   }
 `;
 
+const Logo = styled.img`
+  height: 50%;
+  cursor: pointer;
+`;
+
 const Header = () => {
   const login = false;
   return (
     <>
       <Block>
-        <Logo>LOGO</Logo>
+        <Logo src="./images/logo.png" alt="logo" />
         {!login ? (
           <RightDiv>
             <Menu>숙소 등록</Menu>
