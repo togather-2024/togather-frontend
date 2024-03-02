@@ -38,10 +38,6 @@ const globalStyles = css`
     font-size: 16px;
   }
 
-  body {
-    line-height: 1;
-  }
-
   ol,
   ul {
     list-style: none;
