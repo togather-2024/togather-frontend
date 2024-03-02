@@ -39,10 +39,6 @@ const globalStyles = css`
     vertical-align: baseline;
   }
 
-  body {
-    line-height: 1;
-  }
-
   ol,
   ul {
     list-style: none;
