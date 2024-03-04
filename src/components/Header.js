@@ -4,6 +4,36 @@ import { FaBell } from "react-icons/fa";
 import { colors } from "../styles/colors";
 import { size } from "../styles/fonts";
 
+const Header = () => {
+  const login = false;
+  return (
+    <>
+      <Block>
+        <Logo src="./images/logo.png" alt="logo" />
+        {!login ? (
+          <RightDiv>
+            <Menu>숙소 등록</Menu>
+            <Menu>로그인</Menu>
+            <Menu>회원가입</Menu>
+          </RightDiv>
+        ) : (
+          <RightDiv>
+            <Menu>숙소 등록</Menu>
+            <Menu>
+              <CgProfile /> 000 님
+            </Menu>
+            <Menu>
+              <FaBell />
+            </Menu>
+          </RightDiv>
+        )}
+      </Block>
+    </>
+  );
+};
+
+export default Header;
+
 const Block = styled.header`
   display: flex;
   align-items: center;
@@ -35,33 +65,3 @@ const Logo = styled.img`
   height: 50%;
   cursor: pointer;
 `;
-
-const Header = () => {
-  const login = false;
-  return (
-    <>
-      <Block>
-        <Logo src="./images/logo.png" alt="logo" />
-        {!login ? (
-          <RightDiv>
-            <Menu>숙소 등록</Menu>
-            <Menu>로그인</Menu>
-            <Menu>회원가입</Menu>
-          </RightDiv>
-        ) : (
-          <RightDiv>
-            <Menu>숙소 등록</Menu>
-            <Menu>
-              <CgProfile /> 000 님
-            </Menu>
-            <Menu>
-              <FaBell />
-            </Menu>
-          </RightDiv>
-        )}
-      </Block>
-    </>
-  );
-};
-
-export default Header;
