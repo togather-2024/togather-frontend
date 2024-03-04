@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import Routing from "./routes/Routing";
 import GlobalStyles from "./styles/GlobalStyles.styles";
-// import MainPage from "./pages/MainPage";
-import SignIn from "./components/SignIn/SignIn";
 
 ReactDOM.render(
     <React.StrictMode>
-        <GlobalStyles />
-        <SignIn></SignIn>
+        <GlobalStyles></GlobalStyles>
+        <BrowserRouter>
+            <Routing />
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
 );

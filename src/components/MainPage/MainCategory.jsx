@@ -4,7 +4,7 @@ import Filter from "./MainCategory/Filter";
 
 const Container = styled.div`
     margin-top: 6vh;
-    width: 100%;
+    width: 92vw;
     height: 7vh;
     display: flex;
     align-items: center;

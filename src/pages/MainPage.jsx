@@ -4,11 +4,10 @@ import axios from "axios";
 import MainSearch from "../components/MainPage/MainSearch";
 import MainCategory from "../components/MainPage/MainCategory";
 import MainContents from "../components/MainPage/MainContents";
-import Header from "../components/Header";
 import ProfileDropdown from "../components/Profile/ProfileDropdown";
 
 const Container = styled.div`
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -17,6 +16,7 @@ const Container = styled.div`
 
 const MainPage = () => {
     const [keywords, setKeywords] = useState([]);
+    const [photos, setPhotos] = useState([]);
 
     useEffect(() => {
         const fetchKeyword = async () => {
@@ -29,17 +29,33 @@ const MainPage = () => {
                 console.log(e);
             }
         };
+        const fetchPhotos = async () => {
+            try {
+                const response = await axios.get(
+                    "https://jsonplaceholder.typicode.com/photos/"
+                );
+                setPhotos(
+                    response.data
+                        .filter((_, idx) => idx < 100)
+                        .map((el) => el.thumbnailUrl)
+                );
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetchPhotos();
         fetchKeyword();
     }, []);
 
     return (
         <>
-            <Header></Header>
-            <ProfileDropdown></ProfileDropdown>
+            {/* profile dropdown은 Link to */}
+            {/* <ProfileDropdown></ProfileDropdown> */}
             <Container>
                 <MainSearch></MainSearch>
                 <MainCategory keywords={keywords}></MainCategory>
-                <MainContents></MainContents>
+                {/* 카테고리 값과 , 검색 결과 변수 바뀔 때마다 Contents 내용 변경 */}
+                <MainContents photos={photos}></MainContents>
             </Container>
         </>
     );

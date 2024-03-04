@@ -4,7 +4,6 @@ import { useCallback } from "react";
 import { List, InfiniteLoader } from "react-virtualized";
 
 const Container = styled.div`
-    width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 2vh;
@@ -13,20 +12,20 @@ const Container = styled.div`
     // grid-auto-rows: minmax(1fr, auto);
 `;
 const InnerContainer = styled.div`
+    width: 92vw;
     display: flex;
     justify-content: space-between;
     margin-top: 2vh;
 `;
 
-const MainContents = () => {
-    const cards = Array(1000)
+const MainContents = ({ photos }) => {
+    const cards = Array(100)
         .fill(0)
         .map((_, idx) => idx + 1);
     const isRowLoaded = ({ index }) => {
         // 해당 인덱스의 행이 로드되었는지 확인
         return !!cards[index];
     };
-
     const loadMoreRows = ({ startIndex, stopIndex }) => {
         // 더 많은 행을 로드하는 비동기 함수
         // 이 예제에서는 필요한 경우에만 로드되도록 설정
@@ -35,7 +34,6 @@ const MainContents = () => {
             resolve();
         });
     };
-
     const rowRenderer = useCallback(
         ({ key, index, style }) => {
             const rowCards = cards.slice(index * 4, index * 4 + 4); // 한 줄에 4개의 Card를 보여주기 위해 해당하는 범위의 Card를 추출
@@ -43,12 +41,12 @@ const MainContents = () => {
             return (
                 <InnerContainer>
                     {rowCards.map((_, idx) => (
-                        <Card key={idx}></Card>
+                        <Card key={idx} photo={photos[idx]}></Card>
                     ))}
                 </InnerContainer>
             );
         },
-        [cards]
+        [cards, photos]
     );
     return (
         <Container>

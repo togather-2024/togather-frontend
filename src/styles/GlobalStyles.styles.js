@@ -1,78 +1,30 @@
-import { Global, css } from "@emotion/react";
+import { createGlobalStyle } from "styled-components";
+import { reset } from "styled-reset";
 
-const globalStyles = css`
-    //전역 스타일 설정
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        box-sizing: border-box;
-        padding: 0 4vw;
-        margin: 0;
+const GlobalStyle = createGlobalStyle`
+    ${reset}
+    // html{
+    //     font-size:62.5%;
+    // }
+    body{
+        padding:0 4vw;
+        margin:0;
+        font-size:16px;
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: 400;
+        font-style: normal;
     }
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    span,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    a,
-    dl,
-    dt,
-    dd,
-    ol,
-    ul,
-    li,
-    form,
-    label,
-    table {
-        margin: 0;
-        padding: 0;
-        font-size: 16px;
-        vertical-align: baseline;
-    }
-    ======= div,
-    span,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    a,
-    dl,
-    dt,
-    dd,
-    ol,
-    ul,
-    li,
-    form,
-    label,
-    table {
-        margin: 0;
-        padding: 0;
-        font-size: 16px;
-    }
-    body {
-        line-height: 1;
+    *{
+        box-sizing:border-box;
     }
 
-    ol,
-    ul {
-        list-style: none;
+    html, body{
+        -webkit-text-size-adjust : none;  /* 크롬, 사파리, 오페라 신버전 */
+        -ms-text-size-adjust : none;  /* IE */
+        -moz-text-size-adjust : none;  /* 파이어폭스 */
+        -o-text-size-adjust : none;  /* 오페라 구버전 */
     }
 
-    button {
-        cursor: pointer;
-    }
 `;
 
-const GlobalStyles = () => <Global styles={globalStyles} />;
-
-export default GlobalStyles;
+export default GlobalStyle;
