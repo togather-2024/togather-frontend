@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { CiSearch } from "react-icons/ci";
 const SearchSection = styled.div`
-    width: 100%;
+    width: 92vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,14 +10,13 @@ const SearchSection = styled.div`
 
 // e.preventDefault 해줘야함
 const SearchBar = styled.form`
-    width: 60%;
+    width: 60vw;
     height: 10vh;
     display: flex;
+    align-items: center;
     border: 2px solid rgba(0, 0, 0, 0.2);
     position: relative;
 
-    justify-content: center;
-    align-items: center;
     border-radius: 50px;
     box-shadow: 0 0 10px 1px #2f9d27;
     overflow: hidden;
@@ -25,7 +24,7 @@ const SearchBar = styled.form`
 
 const Region = styled.input`
     &::placeholder {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: black;
         font-weight: 700;
         white-space: pre-wrap;
@@ -37,12 +36,6 @@ const Region = styled.input`
 
     &:focus {
         outline: none;
-    }
-
-    &:after {
-        content: "";
-        border-right: 1px solid black;
-        height: 30%;
     }
 
     width: 40%;
@@ -59,7 +52,7 @@ const Date = styled.input`
     border: none;
 
     &::placeholder {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: black;
         font-weight: 700;
         white-space: pre-wrap;
@@ -81,7 +74,7 @@ const HeadCount = styled.input`
     border-radius: 40px;
     border: none;
     &::placeholder {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: black;
         font-weight: 700;
         white-space: pre-wrap;
@@ -101,7 +94,7 @@ const Keyword = styled.input`
     border-radius: 40px;
     border: none;
     &::placeholder {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: black;
         font-weight: 700;
         white-space: pre-wrap;
@@ -118,12 +111,16 @@ const Keyword = styled.input`
 const SearchButton = styled.button`
     position: absolute;
     background-color: #bcef7b;
-    width: 4rem;
-    height: 4rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 100%;
     border: none;
     right: 1rem;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     transition: 0.2s background ease-in;
     &:hover {
         background-color: #2f9d27;
@@ -131,8 +128,8 @@ const SearchButton = styled.button`
 `;
 
 const StyledCiSearch = styled(CiSearch)`
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     color: white;
 `;
 
@@ -143,7 +140,7 @@ const MainSearch = () => {
                 <Region name="region" type="text" placeholder="지역"></Region>
                 <Date name="date" type="text" placeholder="체크인"></Date>
                 <HeadCount name="headcount" placeholder="인원"></HeadCount>
-                <Keyword name="keyword" placeholder="키워드"></Keyword>
+                <Keyword name="keyword" placeholder="키워드" required></Keyword>
                 <SearchButton type="submit">
                     <StyledCiSearch />
                 </SearchButton>
