@@ -22,19 +22,21 @@ const SearchBar = styled.form`
     overflow: hidden;
 `;
 
-const Region = styled.input`
-    &::placeholder {
-        font-size: 1rem;
-        color: black;
-        font-weight: 700;
+const Region = styled.div`
+    & > input {
+        border: none;
+        background-color: transparent;
+    }
+    & > input::placeholder {
+        font-color: rgba(0, 0, 0, 0.4);
+        font-size: 0.8rem;
         white-space: pre-wrap;
-        padding-left: 3rem;
     }
     &:hover {
         background-color: #ebebeb;
     }
 
-    &:focus {
+    & > input:focus {
         outline: none;
     }
 
@@ -43,69 +45,103 @@ const Region = styled.input`
     cursor: pointer;
     border-radius: 40px;
     border: none;
+    font-size: 0.9rem;
+
+    padding: 0.8rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
-const Date = styled.input`
+const Date = styled.div`
+    & > input {
+        border: none;
+        background-color: transparent;
+    }
+    & > input::placeholder {
+        font-color: rgba(0, 0, 0, 0.4);
+        font-size: 0.8rem;
+        white-space: pre-wrap;
+    }
+    &:hover {
+        background-color: #ebebeb;
+    }
+
+    & > input:focus {
+        outline: none;
+    }
+
     width: 20%;
     height: 100%;
     cursor: pointer;
     border-radius: 40px;
     border: none;
+    font-size: 0.9rem;
 
-    &::placeholder {
-        font-size: 1rem;
-        color: black;
-        font-weight: 700;
-        white-space: pre-wrap;
-        padding-left: 3rem;
+    padding: 0.8rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
+const HeadCount = styled.div`
+    & > input {
+        border: none;
+        background-color: transparent;
     }
-
+    & > input::placeholder {
+        font-color: rgba(0, 0, 0, 0.4);
+        font-size: 0.8rem;
+        white-space: pre-wrap;
+    }
     &:hover {
         background-color: #ebebeb;
     }
-    &:focus {
+
+    & > input:focus {
         outline: none;
     }
-`;
 
-const HeadCount = styled.input`
     width: 20%;
     height: 100%;
     cursor: pointer;
     border-radius: 40px;
     border: none;
-    &::placeholder {
-        font-size: 1rem;
-        color: black;
-        font-weight: 700;
+    font-size: 0.9rem;
+
+    padding: 0.8rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+const Keyword = styled.div`
+    & > input {
+        border: none;
+        background-color: transparent;
+    }
+    & > input::placeholder {
+        font-color: rgba(0, 0, 0, 0.4);
+        font-size: 0.8rem;
         white-space: pre-wrap;
-        padding-left: 3rem;
     }
     &:hover {
         background-color: #ebebeb;
     }
-    &:focus {
+
+    & > input:focus {
         outline: none;
     }
-`;
-const Keyword = styled.input`
+
     width: 34%;
     height: 100%;
     cursor: pointer;
     border-radius: 40px;
     border: none;
-    &::placeholder {
-        font-size: 1rem;
-        color: black;
-        font-weight: 700;
-        white-space: pre-wrap;
-        padding-left: 3rem;
-    }
-    &:hover {
-        background-color: #ebebeb;
-    }
-    &:focus {
-        outline: none;
-    }
+    font-size: 0.9rem;
+
+    padding: 0.8rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 const SearchButton = styled.button`
@@ -137,10 +173,28 @@ const MainSearch = () => {
     return (
         <SearchSection>
             <SearchBar>
-                <Region name="region" type="text" placeholder="지역"></Region>
-                <Date name="date" type="text" placeholder="체크인"></Date>
-                <HeadCount name="headcount" placeholder="인원"></HeadCount>
-                <Keyword name="keyword" placeholder="키워드" required></Keyword>
+                <Region>
+                    <span>지역</span>
+                    <input placeholder="지역을 입력하세요" type="text"></input>
+                </Region>
+                <Date>
+                    <span>날짜</span>
+                    <input placeholder="날짜를 입력하세요" type="text"></input>
+                </Date>
+                <HeadCount>
+                    <span>인원수</span>
+                    <input
+                        placeholder="인원수를 입력하세요"
+                        type="text"
+                    ></input>
+                </HeadCount>
+                <Keyword>
+                    <span>키워드</span>
+                    <input
+                        placeholder="키워드를 입력하세요"
+                        type="text"
+                    ></input>
+                </Keyword>
                 <SearchButton type="submit">
                     <StyledCiSearch />
                 </SearchButton>
