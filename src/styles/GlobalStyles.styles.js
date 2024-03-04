@@ -3,7 +3,7 @@ import { Global, css } from "@emotion/react";
 const globalStyles = css`
   //전역 스타일 설정
   body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     padding: 0 4vw;
     margin: 0;
@@ -36,7 +36,6 @@ const globalStyles = css`
     margin: 0;
     padding: 0;
     font-size: 16px;
-    vertical-align: baseline;
   }
 
   ol,
