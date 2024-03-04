@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "../components/Header/Header";
 import MainPage from "../pages/MainPage";
 import SignUp from "../pages/SignUp";
+import SignIn from "../pages/SignIn";
 
 const Routing = () => {
     return (
@@ -10,6 +11,8 @@ const Routing = () => {
                 <Route element={<Header />}>
                     <Route index element={<MainPage />}></Route>
                     <Route path="/signup" element={<SignUp />}></Route>
+                    <Route path="/signin" element={<SignIn />}></Route>
+
                     {/* 숙소 정보 페이지 */}
                     {/* 예약 페이지 */}
                     {/* 예약 확인 페이지 */}
