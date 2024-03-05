@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { colors } from "../styles/colors";
+import { colors } from "../../styles/colors";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 

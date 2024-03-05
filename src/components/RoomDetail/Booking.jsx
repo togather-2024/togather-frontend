@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { colors } from "../styles/colors";
-import { size, weight } from "../styles/fonts";
+import { colors } from "../../styles/colors";
+import { size, weight } from "../../styles/fonts";
 import Counter from "./Counter";
+import TimeList from "./TimeList";
 
 const Booking = () => {
   return (
@@ -22,7 +23,7 @@ const Booking = () => {
             <Title>이용 시간</Title>
             <Text>20:00 ~ 24:00 (4시간)</Text>
           </ContainerTop>
-          <TimeList></TimeList>
+          <TimeList />
         </TimeContainer>
         <PersonnelContainer>
           <Title>인원</Title>
@@ -35,6 +36,7 @@ const Booking = () => {
       </SelectContainer>
       <Line />
       <TotalPrice>₩ 80,000</TotalPrice>
+      <BookButton>예약하기</BookButton>
     </Container>
   );
 };
@@ -78,8 +80,6 @@ const ContainerTop = styled.div`
   align-items: center;
 `;
 
-const TimeList = styled.div``;
-
 const PersonnelContainer = styled.div`
   display: flex;
   align-items: center;
@@ -116,4 +116,18 @@ const Edit = styled.div`
 const Line = styled.hr`
   margin: 18px 0;
   border: 1px solid ${colors.gray10};
+`;
+
+const BookButton = styled.button`
+  all: unset;
+  background-color: ${colors.point01};
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  margin-top: 40px;
+  border-radius: 10px;
+  font-size: ${size.body02};
+  font-weight: ${weight.semibold};
+  color: ${colors.white};
+  cursor: pointer;
 `;
