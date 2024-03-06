@@ -122,8 +122,8 @@ const BookButton = styled.button`
   all: unset;
   background-color: ${colors.point01};
   width: 100%;
+  padding: 10px 0;
   text-align: center;
-  padding: 10px;
   margin-top: 40px;
   border-radius: 10px;
   font-size: ${size.body02};
