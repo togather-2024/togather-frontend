@@ -71,8 +71,7 @@ const RoomDetail = () => {
               <Review>
                 <ReviewInfo>
                   <ReviewProfile>
-                    <CgProfile />
-                    000
+                    <CgProfile /> 000
                   </ReviewProfile>
                   <CreatedAt>0000년 00월 00일</CreatedAt>
                 </ReviewInfo>
