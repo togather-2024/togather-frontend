@@ -7,7 +7,7 @@ export const colors = {
   hover01: "rgba(188, 239, 123, 0.5)",
   hover02: "rgba(141, 177, 97, 0.5)",
   black: "#000000",
-  white:"FFFFFF",
+  white: "#FFFFFF",
   gray10: "#DCDCDC",
   gray30: "#ABABAB",
   gray50: "#7A7A7A",
