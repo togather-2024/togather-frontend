@@ -14,8 +14,6 @@ const Routing = () => {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/detail" element={<RoomDetail />}></Route>
-
-          {/* 숙소 정보 페이지 */}
           {/* 예약 페이지 */}
           {/* 예약 확인 페이지 */}
           {/* 내 정보 페이지 */}
@@ -23,6 +21,7 @@ const Routing = () => {
       </Routes>
     </>
   );
+
 };
 
 export default Routing;
