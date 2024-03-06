@@ -154,13 +154,13 @@ const SmallImg = styled.div`
 `;
 
 const Contents = styled.div`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
   width: 100%;
   justify-content: space-between;
 `;
 const LeftContents = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -251,7 +251,7 @@ const CreatedAt = styled.div`
 const ReviewContent = styled.div``;
 
 const RightContents = styled(LeftContents)`
-  border: 1px solid green;
+  /* border: 1px solid green; */
   flex: 1;
   padding: 0;
   position: relative;
