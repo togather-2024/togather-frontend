@@ -29,11 +29,11 @@ const ReservationConfirm = () => {
 export default ReservationConfirm;
 
 const Container = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
 `;
 const Left = styled.div`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   flex: 2;
 `;
 
@@ -54,6 +54,6 @@ const Title = styled.div`
 `;
 
 const Right = styled.div`
-  border: 1px solid green;
+  /* border: 1px solid green; */
   flex: 1;
 `;
