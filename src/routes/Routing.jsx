@@ -6,6 +6,7 @@ import SignIn from "../pages/SignIn";
 import RoomDetail from "../pages/RoomDetail";
 import ReservationConfirm from "../pages/ReservationConfirm";
 import Mypage from "../pages/Mypage";
+import ReservationDetail from "../pages/ReservationDetail";
 
 const Routing = () => {
   return (
@@ -18,6 +19,7 @@ const Routing = () => {
           <Route path="/num/detail" element={<RoomDetail />}></Route>
           <Route path="/num/reservate" element={<ReservationConfirm />}></Route>
           <Route path="/my" element={<Mypage />}></Route>
+          <Route path="/reservation/pk" element={<ReservationDetail />}></Route>
         </Route>
       </Routes>
     </>
