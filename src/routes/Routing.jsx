@@ -8,6 +8,7 @@ import Registration from "../pages/RoomRegistration";
 import ReservationDetail from "../pages/ReservationDetail";
 import Layout from "../components/Common/Layout";
 import Mypage from "../pages/Mypage";
+import ReservationDetail from "../pages/ReservationDetail";
 
 const Routing = () => {
   return (
