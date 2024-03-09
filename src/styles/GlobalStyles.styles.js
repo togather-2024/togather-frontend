@@ -3,6 +3,7 @@ import { reset } from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
+    
     body{
         padding:0 4vw;
         margin:0;
@@ -21,6 +22,8 @@ const GlobalStyle = createGlobalStyle`
         -moz-text-size-adjust : none;  /* 파이어폭스 */
         -o-text-size-adjust : none;  /* 오페라 구버전 */
     }
+
+    a{text-decoration:none}
 
 `;
 
