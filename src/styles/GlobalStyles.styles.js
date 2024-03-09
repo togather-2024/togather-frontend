@@ -3,12 +3,12 @@ import { reset } from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
-    
+   
     body{
         padding:0 4vw;
         margin:0;
         font-size:16px;
-        font-family: "Nanum Gothic", sans-serif;
+        font-family: Arial, Helvetica, sans-serif,"Nanum Gothic";
         font-weight: 400;
         font-style: normal;
     }
