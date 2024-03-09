@@ -3,9 +3,7 @@ import { reset } from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
-    // html{
-    //     font-size:62.5%;
-    // }
+    
     body{
         padding:0 4vw;
         margin:0;
