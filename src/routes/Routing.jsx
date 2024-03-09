@@ -5,6 +5,7 @@ import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import RoomDetail from "../pages/RoomDetail";
 import ReservationConfirm from "../pages/ReservationConfirm";
+import ReservationDetail from "../pages/ReservationDetail";
 
 const Routing = () => {
   return (
@@ -16,7 +17,7 @@ const Routing = () => {
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/num/detail" element={<RoomDetail />}></Route>
           <Route path="/num/reservate" element={<ReservationConfirm />}></Route>
-          {/* 예약 확인 페이지 */}
+          <Route path="/reservation/pk" element={<ReservationDetail />}></Route>
           {/* 내 정보 페이지 */}
         </Route>
       </Routes>
