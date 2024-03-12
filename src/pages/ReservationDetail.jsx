@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
 import { colors } from "../styles/colors";
@@ -6,14 +6,22 @@ import { IoLocationSharp } from "react-icons/io5";
 import CancelModal from "../components/ReservationDetail/CancelModal";
 
 const ReservationDetail = () => {
-  //전역상태로 변경하기
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    //CancelModal이 열렸을 때 스크롤 방지
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
   function handleClick() {
     setIsOpen(true);
   }
   return (
     <>
-      {isOpen && <CancelModal />}
+      {isOpen && <CancelModal setIsOpen={setIsOpen} />}
       <Container>
         <Heading>예약 상세 내역</Heading>
         <RoomInfo>
@@ -84,7 +92,6 @@ export default ReservationDetail;
 
 const Container = styled.div`
   margin: 32px 0;
-  /* border: 1px solid red; */
 `;
 
 const Heading = styled.h1`
