@@ -1,69 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
 import { colors } from "../styles/colors";
 import { IoLocationSharp } from "react-icons/io5";
+import CancelModal from "../components/ReservationDetail/CancelModal";
 
 const ReservationDetail = () => {
+  //전역상태로 변경하기
+  const [isOpen, setIsOpen] = useState(false);
+  function handleClick() {
+    setIsOpen(true);
+  }
   return (
-    <Container>
-      <Heading>예약 상세 내역</Heading>
-      <RoomInfo>
-        <RoomImg />
-        <TextInfo>
-          <RoomName>공간 이름</RoomName>
-          <Region>
-            <IoLocationSharp /> 지역
-          </Region>
-          <HostProfile>
-            <HostImg></HostImg>
-            <TextInfo>
-              <HostName>홍길동</HostName>
-              <Caption>호스트</Caption>
-            </TextInfo>
-          </HostProfile>
-          <Button>상세 보기</Button>
-        </TextInfo>
-      </RoomInfo>
-      <ReserveInfo>
-        <Section>
-          <LabelContainer>
-            <InfoLabel>예약자명</InfoLabel>
-            <InfoLabel>예약일</InfoLabel>
-            <InfoLabel>예약 번호</InfoLabel>
-          </LabelContainer>
-          <TextContainter>
-            <Text>홍길동</Text>
-            <Text>2024.03.06</Text>
-            <Text>209209090909</Text>
-          </TextContainter>
-        </Section>
-        <Section>
-          <LabelContainer>
-            <InfoLabel>이용일</InfoLabel>
-            <InfoLabel>이용 시간</InfoLabel>
-            <InfoLabel>이용 인원</InfoLabel>
-            <InfoLabel>공간 주소</InfoLabel>
-          </LabelContainer>
-          <TextContainter>
-            <Text>2024.03.10</Text>
-            <Text>12:00-8:00(8시간)</Text>
-            <Text>4명</Text>
-            <Text>00000000</Text>
-          </TextContainter>
-        </Section>
-        <Section>
-          <LabelContainer>
-            <InfoLabel>결제 상태</InfoLabel>
-            <InfoLabel>총 결제 금액</InfoLabel>
-          </LabelContainer>
-          <TextContainter>
-            <Text>결제 완료</Text>
-            <RedText>₩80,000</RedText>
-          </TextContainter>
-        </Section>
-      </ReserveInfo>
-    </Container>
+    <>
+      {isOpen && <CancelModal />}
+      <Container>
+        <Heading>예약 상세 내역</Heading>
+        <RoomInfo>
+          <RoomImg />
+          <TextInfo>
+            <RoomName>공간 이름</RoomName>
+            <Region>
+              <IoLocationSharp /> 지역
+            </Region>
+            <HostProfile>
+              <HostImg></HostImg>
+              <TextInfo>
+                <HostName>홍길동</HostName>
+                <Caption>호스트</Caption>
+              </TextInfo>
+            </HostProfile>
+            <Button>상세 보기</Button>
+          </TextInfo>
+        </RoomInfo>
+        <ReserveInfo>
+          <Section>
+            <LabelContainer>
+              <InfoLabel>예약자명</InfoLabel>
+              <InfoLabel>예약일</InfoLabel>
+              <InfoLabel>예약 번호</InfoLabel>
+            </LabelContainer>
+            <TextContainter>
+              <Text>홍길동</Text>
+              <Text>2024.03.06</Text>
+              <Text>209209090909</Text>
+            </TextContainter>
+          </Section>
+          <Section>
+            <LabelContainer>
+              <InfoLabel>이용일</InfoLabel>
+              <InfoLabel>이용 시간</InfoLabel>
+              <InfoLabel>이용 인원</InfoLabel>
+              <InfoLabel>공간 주소</InfoLabel>
+            </LabelContainer>
+            <TextContainter>
+              <Text>2024.03.10</Text>
+              <Text>12:00-8:00(8시간)</Text>
+              <Text>4명</Text>
+              <Text>00000000</Text>
+            </TextContainter>
+          </Section>
+          <Section>
+            <LabelContainer>
+              <InfoLabel>결제 상태</InfoLabel>
+              <InfoLabel>총 결제 금액</InfoLabel>
+            </LabelContainer>
+            <TextContainter>
+              <Text>결제 완료</Text>
+              <RedText>₩80,000</RedText>
+            </TextContainter>
+          </Section>
+        </ReserveInfo>
+        <CancelContainer>
+          <CancelLabel>예약 취소</CancelLabel>
+          <CancelButton onClick={handleClick}>예약 취소하기</CancelButton>
+        </CancelContainer>
+      </Container>
+    </>
   );
 };
 
@@ -113,7 +126,7 @@ const Region = styled.div`
 const HostProfile = styled.div`
   display: flex;
   align-items: center;
-  padding: 12px;
+  padding: 12px 20px 12px 12px;
   background: linear-gradient(
     0deg,
     rgba(197, 223, 185, 1) 0%,
@@ -159,6 +172,7 @@ const ReserveInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 60px;
+  margin-bottom: 52px;
 `;
 
 const Section = styled.div`
@@ -187,4 +201,27 @@ const Text = styled.div``;
 
 const RedText = styled.div`
   color: #f24b4b;
+`;
+
+const CancelContainer = styled.div`
+  margin-top: 10px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: ${colors.gray10};
+  border-radius: 15px;
+`;
+
+const CancelLabel = styled.div`
+  font-size: ${size.h4};
+  font-weight: ${weight.semibold};
+  color: #ff0000;
+`;
+
+const CancelButton = styled(Button)`
+  background-color: #ff6b6b;
+  &:hover {
+    background-color: #ff0000;
+  }
 `;
