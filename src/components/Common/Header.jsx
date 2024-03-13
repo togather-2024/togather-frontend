@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaBell } from "react-icons/fa";
 import logo from "../../assets/logo.png";
@@ -9,12 +9,21 @@ const Header = () => {
   return (
     <>
       <Block>
-        <Logo src={logo} alt="logo" />
+        <Link to={`/`}>
+          <Logo src={logo} alt="logo" />
+        </Link>
         {!login ? (
           <RightDiv>
-            <Menu>숙소 등록</Menu>
-            <Menu>로그인</Menu>
-            <Menu>회원가입</Menu>
+            {/* 추후 주소 변경 */}
+            <Link to={`/`}>
+              <Menu>숙소 등록</Menu>
+            </Link>
+            <Link to={`/signin`}>
+              <Menu>로그인</Menu>
+            </Link>
+            <Link to={`/signup`}>
+              <Menu>회원가입</Menu>
+            </Link>
           </RightDiv>
         ) : (
           <RightDiv>
@@ -45,7 +54,7 @@ const Block = styled.header`
   width: 100%;
 `;
 const Logo = styled.img`
-  height: 50%;
+  height: 30px;
   cursor: pointer;
 `;
 const RightDiv = styled.div`
