@@ -65,8 +65,6 @@ const Block = styled.header`
 const Logo = styled.img`
   height: 30px;
   cursor: pointer;
-  height: 30px;
-  cursor: pointer;
 `;
 const MenuContainer = styled.div`
   display: flex;
