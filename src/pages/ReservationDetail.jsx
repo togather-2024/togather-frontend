@@ -125,6 +125,7 @@ const RoomName = styled.div`
 `;
 
 const Region = styled.div`
+  color: ${colors.gray50};
   display: flex;
   align-items: center;
   margin-bottom: 16px;
