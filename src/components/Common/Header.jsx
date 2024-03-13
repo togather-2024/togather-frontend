@@ -52,19 +52,28 @@ const Header = () => {
 export default Header;
 
 const Block = styled.header`
+  background-color: ${colors.white};
   display: flex; /* flexbox 사용 */
   align-items: center;
-  border-bottom: 1px solid #d2d2d2;
+  /* border-bottom: 1px solid #d2d2d2; */
   height: 7vh;
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 const Logo = styled.img`
-  height: 50%;
+  height: 30px;
   cursor: pointer;
   height: 30px;
   cursor: pointer;
 `;
 const MenuContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  /* border: 1px solid black; */
+  margin-left: auto;
   display: flex;
   gap: 10px;
   flex-direction: row;
