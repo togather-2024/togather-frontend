@@ -54,7 +54,6 @@ export default Header;
 const Block = styled.header`
   display: flex; /* flexbox 사용 */
   align-items: center;
-  border-bottom: 1px solid #d2d2d2;
   height: 7vh;
   width: 100%;
 `;
