@@ -59,7 +59,7 @@ const Block = styled.header`
   width: 100%;
 `;
 const Logo = styled.img`
-  height: 50%;
+  height: 30px;
   cursor: pointer;
   height: 30px;
   cursor: pointer;
