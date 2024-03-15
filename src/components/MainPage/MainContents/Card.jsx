@@ -5,7 +5,7 @@ import { FaRegComment } from "react-icons/fa";
 // import Cat from "../../../assets/cat.1014.jpg";
 
 const Container = styled.div`
-  width: 20vw;
+  width: 23%;
   height: 48vh;
   border: 1px solid black;
   border-radius: 25px;
