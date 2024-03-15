@@ -4,10 +4,10 @@ import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import RoomDetail from "../pages/RoomDetail";
 import ReservationConfirm from "../pages/ReservationConfirm";
+import Registration from "../pages/RoomRegistration";
 import ReservationDetail from "../pages/ReservationDetail";
 import Layout from "../components/Common/Layout";
 import Mypage from "../pages/Mypage";
-import Registration from "../pages/RoomRegistration";
 
 const Routing = () => {
   return (
