@@ -9,16 +9,15 @@ import ReservationConfirm from "../pages/ReservationConfirm";
 const Routing = () => {
   return (
     <>
+      <Header />
       <Routes>
-        <Route element={<Header />}>
-          <Route index element={<MainPage />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/num/detail" element={<RoomDetail />}></Route>
-          <Route path="/num/reservate" element={<ReservationConfirm />}></Route>
-          {/* 예약 확인 페이지 */}
-          {/* 내 정보 페이지 */}
-        </Route>
+        <Route index element={<MainPage />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/num/detail" element={<RoomDetail />}></Route>
+        <Route path="/num/reservate" element={<ReservationConfirm />}></Route>
+        {/* 예약 확인 페이지 */}
+        {/* 내 정보 페이지 */}
       </Routes>
     </>
   );
