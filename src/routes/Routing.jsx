@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import Header from "../components/Common/Header";
 import MainPage from "../pages/MainPage";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
@@ -10,7 +9,6 @@ import ReservationDetail from "../pages/ReservationDetail";
 const Routing = () => {
   return (
     <>
-      <Header />
       <Routes>
         <Route element={<Header />}>
           <Route index element={<MainPage />}></Route>
