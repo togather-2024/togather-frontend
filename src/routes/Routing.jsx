@@ -10,6 +10,7 @@ import ReservationDetail from "../pages/ReservationDetail";
 const Routing = () => {
   return (
     <>
+      <Header />
       <Routes>
         <Route element={<Header />}>
           <Route index element={<MainPage />}></Route>
