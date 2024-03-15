@@ -52,13 +52,17 @@ const Header = () => {
 export default Header;
 
 const Block = styled.header`
+  background-color: ${colors.white};
   display: flex; /* flexbox 사용 */
   align-items: center;
   height: 7vh;
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 const Logo = styled.img`
-  height: 50%;
+  height: 30px;
   cursor: pointer;
 `;
 const MenuContainer = styled.div`
