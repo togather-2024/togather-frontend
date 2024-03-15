@@ -52,6 +52,7 @@ const Header = () => {
 export default Header;
 
 const Block = styled.header`
+  background-color: ${colors.white};
   display: flex; /* flexbox 사용 */
   background-color: ${colors.white};
   display: flex;
