@@ -55,6 +55,7 @@ const Block = styled.header`
   background-color: ${colors.white};
   display: flex;
   align-items: center;
+  border-bottom: 1px solid #d2d2d2;
   height: 7vh;
   width: 100%;
   position: sticky;
