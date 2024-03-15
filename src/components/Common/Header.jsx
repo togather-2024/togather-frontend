@@ -43,11 +43,15 @@ const Header = () => {
 export default Header;
 
 const Block = styled.header`
+  background-color: ${colors.white};
   display: flex; /* flexbox 사용 */
   align-items: center;
-  border-bottom: 1px solid #d2d2d2;
+  /* border-bottom: 1px solid #d2d2d2; */
   height: 7vh;
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 const Logo = styled.img`
   height: 30px;
