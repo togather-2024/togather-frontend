@@ -1,0 +1,35 @@
+import React, { useState } from "react";
+import styled from "@emotion/styled";
+import Sidebar from "../components/Mypage/Sidebar";
+import Favorites from "../components/Mypage/Favorites";
+import Reservations from "../components/Mypage/Reservations/Reservations";
+
+const Mypage = () => {
+  const [active, setActive] = useState(null);
+  return (
+    <Wrapper>
+      <LeftWrapper>
+        <Sidebar active={active} setActive={setActive} />
+      </LeftWrapper>
+      <RightWrapper>
+        {active === "favorites" && <Favorites />}
+        {active === "reservations" && <Reservations />}
+      </RightWrapper>
+    </Wrapper>
+  );
+};
+
+export default Mypage;
+const Wrapper = styled.div`
+  display: flex;
+  margin-top: 32px;
+  gap: 50px;
+`;
+const LeftWrapper = styled.div`
+  border: 1px solid red;
+`;
+
+const RightWrapper = styled.div`
+  border: 1px solid blue;
+  flex: 1;
+`;
