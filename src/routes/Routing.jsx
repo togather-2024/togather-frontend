@@ -4,27 +4,12 @@ import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import RoomDetail from "../pages/RoomDetail";
 import ReservationConfirm from "../pages/ReservationConfirm";
-import Registration from "../pages/RoomRegistration";
 import ReservationDetail from "../pages/ReservationDetail";
+import Layout from "../components/Common/Layout";
+import Mypage from "../pages/Mypage";
+import Registration from "../pages/RoomRegistration";
 
 const Routing = () => {
-<<<<<<< HEAD
-  return (
-    <>
-      <Routes>
-        <Route element={<Header />}>
-          <Route index element={<MainPage />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/num/detail" element={<RoomDetail />}></Route>
-          <Route path="/num/reservate" element={<ReservationConfirm />}></Route>
-          <Route path="/reservation/pk" element={<ReservationDetail />}></Route>
-          {/* 내 정보 페이지 */}
-        </Route>
-      </Routes>
-    </>
-  );
-=======
     return (
         <>
             <Routes>
@@ -41,7 +26,7 @@ const Routing = () => {
                         path="/reservation/pk"
                         element={<ReservationDetail />}
                     ></Route>
-                    {/* 내 정보 페이지 */}
+                       <Route path="/my" element={<Mypage />}></Route>
                     <Route
                         path="/registration"
                         element={<Registration />}
