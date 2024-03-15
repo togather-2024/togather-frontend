@@ -91,6 +91,7 @@ const Into = styled.div`
 `;
 
 // props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
+<<<<<<< HEAD
 const Card = ({ photo }) => {
   return (
     <Container>
