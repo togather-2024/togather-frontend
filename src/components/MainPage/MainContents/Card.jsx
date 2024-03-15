@@ -70,7 +70,6 @@ const Footer = styled.div`
   height: 25%;
   display: flex;
   align-items: center;
-
   justify-content: space-between;
 `;
 
