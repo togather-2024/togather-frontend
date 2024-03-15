@@ -12,7 +12,6 @@ import Layout from "../components/Common/Layout";
 const Routing = () => {
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<MainPage />}></Route>
