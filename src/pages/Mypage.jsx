@@ -3,9 +3,10 @@ import styled from "@emotion/styled";
 import Sidebar from "../components/Mypage/Sidebar";
 import Favorites from "../components/Mypage/Favorites";
 import Reservations from "../components/Mypage/Reservations/Reservations";
+import Profile from "../components/Mypage/Profile";
 
 const Mypage = () => {
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState("favorites");
   return (
     <Wrapper>
       <LeftWrapper>
@@ -14,6 +15,7 @@ const Mypage = () => {
       <RightWrapper>
         {active === "favorites" && <Favorites />}
         {active === "reservations" && <Reservations />}
+        {active === "profile" && <Profile />}
       </RightWrapper>
     </Wrapper>
   );
@@ -25,11 +27,8 @@ const Wrapper = styled.div`
   margin-top: 32px;
   gap: 50px;
 `;
-const LeftWrapper = styled.div`
-  border: 1px solid red;
-`;
+const LeftWrapper = styled.div``;
 
 const RightWrapper = styled.div`
-  border: 1px solid blue;
   flex: 1;
 `;
