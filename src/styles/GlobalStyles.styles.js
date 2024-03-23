@@ -23,6 +23,8 @@ const GlobalStyle = createGlobalStyle`
         -o-text-size-adjust : none;  /* 오페라 구버전 */
     }
 
+    a{text-decoration:none}
+
 `;
 
 export default GlobalStyle;
