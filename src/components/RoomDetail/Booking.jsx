@@ -5,12 +5,17 @@ import { size, weight } from "../../styles/fonts";
 import Counter from "./Counter";
 import TimeList from "./TimeList";
 
-const Booking = () => {
+const Booking = ({ data }) => {
+  const partyRoomDto = data?.partyRoomDto;
+  const price = partyRoomDto?.price;
+  function priceToString(price) {
+    return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <Container>
       <SelectContainer>
         <PricePerTimeContainer>
-          <PricePerTime>₩ 20,000</PricePerTime>
+          <PricePerTime>₩ {priceToString(price)}</PricePerTime>
           <Text>/ 시간</Text>
         </PricePerTimeContainer>
         <DateContainer>

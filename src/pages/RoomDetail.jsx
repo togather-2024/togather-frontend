@@ -6,8 +6,20 @@ import { CgProfile } from "react-icons/cg";
 import { size } from "../styles/fonts";
 import { weight } from "../styles/fonts";
 import Booking from "../components/RoomDetail/Booking";
+import RoomDetailAPI from "../components/RoomDetail/RoomDetailAPI";
+import TagItem from "../components/RoomDetail/TagItem";
+import Host from "../components/RoomDetail/Host";
 
 const RoomDetail = () => {
+  const data = RoomDetailAPI();
+  const roomName = data?.partyRoomDto?.partyRoomName;
+  const region = data?.partyRoomLocationDto?.sigungu;
+  const guestCapacity = data?.partyRoomDto?.guestCapacity;
+  const partyRoomDesc = data?.partyRoomDto?.partyRoomDesc;
+
+  const tagList = data?.customTags?.map((list) => (
+    <TagItem key={list.tagId} data={list} />
+  ));
   return (
     <>
       <ImgContainer>
@@ -25,29 +37,15 @@ const RoomDetail = () => {
       <Contents>
         <LeftContents>
           <Intro>
-            <RoomName>공간 이름</RoomName>
-            <Summary>지역 • 최대 인원 n 명 • 후기 n 건</Summary>
-            <TagList>
-              <Tag>#키워드</Tag>
-              <Tag>#키워드</Tag>
-              <Tag>#키워드</Tag>
-            </TagList>
+            <RoomName>{roomName}</RoomName>
+            <Summary>
+              {region} • 최대 인원 {guestCapacity} 명 • 후기 n 건
+            </Summary>
+            <TagList>{tagList}</TagList>
           </Intro>
           <DescriptionContainer>
             <Subheading>공간 설명</Subheading>
-            <Description>
-              공간에 대한 설명입니다.공간에 대한 설명입니다.공간에 대한
-              설명입니다.공간에 대한 설명입니다.공간에 대한 설명입니다.공간에
-              대한 설명입니다.공간에 대한 설명입니다.공간에 대한
-              설명입니다.공간에 대한 설명입니다.공간에 대한 설명입니다.공간에
-              대한 설명입니다.공간에 대한 설명입니다.공간에 대한
-              설명입니다.공간에 대한 설명입니다.공간에 대한 설명입니다.공간에
-              대한 설명입니다.공간에 대한 설명입니다.공간에 대한
-              설명입니다.공간에 대한 설명입니다.공간에 대한 설명입니다.공간에
-              대한 설명입니다.공간에 대한 설명입니다.공간에 대한
-              설명입니다.공간에 대한 설명입니다.공간에 대한 설명입니다.공간에
-              대한 설명입니다.공간에 대한 설명입니다.공간에 대한 설명입니다.
-            </Description>
+            <Description>{partyRoomDesc}</Description>
           </DescriptionContainer>
           <LocationContainer>
             <Subheading>위치</Subheading>
@@ -95,15 +93,8 @@ const RoomDetail = () => {
         </LeftContents>
         <RightContents>
           <RightInner>
-            <Booking />
-            <HostContainer>
-              <Subheading>호스트</Subheading>
-              <HostProfile>
-                <CgProfile size={30} />
-                <HostName>홍길동</HostName>
-                <Text>호스트에게 문의하기 💌</Text>
-              </HostProfile>
-            </HostContainer>
+            <Booking data={data} />
+            <Host data={data?.partyRoomDto?.partyRoomHost} />
           </RightInner>
         </RightContents>
       </Contents>
@@ -184,12 +175,6 @@ const TagList = styled.div`
   margin: 16px 0 40px 0;
 `;
 
-const Tag = styled.div`
-  background-color: ${colors.point04};
-  padding: 6px 12px;
-  border-radius: 15px;
-`;
-
 const DescriptionContainer = styled.div`
   flex-grow: 1;
   margin-bottom: 40px;
@@ -259,20 +244,6 @@ const RightContents = styled(LeftContents)`
 const RightInner = styled.div`
   position: sticky;
   top: 20px;
-`;
-const HostContainer = styled.div`
-  border: 3px solid ${colors.point01};
-  border-radius: 30px;
-  padding: 30px 20px;
-`;
-
-const HostProfile = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
-const HostName = styled.div`
-  font-weight: ${weight.semibold};
 `;
 
 const Text = styled.div`
