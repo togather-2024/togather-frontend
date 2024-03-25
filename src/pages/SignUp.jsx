@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useReducer, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const initialState = {
     name: "",
@@ -44,7 +45,7 @@ function reducer(state, action) {
                 if (front.length >= 6 && matches.length >= 3) {
                     isEmail = true;
                 } else {
-                    isEmail = true;
+                    isEmail = false;
                 }
             } else {
                 isEmail = false;
@@ -57,46 +58,39 @@ function reducer(state, action) {
                 },
             };
         case "PASSWORD_FORM":
-            let isPassword = false;
+            let isValidPassword = false;
             const regex = /\d/g;
             const matches = action.value.match(regex);
-            console.log(action.value);
-            console.log(matches);
 
             if (action.value.length >= 6 && matches.length >= 3) {
-                isPassword = true;
+                isValidPassword = true;
             }
-            console.log(isPassword);
             return {
                 ...state,
-                password: { value: action.value, isValid: isPassword },
+                password: { value: action.value, isValid: isValidPassword },
             };
 
         case "PASSWORD_EQUAL":
             let passwordEqual = false;
-            if (state.password.value === action.value) {
+            if (action.password === action.confirmPassword) {
                 passwordEqual = true;
             }
 
             return {
                 ...state,
                 confirmPassword: {
-                    value: state.confirmPassword.value,
+                    ...state.confirmPassword,
                     isValid: passwordEqual,
                 },
             };
 
         case "FORM_VALIDATE":
-            let formIsValid = false;
-
-            if (
+            let formIsValid =
                 state.name &&
                 state.email.isValid &&
                 state.password.isValid &&
-                state.confirmPassword.isValid
-            ) {
-                formIsValid = true;
-            }
+                state.confirmPassword.isValid;
+
             return {
                 ...state,
                 formValid: formIsValid,
@@ -118,8 +112,21 @@ const SignIn = () => {
     // 제출시 모든 입력 값 조건 충족했는지 판단 여부
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch({ type: "FORM_VALIDATE" });
+
+        // if(state.formValid)
     };
+    useEffect(() => {
+        dispatch({ type: "FORM_VALIDATE" });
+        console.log(state.email.isValid);
+        console.log(state.name.isValid);
+        console.log(state.password.isValid);
+        console.log(state.confirmPassword.isValid);
+    }, [
+        state.email.value,
+        state.name.value,
+        state.password.value,
+        state.confirmPassword.value,
+    ]);
 
     // 이메일 형식 판단
     useEffect(() => {
@@ -135,9 +142,10 @@ const SignIn = () => {
     useEffect(() => {
         dispatch({
             type: "PASSWORD_EQUAL",
-            value: state.confirmPassword.value,
+            password: state.password.value,
+            confirmPassword: state.confirmPassword.value,
         });
-    }, [state.confirmPassword.value]);
+    }, [state.password.value, state.confirmPassword.value]);
 
     // 제출 형식이 true이면 api 호출
 
@@ -214,8 +222,12 @@ const SignIn = () => {
                 )}
             </BoxContainer>
             <BoxContainer style={{ marginTop: "1rem" }}>
-                <button type="submit">가입하기</button>
-                <button>회원이라면 ? 로그인</button>
+                <Button type="submit" disabled={!state.formValid}>
+                    가입하기
+                </Button>
+                <Link to={`/signin`}>
+                    <Button>회원이라면 ? 로그인</Button>
+                </Link>
             </BoxContainer>
             <span style={{ fontSize: "1rem" }}>또는</span>
 
@@ -249,24 +261,25 @@ const BoxContainer = styled.div`
     align-items: center;
     justify-content: center;
 
-    & > button {
-        width: 100%;
-        height: 2.5rem;
-        margin-bottom: 1rem;
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-
     & > button:first-child {
+        &:disabled {
+            cursor: not-allowed;
+            background-color: #ddd;
+        }
         background-color: #89d825;
         color: white;
     }
-    & > button:last-child {
-        background-color: #ddf7bd;
-        color: black;
-    }
+`;
+const Button = styled.button`
+    width: 31.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #ddf7bd;
+    color: black;
 `;
 
 const Box = styled.div`
