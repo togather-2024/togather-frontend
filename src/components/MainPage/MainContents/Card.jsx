@@ -5,7 +5,7 @@ import { FaRegComment } from "react-icons/fa";
 // import Cat from "../../../assets/cat.1014.jpg";
 
 const Container = styled.div`
-    width: 23%;
+    width: 20vw;
     height: 48vh;
     border: 1px solid black;
     border-radius: 25px;
@@ -91,9 +91,9 @@ const Into = styled.div`
 `;
 
 // props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
-const Card = ({ style, photo }) => {
+const Card = ({ photo }) => {
     return (
-        <Container style={style}>
+        <Container>
             <CardImage style={{ backgroundImage: `url(${photo})` }}></CardImage>
             <CardDescription>
                 <Title>투게더 서울 스튜디오</Title>
