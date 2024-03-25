@@ -32,7 +32,7 @@ const Booking = ({ data }) => {
         </TimeContainer>
         <PersonnelContainer>
           <Title>인원</Title>
-          <Counter />
+          <Counter data={data?.partyRoomDto} />
         </PersonnelContainer>
         <Total>
           <Title>총 결제 금액</Title>

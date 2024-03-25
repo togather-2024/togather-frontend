@@ -7,13 +7,7 @@ const RoomDetailAPI = () => {
   useEffect(() => {
     const getDetail = async () => {
       try {
-        const headers = {
-          Authorization: "Bearer " + "",
-          "Content-Type": "application/json",
-        };
-        const res = await axios.get(`api/partyroom/detail/5`, {
-          headers: headers,
-        });
+        const res = await axios.get(`api/partyroom/detail/5`);
         setData(res.data);
         console.log(res.data);
       } catch (e) {
