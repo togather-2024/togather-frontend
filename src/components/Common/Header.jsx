@@ -65,7 +65,7 @@ const Block = styled.header`
   z-index: 1;
 `;
 const Logo = styled.img`
-  height: 30px;
+  height: 50%;
   cursor: pointer;
 `;
 const MenuContainer = styled.div`
@@ -76,17 +76,6 @@ const MenuContainer = styled.div`
   margin-left: auto;
 `;
 const Menu = styled.div`
-  display: flex;
-  gap: 6px;
-  color: #333333;
-  border-radius: 10px;
-  font-size: 1rem;
-  padding: 10px;
-  /* border: 1px solid red; */
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(188, 239, 123, 0.5);
-  }
   display: flex;
   gap: 6px;
   color: #333333;
