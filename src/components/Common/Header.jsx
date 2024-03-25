@@ -62,7 +62,7 @@ const Block = styled.header`
   z-index: 1;
 `;
 const Logo = styled.img`
-  height: 30px;
+  height: 50%;
   cursor: pointer;
 `;
 const MenuContainer = styled.div`
