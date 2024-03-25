@@ -8,6 +8,7 @@ const Container = styled.div`
     font-size: 1rem;
     padding: 0.7rem 0;
     position: absolute;
+    background-color: white;
 
     // dropdown 위치 해당 부분 수정
     right: 5vw;

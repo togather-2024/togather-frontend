@@ -30,7 +30,11 @@ const Category = ({ keywords }) => {
     return (
         <CategoryBar>
             {keywords.map((keyword) => {
-                return <CategoryItem>{`#${keyword.username}`}</CategoryItem>;
+                return (
+                    <CategoryItem
+                        key={keyword.username}
+                    >{`#${keyword.username}`}</CategoryItem>
+                );
             })}
         </CategoryBar>
     );

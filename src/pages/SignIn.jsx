@@ -1,6 +1,86 @@
 import styled from "@emotion/styled";
+import { useReducer } from "react";
+import axios from "axios";
 
-const Container = styled.div`
+const initialState = {
+    email: "",
+    password: "",
+};
+
+function reducer(state, action) {
+    switch (action.type) {
+        case "CHANGE":
+            return {
+                ...state,
+                [action.id]: action.value,
+            };
+        default:
+            return state;
+    }
+}
+
+const SignIn = () => {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const handleChange = (e) => {
+        dispatch({ type: "CHANGE", id: e.target.name, value: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const body = { email: state.email, password: state.password };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        try {
+            const res = await axios.post("api/member/login", body, config);
+            if (res.status === 200) {
+                alert("로그인 성공");
+            }
+        } catch (error) {
+            alert("해당하는 계정이 없거나 잘못된 입력입니다.");
+        }
+    };
+    return (
+        <Container onSubmit={handleSubmit}>
+            <Title>로그인</Title>
+            <BoxContainer>
+                <Box>
+                    <input
+                        type="text"
+                        placeholder="이메일"
+                        name="email"
+                        onChange={handleChange}
+                    />
+                </Box>
+
+                <Box>
+                    <input
+                        type="password"
+                        placeholder="비밀번호"
+                        name="password"
+                        onChange={handleChange}
+                    />
+                </Box>
+            </BoxContainer>
+            <BoxContainer style={{ marginTop: "1rem" }}>
+                <button>로그인</button>
+                <button>회원가입</button>
+            </BoxContainer>
+            <span style={{ fontSize: "1rem" }}>또는</span>
+
+            <ApiBox>
+                <div>구글로 시작하기</div>
+                <div>카카오로 시작하기</div>
+            </ApiBox>
+        </Container>
+    );
+};
+
+export default SignIn;
+
+const Container = styled.form`
     width: 50vw;
     height: 93vh;
     margin: 0 auto;
@@ -94,31 +174,3 @@ const ApiBox = styled.div`
         border: none;
     }
 `;
-const SignIn = () => {
-    return (
-        <Container>
-            <Title>로그인</Title>
-            <BoxContainer>
-                <Box>
-                    <input type="text" placeholder="이메일" />
-                </Box>
-
-                <Box>
-                    <input type="text" placeholder="비밀번호" />
-                </Box>
-            </BoxContainer>
-            <BoxContainer style={{ marginTop: "1rem" }}>
-                <button>로그인</button>
-                <button>회원가입</button>
-            </BoxContainer>
-            <span style={{ fontSize: "1rem" }}>또는</span>
-
-            <ApiBox>
-                <div>구글로 시작하기</div>
-                <div>카카오로 시작하기</div>
-            </ApiBox>
-        </Container>
-    );
-};
-
-export default SignIn;

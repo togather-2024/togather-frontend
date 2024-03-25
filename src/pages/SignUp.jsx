@@ -1,6 +1,234 @@
 import styled from "@emotion/styled";
+import { useReducer, useEffect } from "react";
 
-const Container = styled.div`
+const initialState = {
+    name: "",
+    email: {
+        value: "",
+        isValid: false,
+    },
+    verificationCode: {
+        value: "",
+        isValid: false,
+    },
+    password: {
+        value: "",
+        isValid: false,
+    },
+    confirmPassword: {
+        value: "",
+        isValid: false,
+    },
+    formValid: false,
+};
+
+function reducer(state, action) {
+    switch (action.type) {
+        case "CHANGE":
+            if (action.id === "name")
+                return {
+                    ...state,
+                    [action.id]: action.value,
+                };
+            return {
+                ...state,
+                [action.id]: { ...state[action.id], value: action.value },
+            };
+
+        case "EMAIL_FORM":
+            let isEmail = false;
+            if (action.value.includes("@") && action.value.includes(".com")) {
+                const front = action.value.split("@")[0];
+                const regex = /\d/g;
+                const matches = front.match(regex);
+                if (front.length >= 6 && matches.length >= 3) {
+                    isEmail = true;
+                } else {
+                    isEmail = true;
+                }
+            } else {
+                isEmail = false;
+            }
+            return {
+                ...state,
+                email: {
+                    value: action.value,
+                    isValid: isEmail,
+                },
+            };
+        case "PASSWORD_FORM":
+            let isPassword = false;
+            const regex = /\d/g;
+            const matches = action.value.match(regex);
+            console.log(action.value);
+            console.log(matches);
+
+            if (action.value.length >= 6 && matches.length >= 3) {
+                isPassword = true;
+            }
+            console.log(isPassword);
+            return {
+                ...state,
+                password: { value: action.value, isValid: isPassword },
+            };
+
+        case "PASSWORD_EQUAL":
+            let passwordEqual = false;
+            if (state.password.value === action.value) {
+                passwordEqual = true;
+            }
+
+            return {
+                ...state,
+                confirmPassword: {
+                    value: state.confirmPassword.value,
+                    isValid: passwordEqual,
+                },
+            };
+
+        case "FORM_VALIDATE":
+            let formIsValid = false;
+
+            if (
+                state.name &&
+                state.email.isValid &&
+                state.password.isValid &&
+                state.confirmPassword.isValid
+            ) {
+                formIsValid = true;
+            }
+            return {
+                ...state,
+                formValid: formIsValid,
+            };
+
+        default:
+            return state;
+    }
+}
+
+const SignIn = () => {
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    // 해당 input 값 변화에 따른 객체 변화
+    const handleChange = (e, id) => {
+        dispatch({ type: "CHANGE", id: e.target.name, value: e.target.value });
+    };
+
+    // 제출시 모든 입력 값 조건 충족했는지 판단 여부
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch({ type: "FORM_VALIDATE" });
+    };
+
+    // 이메일 형식 판단
+    useEffect(() => {
+        dispatch({ type: "EMAIL_FORM", value: state.email.value });
+    }, [state.email.value]);
+
+    // 비밀번호 형식 판단
+    useEffect(() => {
+        dispatch({ type: "PASSWORD_FORM", value: state.password.value });
+    }, [state.password.value]);
+
+    // 비밀번호와 비밀번호 확인 일치 여부 판단
+    useEffect(() => {
+        dispatch({
+            type: "PASSWORD_EQUAL",
+            value: state.confirmPassword.value,
+        });
+    }, [state.confirmPassword.value]);
+
+    // 제출 형식이 true이면 api 호출
+
+    return (
+        <Container onSubmit={handleSubmit}>
+            <Title>회원 가입</Title>
+            <BoxContainer>
+                <Box>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="이름"
+                        onChange={(e) => {
+                            handleChange(e, e.target.name);
+                        }}
+                    />
+                </Box>
+                <Box>
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="이메일"
+                        onChange={(e) => {
+                            handleChange(e, e.target.name);
+                        }}
+                    />
+                    <button>인증번호 받기</button>
+                </Box>
+                {state.email.isValid || (
+                    <p style={{ color: "red" }}>
+                        올바른 형식의 이메일이 아닙니다.
+                    </p>
+                )}
+                <Box>
+                    <input
+                        type="text"
+                        name="verificationCode"
+                        placeholder="인증번호"
+                        onChange={(e) => {
+                            handleChange(e, e.target.name);
+                        }}
+                    />
+                    <button>확인</button>
+                </Box>
+                <Box>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="비밀번호"
+                        onChange={(e) => {
+                            handleChange(e, e.target.name);
+                        }}
+                    />
+                </Box>
+                {state.password.isValid || (
+                    <p style={{ color: "red" }}>
+                        비밀번호 형식이 올바르지 않습니다.
+                    </p>
+                )}
+                <Box>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="비밀번호 확인"
+                        onChange={(e) => {
+                            handleChange(e, e.target.name);
+                        }}
+                    />
+                </Box>
+                {state.confirmPassword.isValid || (
+                    <p style={{ color: "red" }}>
+                        비밀번호가 일치하지 않습니다.
+                    </p>
+                )}
+            </BoxContainer>
+            <BoxContainer style={{ marginTop: "1rem" }}>
+                <button type="submit">가입하기</button>
+                <button>회원이라면 ? 로그인</button>
+            </BoxContainer>
+            <span style={{ fontSize: "1rem" }}>또는</span>
+
+            <ApiBox>
+                <div>구글로 시작하기</div>
+                <div>카카오로 시작하기</div>
+            </ApiBox>
+        </Container>
+    );
+};
+export default SignIn;
+
+const Container = styled.form`
     width: 50vw;
     height: 93vh;
     margin: 0 auto;
@@ -91,43 +319,3 @@ const ApiBox = styled.div`
         border: none;
     }
 `;
-
-const SignIn = () => {
-    return (
-        <>
-            <Container>
-                <Title>회원 가입</Title>
-                <BoxContainer>
-                    <Box>
-                        <input type="text" placeholder="이름" />
-                    </Box>
-                    <Box>
-                        <input type="text" placeholder="이메일" />
-                        <button>인증번호 받기</button>
-                    </Box>
-                    <Box>
-                        <input type="text" placeholder="인증번호" />
-                        <button>확인</button>
-                    </Box>
-                    <Box>
-                        <input type="text" placeholder="비밀번호" />
-                    </Box>
-                    <Box>
-                        <input type="text" placeholder="비밀번호 확인" />
-                    </Box>
-                </BoxContainer>
-                <BoxContainer style={{ marginTop: "1rem" }}>
-                    <button>가입하기</button>
-                    <button>회원이라면 ? 로그인</button>
-                </BoxContainer>
-                <span style={{ fontSize: "1rem" }}>또는</span>
-
-                <ApiBox>
-                    <div>구글로 시작하기</div>
-                    <div>카카오로 시작하기</div>
-                </ApiBox>
-            </Container>
-        </>
-    );
-};
-export default SignIn;
