@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
 import Counter from "./Counter";
-import TimeList from "./TimeList";
+import TimeContainer from "./Time/TimeContainer";
 
 const Booking = ({ data }) => {
+  const [selectedRange, setSelectedRange] = useState({
+    start: null,
+    end: null,
+  });
   const partyRoomDto = data?.partyRoomDto;
   const price = partyRoomDto?.price;
   function priceToString(price) {
@@ -23,24 +27,26 @@ const Booking = ({ data }) => {
           <Text>0000년 00월 00일 (월)</Text>
           <Edit>변경</Edit>
         </DateContainer>
-        <TimeContainer>
-          <ContainerTop>
-            <Title>이용 시간</Title>
-            <Text>20:00 ~ 24:00 (4시간)</Text>
-          </ContainerTop>
-          <TimeList />
-        </TimeContainer>
+        <TimeContainer
+          data={data}
+          selectedRange={selectedRange}
+          setSelectedRange={setSelectedRange}
+        />
         <PersonnelContainer>
           <Title>인원</Title>
           <Counter data={data?.partyRoomDto} />
         </PersonnelContainer>
         <Total>
           <Title>총 결제 금액</Title>
-          <Text>₩ 20,000 * 4시간</Text>
+          <Text>
+            ₩ {price} * {selectedRange.end - selectedRange.start + 1}시간
+          </Text>
         </Total>
       </SelectContainer>
       <Line />
-      <TotalPrice>₩ 80,000</TotalPrice>
+      <TotalPrice>
+        ₩ {price * (selectedRange.end - selectedRange.start + 1)}
+      </TotalPrice>
       <BookButton>예약하기</BookButton>
     </Container>
   );
@@ -76,8 +82,6 @@ const DateContainer = styled.div`
   gap: 16px;
   align-items: center;
 `;
-
-const TimeContainer = styled.div``;
 
 const ContainerTop = styled.div`
   display: flex;
