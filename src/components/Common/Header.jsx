@@ -4,49 +4,58 @@ import { CgProfile } from "react-icons/cg";
 import { FaBell } from "react-icons/fa";
 import logo from "../../assets/logo.png";
 import { colors } from "../../styles/colors";
-
+import { useRecoilState } from "recoil";
+import { loginState } from "../../recoil/atoms/loginState";
 const Header = () => {
-    const login = false;
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
     return (
-        <>
-            <Block>
+        <Block>
+            <Link to={`/`}>
                 <Logo src={logo} alt="logo" />
-                {!login ? (
-                    <RightDiv>
+            </Link>
+            {!isLoggedIn ? (
+                <RightDiv>
+                    {/* 추후 주소 변경 */}
+                    <Link to={`/registration`}>
                         <Menu>숙소 등록</Menu>
+                    </Link>
+                    <Link to={`/signin`}>
                         <Menu>로그인</Menu>
+                    </Link>
+                    <Link to={`/signup`}>
                         <Menu>회원가입</Menu>
-                    </RightDiv>
-                ) : (
-                    <RightDiv>
-                        <Menu>숙소 등록</Menu>
-                        <Menu>
-                            <CgProfile /> 000 님
-                        </Menu>
-                        <Menu>
-                            <FaBell />
-                        </Menu>
-                    </RightDiv>
-                )}
-            </Block>
-            <main>
-                <Outlet />
-            </main>
-        </>
+                    </Link>
+                </RightDiv>
+            ) : (
+                <RightDiv>
+                    <Menu>숙소 등록</Menu>
+                    <Menu>
+                        <CgProfile /> 000 님
+                    </Menu>
+                    <Menu>
+                        <FaBell />
+                    </Menu>
+                </RightDiv>
+            )}
+        </Block>
     );
 };
 
 export default Header;
 
 const Block = styled.header`
+    background-color: ${colors.white};
     display: flex; /* flexbox 사용 */
     align-items: center;
-    border-bottom: 1px solid #d2d2d2;
+    /* border-bottom: 1px solid #d2d2d2; */
     height: 7vh;
     width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 `;
 const Logo = styled.img`
-    height: 50%;
+    height: 30px;
     cursor: pointer;
 `;
 const RightDiv = styled.div`

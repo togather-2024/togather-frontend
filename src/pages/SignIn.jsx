@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
+import { Link, useNavigate } from "react-router-dom";
 import { useReducer } from "react";
+import { useRecoilState } from "recoil";
+import { loginState } from "../recoil/atoms/loginState";
 import axios from "axios";
 
 const initialState = {
@@ -20,11 +23,17 @@ function reducer(state, action) {
 }
 
 const SignIn = () => {
+    const navigate = useNavigate();
+
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    // 아이디 , 패스워드 입력했을 때 , useReducer 내부에서 값 변화
     const handleChange = (e) => {
         dispatch({ type: "CHANGE", id: e.target.name, value: e.target.value });
     };
 
+    // 로그인 버튼 클릭했을 때
     const handleSubmit = async (e) => {
         e.preventDefault();
         const body = { email: state.email, password: state.password };
@@ -37,6 +46,8 @@ const SignIn = () => {
             const res = await axios.post("api/member/login", body, config);
             if (res.status === 200) {
                 alert("로그인 성공");
+                setIsLoggedIn(true);
+                navigate("/");
             }
         } catch (error) {
             alert("해당하는 계정이 없거나 잘못된 입력입니다.");
@@ -65,8 +76,10 @@ const SignIn = () => {
                 </Box>
             </BoxContainer>
             <BoxContainer style={{ marginTop: "1rem" }}>
-                <button>로그인</button>
-                <button>회원가입</button>
+                <Button>로그인</Button>
+                <Link to={`/signup`}>
+                    <Button>회원가입</Button>
+                </Link>
             </BoxContainer>
             <span style={{ fontSize: "1rem" }}>또는</span>
 
@@ -104,24 +117,23 @@ const BoxContainer = styled.div`
     align-items: center;
     justify-content: center;
 
-    & > button {
-        width: 100%;
-        height: 2.5rem;
-        margin-bottom: 1rem;
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-
     & > button:first-child {
         background-color: #89d825;
         color: white;
     }
-    & > button:last-child {
-        background-color: #ddf7bd;
-        color: black;
-    }
+`;
+
+const Button = styled.button`
+    width: 31.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #ddf7bd;
+
+    color: black;
 `;
 
 const Box = styled.div`
