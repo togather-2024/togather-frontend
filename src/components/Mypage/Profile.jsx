@@ -18,7 +18,6 @@ const Profile = () => {
       <InfoWrapper>
         <InfoLabel>이메일</InfoLabel>
         <InfoText>hello.gmail.com</InfoText>
-        <EditBtn>이메일 변경</EditBtn>
       </InfoWrapper>
       <InfoWrapper>
         <InfoLabel>비밀번호</InfoLabel>
@@ -33,7 +32,7 @@ const Profile = () => {
 export default Profile;
 
 const Wrapper = styled.div`
-  border-top: 3px solid ${colors.point01};
+  border-top: 3px solid ${colors.point03};
 `;
 
 const ProfileImg = styled.div`
@@ -46,7 +45,7 @@ const ProfileImg = styled.div`
 
 const InfoWrapper = styled.div`
   display: flex;
-  padding: 20px;
+  padding: 40px;
   border-bottom: 1px solid ${colors.gray10};
   align-items: center;
 `;
@@ -62,10 +61,11 @@ const InfoLabel = styled.p`
 
 const EditBtn = styled.button`
   all: unset;
+  color: ${colors.gray50};
   height: fit-content;
   margin-left: auto;
   width: 100px;
-  border: 1px solid ${colors.gray30};
+  border: 1px solid ${colors.gray50};
   text-align: center;
   padding: 6px 2px;
   border-radius: 6px;
@@ -85,5 +85,5 @@ const LeaveBtn = styled.button`
   margin-right: 20px;
   border-radius: 10px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 40px;
 `;
