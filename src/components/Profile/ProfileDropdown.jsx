@@ -10,37 +10,38 @@ const Container = styled.div`
     position: absolute;
     background-color: white;
 
-    // dropdown 위치 해당 부분 수정
-    right: 5vw;
-    z-index: 100;
+
+  // dropdown 위치 해당 부분 수정
+  right: 5vw;
+  z-index: 100;
 `;
 const Box = styled.div`
-    width: 100%;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
-    cursor: pointer;
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-        color: rgba(0, 0, 0, 1);
-    }
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 1);
+  }
 `;
 const ProfileDropdown = ({ open }) => {
-    const arr = ["찜한 목록", "메시지", "예약 관리", "내 정보", "로그아웃"];
+  const arr = ["찜한 목록", "메시지", "예약 관리", "내 정보", "로그아웃"];
 
-    return (
-        <>
-            {open && (
-                <Container>
-                    {arr.map((el) => {
-                        return <Box name={el}>{el}</Box>;
-                    })}
-                </Container>
-            )}
-        </>
-    );
+  return (
+    <>
+      {open && (
+        <Container>
+          {arr.map((el) => {
+            return <Box name={el}>{el}</Box>;
+          })}
+        </Container>
+      )}
+    </>
+  );
 };
 
 export default ProfileDropdown;
