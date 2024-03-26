@@ -109,8 +109,4 @@ const MainContents = styled.div`
   display: flex;
   gap: 0px 3.6rem;
   flex-wrap: wrap;
-  width: 92vw;
-  display: flex;
-  gap: 0px 3.6rem;
-  flex-wrap: wrap;
 `;
