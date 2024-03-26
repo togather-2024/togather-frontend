@@ -83,7 +83,6 @@ const MainPage = () => {
         {/* 카테고리 값과 , 검색 결과 변수 바뀔 때마다 Contents 내용 변경 */}
         {/* idx변수는 roomId로 변경 필요 */}
         <MainContents>
-          {/* 파티룸id로 key 및 링크 파라미터(${내용}) 변경 */}
           {photos &&
             photos.map((photo, idx) => (
               <Link to={`/${idx + 1}/detail`}>
