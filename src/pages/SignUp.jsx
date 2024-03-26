@@ -71,10 +71,7 @@ function reducer(state, action) {
             };
 
         case "PASSWORD_EQUAL":
-            let passwordEqual = false;
-            if (action.password === action.confirmPassword) {
-                passwordEqual = true;
-            }
+            let passwordEqual = action.password === action.confirmPassword;
 
             return {
                 ...state,
