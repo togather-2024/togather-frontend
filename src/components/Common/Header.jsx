@@ -21,7 +21,7 @@ const Header = () => {
         <Link to={`/`}>
           <Logo src={logo} alt="logo" />
         </Link>
-        {isLoggedIn === !false ? (
+        {isLoggedIn === false ? (
           <MenuContainer>
             <Link to={`/registration`}>
               <Menu>숙소 등록</Menu>
