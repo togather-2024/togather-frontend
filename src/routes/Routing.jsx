@@ -4,11 +4,13 @@ import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import RoomDetail from "../pages/RoomDetail";
 import ReservationConfirm from "../pages/ReservationConfirm";
+import Registration from "../pages/RoomRegistration";
 import Mypage from "../pages/Mypage";
 import ReservationDetail from "../pages/ReservationDetail";
 import Layout from "../components/Common/Layout";
 
 const Routing = () => {
+
   return (
     <>
       <Routes>
@@ -20,6 +22,7 @@ const Routing = () => {
           <Route path="/num/reservate" element={<ReservationConfirm />}></Route>
           <Route path="/my" element={<Mypage />}></Route>
           <Route path="/reservation/pk" element={<ReservationDetail />}></Route>
+          <Route path="/registration" element={<Registration />}></Route>
         </Route>
       </Routes>
     </>

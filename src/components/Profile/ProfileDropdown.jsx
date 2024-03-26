@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 
 const Container = styled.div`
-  width: 150px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 20px;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 1rem;
-  padding: 0.7rem 0;
-  position: absolute;
-  background-color: white;
+    width: 150px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1rem;
+    padding: 0.7rem 0;
+    position: absolute;
+    background-color: white;
+
 
   // dropdown 위치 해당 부분 수정
   right: 5vw;
