@@ -15,10 +15,6 @@ const ReservationItem = () => {
             <BoldCaption> 예약번호</BoldCaption>
             <ColoredCaption>0000000</ColoredCaption>
           </CaptionWrapper>
-          <CaptionWrapper>
-            <BoldCaption>예약날짜</BoldCaption>
-            <BoldCaption>0000년 00월 00일</BoldCaption>
-          </CaptionWrapper>
         </BookInfo>
         <PlaceInfo>
           <Title>투게더 서울 스튜디오</Title>
