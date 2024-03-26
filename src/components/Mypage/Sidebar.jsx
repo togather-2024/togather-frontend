@@ -1,39 +1,46 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 import { colors } from "../../styles/colors";
 import { FaHeart } from "react-icons/fa";
 import { AiFillMessage } from "react-icons/ai";
 import { FaCalendarCheck } from "react-icons/fa6";
 import { IoMdPerson } from "react-icons/io";
 
-const Sidebar = ({ active, setActive }) => {
+const Sidebar = ({ active }) => {
+  const navigate = useNavigate();
+
+  const handleMenuClick = (menu) => {
+    navigate(`/my/${menu}`); // 해당 메뉴에 대한 URL로 이동
+  };
+
   return (
     <Wrapper>
       <List>
         <Menu
           active={active === "favorites"}
-          onClick={() => setActive("favorites")}
+          onClick={() => handleMenuClick("favorites")}
         >
           <FaHeart />
           찜한 숙소
         </Menu>
         <Menu
           active={active === "messages"}
-          onClick={() => setActive("messages")}
+          onClick={() => handleMenuClick("messages")}
         >
           <AiFillMessage />
           메시지
         </Menu>
         <Menu
           active={active === "reservations"}
-          onClick={() => setActive("reservations")}
+          onClick={() => handleMenuClick("reservations")}
         >
           <FaCalendarCheck />
           예약관리
         </Menu>
         <Menu
           active={active === "profile"}
-          onClick={() => setActive("profile")}
+          onClick={() => handleMenuClick("profile")}
         >
           <IoMdPerson />내 정보
         </Menu>
