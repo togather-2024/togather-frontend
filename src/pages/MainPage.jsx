@@ -81,13 +81,8 @@ const MainPage = () => {
         <MainCategory keywords={keywords}></MainCategory>
         {/* 카테고리 값과 , 검색 결과 변수 바뀔 때마다 Contents 내용 변경 */}
         <MainContents>
-          {/* 파티룸id로 key 및 링크 파라미터(${내용}) 변경 */}
           {photos &&
-            photos.map((photo, idx) => (
-              <Link to={`/${idx + 1}/detail`}>
-                <Card key={idx} photo={photo}></Card>
-              </Link>
-            ))}
+            photos.map((photo, idx) => <Card key={idx} photo={photo}></Card>)}
           {/* {isLoading && <p>Loading</p>} */}
         </MainContents>
       </Container>
@@ -103,11 +98,13 @@ const Container = styled.div`
   flex-direction: column;
   overflow-y: auto;
   height: calc(100vh-64px);
-  z-index: 0;
-  margin-top: 7vh;
 `;
 
 const MainContents = styled.div`
+  width: 92vw;
+  display: flex;
+  gap: 0px 3.6rem;
+  flex-wrap: wrap;
   width: 92vw;
   display: flex;
   gap: 0px 3.6rem;
