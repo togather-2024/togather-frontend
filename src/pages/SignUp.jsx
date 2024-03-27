@@ -1,151 +1,203 @@
 import styled from "@emotion/styled";
-import { useReducer, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
-const initialState = {
-    name: "",
-    email: {
-        value: "",
-        isValid: false,
-    },
-    verificationCode: {
-        value: "",
-        isValid: false,
-    },
-    password: {
-        value: "",
-        isValid: false,
-    },
-    confirmPassword: {
-        value: "",
-        isValid: false,
-    },
-    formValid: false,
-};
-
-function reducer(state, action) {
-    switch (action.type) {
-        case "CHANGE":
-            if (action.id === "name")
-                return {
-                    ...state,
-                    [action.id]: action.value,
-                };
-            return {
-                ...state,
-                [action.id]: { ...state[action.id], value: action.value },
-            };
-
-        case "EMAIL_FORM":
-            let isEmail = false;
-            if (action.value.includes("@") && action.value.includes(".com")) {
-                const front = action.value.split("@")[0];
-                const regex = /\d/g;
-                const matches = front.match(regex);
-                if (front.length >= 6 && matches.length >= 3) {
-                    isEmail = true;
-                } else {
-                    isEmail = false;
-                }
-            } else {
-                isEmail = false;
-            }
-            return {
-                ...state,
-                email: {
-                    value: action.value,
-                    isValid: isEmail,
-                },
-            };
-        case "PASSWORD_FORM":
-            let isValidPassword = false;
-            const regex = /\d/g;
-            const matches = action.value.match(regex);
-
-            if (action.value.length >= 6 && matches.length >= 3) {
-                isValidPassword = true;
-            }
-            return {
-                ...state,
-                password: { value: action.value, isValid: isValidPassword },
-            };
-
-        case "PASSWORD_EQUAL":
-            let passwordEqual = action.password === action.confirmPassword;
-
-            return {
-                ...state,
-                confirmPassword: {
-                    ...state.confirmPassword,
-                    isValid: passwordEqual,
-                },
-            };
-
-        case "FORM_VALIDATE":
-            let formIsValid =
-                state.name &&
-                state.email.isValid &&
-                state.password.isValid &&
-                state.confirmPassword.isValid;
-
-            return {
-                ...state,
-                formValid: formIsValid,
-            };
-
-        default:
-            return state;
-    }
-}
+import { colors } from "../styles/colors";
+import axios from "axios";
 
 const SignIn = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        name: "",
+        email: {
+            value: "",
+            isValid: "",
+        },
+        verificationCode: {
+            value: "",
+            isValid: "",
+        },
+        password: {
+            value: "",
+            isValid: "",
+        },
+        passwordCheck: {
+            value: "",
+            isValid: "",
+        },
+        submitValid: false,
+    });
 
-    // 해당 input 값 변화에 따른 객체 변화
-    const handleChange = (e, id) => {
-        dispatch({ type: "CHANGE", id: e.target.name, value: e.target.value });
+    const [formErrors, setFormErrors] = useState({
+        name: "",
+        email: "",
+        verifyCode: "",
+        password: "",
+        passwordCheck: "",
+    });
+
+    const [isSent, setIsSent] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === "name") {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        } else {
+            const newFormDataWithoutSubmitValid = {
+                ...formData,
+                [name]: {
+                    ...formData[name],
+                    value,
+                    isValid:
+                        name === "passwordCheck"
+                            ? validateField(
+                                  name,
+                                  value,
+                                  formData.password.value
+                              )
+                            : validateField(name, value),
+                },
+            };
+            const submitValid = isFormValid(newFormDataWithoutSubmitValid);
+
+            const newFormData = {
+                ...newFormDataWithoutSubmitValid,
+                submitValid,
+            };
+            setFormData(newFormData);
+        }
+    };
+    const validateField = (name, value, password = null) => {
+        let errorMessage = "";
+        let isValid = false;
+        switch (name) {
+            case "email":
+                if (value.includes("@") && value.includes(".com")) {
+                    const front = value.split("@")[0];
+                    const regex = /\d/g;
+                    const matches = front.match(regex);
+
+                    if (front.length >= 6 && matches.length >= 3) {
+                        isValid = true;
+                    } else {
+                        errorMessage = "유효하지 않은 길이의 이메일입니다.";
+                    }
+                } else {
+                    errorMessage = "형식에 맞지 않는 이메일입니다.";
+                }
+                break;
+            case "password":
+                const regex = /\d/g;
+                const matches = value.match(regex);
+
+                if (value.length >= 6 && matches.length >= 3) {
+                    isValid = true;
+                } else {
+                    errorMessage = "올바르지 않은 비밀번호 형식입니다.";
+                }
+                break;
+            case "passwordCheck":
+                isValid = value === password;
+                isValid
+                    ? (errorMessage = "")
+                    : (errorMessage = "비밀번호가 일치하지 않습니다.");
+                break;
+            default:
+                break;
+        }
+        setFormErrors((prevError) => ({
+            ...prevError,
+            [name]: errorMessage,
+        }));
+        return isValid;
     };
 
-    // 제출시 모든 입력 값 조건 충족했는지 판단 여부
-    const handleSubmit = (e) => {
+    const isFormValid = (formData) => {
+        for (const key in formData) {
+            if (formData[key].hasOwnProperty("isValid")) {
+                if (!formData[key].isValid) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+
+    const handleVerify = async () => {
+        const body = {
+            receiverEmailAddress: formData.email.value,
+        };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        try {
+            const res = await axios.post("/email", body, config);
+            if (res.status === 200) {
+                alert("인증번호 전송이 완료되었습니다.");
+                setIsSent(true);
+            }
+        } catch (err) {
+            alert("존재하지 않는 이메일입니다.");
+        }
+    };
+    const handleVerifyCheck = async () => {
+        const body = {
+            receiverEmailAddress: formData.email.value,
+            verificationCode: formData.verificationCode.value,
+        };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        try {
+            const res = await axios.post("/email/validity", body, config);
+            if (res.status === 200) {
+                alert("인증 번호 확인이 완료되었습니다.");
+                setIsSent(false);
+                setFormData((prevData) => ({
+                    ...prevData,
+                    verificationCode: {
+                        ...prevData["verificationCode"],
+                        isValid: true,
+                    },
+                }));
+            }
+        } catch (err) {
+            alert("인증 번호 확인이 실패했습니다.");
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // if(state.formValid)
+        const body = {
+            memberName: formData.name,
+            password: formData.password.value,
+            email: formData.email.value,
+            role: "guest",
+        };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        try {
+            const res = await axios.post("/api/member/join", body, config);
+            // navigate 수정
+            if (res.status === 200) {
+                alert("회원가입이 완료되었습니다.");
+                navigate("/signin");
+            }
+        } catch (err) {
+            console.log(err);
+            alert("이미 가입된 아이디이거나 유효하지 않은 정보입니다.");
+        }
     };
-    useEffect(() => {
-        dispatch({ type: "FORM_VALIDATE" });
-        console.log(state.email.isValid);
-        console.log(state.name.isValid);
-        console.log(state.password.isValid);
-        console.log(state.confirmPassword.isValid);
-    }, [
-        state.email.value,
-        state.name.value,
-        state.password.value,
-        state.confirmPassword.value,
-    ]);
-
-    // 이메일 형식 판단
-    useEffect(() => {
-        dispatch({ type: "EMAIL_FORM", value: state.email.value });
-    }, [state.email.value]);
-
-    // 비밀번호 형식 판단
-    useEffect(() => {
-        dispatch({ type: "PASSWORD_FORM", value: state.password.value });
-    }, [state.password.value]);
-
-    // 비밀번호와 비밀번호 확인 일치 여부 판단
-    useEffect(() => {
-        dispatch({
-            type: "PASSWORD_EQUAL",
-            password: state.password.value,
-            confirmPassword: state.confirmPassword.value,
-        });
-    }, [state.password.value, state.confirmPassword.value]);
-
-    // 제출 형식이 true이면 api 호출
-
     return (
         <Container onSubmit={handleSubmit}>
             <Title>회원 가입</Title>
@@ -156,7 +208,7 @@ const SignIn = () => {
                         name="name"
                         placeholder="이름"
                         onChange={(e) => {
-                            handleChange(e, e.target.name);
+                            handleChange(e);
                         }}
                     />
                 </Box>
@@ -166,15 +218,19 @@ const SignIn = () => {
                         name="email"
                         placeholder="이메일"
                         onChange={(e) => {
-                            handleChange(e, e.target.name);
+                            handleChange(e);
                         }}
                     />
-                    <button>인증번호 받기</button>
+                    <button
+                        disabled={!formData.email.isValid}
+                        type="button"
+                        onClick={handleVerify}
+                    >
+                        인증번호 받기
+                    </button>
                 </Box>
-                {state.email.isValid || (
-                    <p style={{ color: "red" }}>
-                        올바른 형식의 이메일이 아닙니다.
-                    </p>
+                {formErrors.email && (
+                    <p style={{ color: "red" }}>{formErrors.email}</p>
                 )}
                 <Box>
                     <input
@@ -182,10 +238,16 @@ const SignIn = () => {
                         name="verificationCode"
                         placeholder="인증번호"
                         onChange={(e) => {
-                            handleChange(e, e.target.name);
+                            handleChange(e);
                         }}
                     />
-                    <button>확인</button>
+                    <button
+                        disabled={!isSent}
+                        onClick={handleVerifyCheck}
+                        type="button"
+                    >
+                        확인
+                    </button>
                 </Box>
                 <Box>
                     <input
@@ -193,37 +255,33 @@ const SignIn = () => {
                         name="password"
                         placeholder="비밀번호"
                         onChange={(e) => {
-                            handleChange(e, e.target.name);
+                            handleChange(e);
                         }}
                     />
                 </Box>
-                {state.password.isValid || (
-                    <p style={{ color: "red" }}>
-                        비밀번호 형식이 올바르지 않습니다.
-                    </p>
+                {formErrors.password && (
+                    <p style={{ color: "red" }}>{formErrors.password}</p>
                 )}
                 <Box>
                     <input
                         type="password"
-                        name="confirmPassword"
+                        name="passwordCheck"
                         placeholder="비밀번호 확인"
                         onChange={(e) => {
-                            handleChange(e, e.target.name);
+                            handleChange(e);
                         }}
                     />
                 </Box>
-                {state.confirmPassword.isValid || (
-                    <p style={{ color: "red" }}>
-                        비밀번호가 일치하지 않습니다.
-                    </p>
+                {formErrors.passwordCheck && (
+                    <p style={{ color: "red" }}>{formErrors.passwordCheck}</p>
                 )}
             </BoxContainer>
             <BoxContainer style={{ marginTop: "1rem" }}>
-                <Button type="submit" disabled={!state.formValid}>
+                <Button type="submit" disabled={!formData.submitValid}>
                     가입하기
                 </Button>
                 <Link to={`/signin`}>
-                    <Button>회원이라면 ? 로그인</Button>
+                    <Button type="button">회원이라면 ? 로그인</Button>
                 </Link>
             </BoxContainer>
             <span style={{ fontSize: "1rem" }}>또는</span>
@@ -304,6 +362,15 @@ const Box = styled.div`
         border-radius: 0.4rem;
         color: rgba(0, 0, 0, 0.5);
         cursor: pointer;
+
+        &:hover {
+            background-color: ${colors.hover01};
+            color: rgba(0, 0, 0, 1);
+        }
+        &:disabled {
+            cursor: not-allowed;
+            background-color: #ddd;
+        }
     }
 `;
 const ApiBox = styled.div`
