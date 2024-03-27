@@ -9,7 +9,7 @@ const RoomDetailAPI = () => {
   useEffect(() => {
     const getDetail = async () => {
       try {
-        const res = await axios.get(`api/partyroom/detail/${num}`);
+        const res = await axios.get(`api/partyroom/detail/5`);
         setData(res.data);
         console.log(res.data);
       } catch (e) {
