@@ -184,10 +184,9 @@ const SignIn = () => {
     };
     try {
       const res = await axios.post("/api/member/join", body, config);
-      // navigate 수정
       if (res.status === 200) {
         alert("회원가입이 완료되었습니다.");
-        navigate("/signin");
+        Navigate("/signin");
       }
     } catch (err) {
       console.log(err);
