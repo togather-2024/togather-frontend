@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaBell } from "react-icons/fa";
 import logo from "../../assets/logo.png";
