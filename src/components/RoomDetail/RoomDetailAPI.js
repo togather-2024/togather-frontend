@@ -4,12 +4,12 @@ import axios from "axios";
 
 const RoomDetailAPI = () => {
   const [data, setData] = useState(null);
-  const num = useParams();
+  // const num = useParams();
 
   useEffect(() => {
     const getDetail = async () => {
       try {
-        const res = await axios.get(`api/partyroom/detail/${num}`);
+        const res = await axios.get(`api/partyroom/detail/5`);
         setData(res.data);
         console.log(res.data);
       } catch (e) {

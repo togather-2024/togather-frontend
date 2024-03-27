@@ -6,6 +6,7 @@ import { size, weight } from "../../styles/fonts";
 import Counter from "./Counter";
 import TimeContainer from "./Time/TimeContainer";
 import { timeRangeState } from "../../recoil/atoms/timeRangeState";
+import DateContainer from "./Date/DateContainer";
 
 const Booking = ({ data }) => {
   const selectedRange = useRecoilValue(timeRangeState);
@@ -22,11 +23,7 @@ const Booking = ({ data }) => {
           <PricePerTime>₩ {priceToString(price)}</PricePerTime>
           <Text>/ 시간</Text>
         </PricePerTimeContainer>
-        <DateContainer>
-          <Title>날짜</Title>
-          <Text>0000년 00월 00일 (월)</Text>
-          <Edit>변경</Edit>
-        </DateContainer>
+        <DateContainer />
         <TimeContainer data={data} />
         <PersonnelContainer>
           <Title>인원</Title>
@@ -71,12 +68,6 @@ const PricePerTime = styled.div`
   font-weight: ${weight.bold};
 `;
 
-const DateContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
-`;
-
 const PersonnelContainer = styled.div`
   display: flex;
   align-items: center;
@@ -102,12 +93,6 @@ const Text = styled.div`
 
 const Title = styled.div`
   font-weight: ${weight.semibold};
-`;
-
-const Edit = styled.div`
-  font-size: ${size.caption};
-  color: ${colors.dark};
-  text-decoration: underline;
 `;
 
 const Line = styled.hr`

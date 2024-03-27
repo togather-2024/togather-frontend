@@ -1,8 +1,9 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { timeRangeState } from "../../../recoil/atoms/timeRangeState";
 import styled from "@emotion/styled";
 import TimeItem from "./TimeItem";
+import { availableTimeState } from "../../../recoil/atoms/availableTimeState";
 
 const TimeList = ({ data }) => {
   const [selectedRange, setSelectedRange] = useRecoilState(timeRangeState);
@@ -31,9 +32,13 @@ const TimeList = ({ data }) => {
     (_, index) => `${openingHour + index}:00`
   );
 
+  const availableTimes = useRecoilValue(availableTimeState);
+
   const list = times?.map((time, index) => {
     const isSelected =
       index >= selectedRange.start && index <= selectedRange.end;
+    const isAvailable = availableTimes.includes(openingHour + index);
+    console.log(isAvailable);
     return (
       <TimeItem
         key={index}
@@ -41,6 +46,7 @@ const TimeList = ({ data }) => {
         data={time}
         handleClick={() => handleClick(index)}
         selected={isSelected}
+        isAvailable={isAvailable}
       />
     );
   });
