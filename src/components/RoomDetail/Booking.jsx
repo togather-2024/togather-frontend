@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
+import { useRecoilValue } from "recoil";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
 import Counter from "./Counter";
 import TimeContainer from "./Time/TimeContainer";
+import { timeRangeState } from "../../recoil/atoms/timeRangeState";
 
 const Booking = ({ data }) => {
-  const [selectedRange, setSelectedRange] = useState({
-    start: null,
-    end: null,
-  });
+  const selectedRange = useRecoilValue(timeRangeState);
   const partyRoomDto = data?.partyRoomDto;
   const price = partyRoomDto?.price;
   const totalPrice = price * (selectedRange.end - selectedRange.start + 1);
@@ -28,11 +27,7 @@ const Booking = ({ data }) => {
           <Text>0000년 00월 00일 (월)</Text>
           <Edit>변경</Edit>
         </DateContainer>
-        <TimeContainer
-          data={data}
-          selectedRange={selectedRange}
-          setSelectedRange={setSelectedRange}
-        />
+        <TimeContainer data={data} />
         <PersonnelContainer>
           <Title>인원</Title>
           <Counter data={data?.partyRoomDto} />

@@ -1,7 +1,12 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { timeRangeState } from "../../../recoil/atoms/timeRangeState";
 import styled from "@emotion/styled";
 import TimeItem from "./TimeItem";
-const TimeList = ({ data, selectedRange, setSelectedRange }) => {
+
+const TimeList = ({ data }) => {
+  const [selectedRange, setSelectedRange] = useRecoilState(timeRangeState);
+
   const openingHour = data?.openingHour;
   const closingHour = data?.closingHour;
 
@@ -14,11 +19,9 @@ const TimeList = ({ data, selectedRange, setSelectedRange }) => {
       setSelectedRange(newSelectedRange);
     } else if (index === selectedRange.end && index === selectedRange.start) {
       setSelectedRange({ start: null, end: null });
-    }
-    // else if (index === selectedRange.end) {
-    //   setSelectedRange({ start: selectedRange.start, end: index - 1 });
-    // }
-    else {
+    } else if (index === selectedRange.end) {
+      setSelectedRange({ start: selectedRange.start, end: index - 1 });
+    } else {
       setSelectedRange({ start: index, end: index });
     }
   };

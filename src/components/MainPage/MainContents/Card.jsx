@@ -5,18 +5,6 @@ import { FaRegComment } from "react-icons/fa";
 // import Cat from "../../../assets/cat.1014.jpg";
 
 const Container = styled.div`
-<<<<<<< HEAD
-    width: 20vw;
-    height: 48vh;
-    border: 1px solid black;
-    border-radius: 25px;
-    cursor:pointer
-    display: flex;
-    flex-direction: column;
-    margin:1rem 0rem;
-    overflow: hidden;
-    cursor:pointer;
-=======
   width: 21vw;
   height: 48vh;
   border: 1px solid black;
@@ -27,7 +15,6 @@ const Container = styled.div`
   margin: 1rem 0rem;
   overflow: hidden;
   cursor: pointer;
->>>>>>> b03d49d ([feat] 마이페이지 ui 구현)
 `;
 
 const CardImage = styled.div`
@@ -104,39 +91,6 @@ const Into = styled.div`
 `;
 
 // props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
-<<<<<<< HEAD
-const Card = ({ photo }) => {
-    return (
-        <Container>
-            <CardImage style={{ backgroundImage: `url(${photo})` }}></CardImage>
-            <CardDescription>
-                <Title>투게더 서울 스튜디오</Title>
-                <Location>
-                    <IoLocationSharp />
-                    역삼
-                </Location>
-                <Keywords>
-                    <Keyword>#키워드</Keyword>
-                    <Keyword>#키워드</Keyword>
-                    <Keyword>#키워드</Keyword>
-                </Keywords>
-                <Footer>
-                    <Price>₩ 250,000 / 시간</Price>
-                    <Into>
-                        <div>
-                            <CiHeart></CiHeart>
-                            <span>5</span>
-                        </div>
-                        <div>
-                            <FaRegComment />
-                            <span>6</span>
-                        </div>
-                    </Into>
-                </Footer>
-            </CardDescription>
-        </Container>
-    );
-=======
 const Card = ({ style, photo }) => {
   return (
     <Container style={style}>
@@ -168,6 +122,5 @@ const Card = ({ style, photo }) => {
       </CardDescription>
     </Container>
   );
->>>>>>> b03d49d ([feat] 마이페이지 ui 구현)
 };
 export default Card;
