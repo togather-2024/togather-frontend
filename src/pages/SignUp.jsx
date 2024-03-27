@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
-import { useState, useCallback } from "react";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { colors } from "../styles/colors";
+import axios from "axios";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +12,10 @@ const SignIn = () => {
       value: "",
       isValid: "",
     },
-    verificationCode: true,
+    verificationCode: {
+      value: "",
+      isValid: "",
+    },
     password: {
       value: "",
       isValid: "",
@@ -29,6 +35,8 @@ const SignIn = () => {
     passwordCheck: "",
   });
 
+  const [isSent, setIsSent] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "name") {
@@ -37,18 +45,24 @@ const SignIn = () => {
         [name]: value,
       }));
     } else {
-      setFormData((prevData) => ({
-        ...prevData,
+      const newFormDataWithoutSubmitValid = {
+        ...formData,
         [name]: {
-          ...prevData[name],
+          ...formData[name],
           value,
           isValid:
             name === "passwordCheck"
               ? validateField(name, value, formData.password.value)
               : validateField(name, value),
         },
-        submitValid: isFormValid(),
-      }));
+      };
+      const submitValid = isFormValid(newFormDataWithoutSubmitValid);
+
+      const newFormData = {
+        ...newFormDataWithoutSubmitValid,
+        submitValid,
+      };
+      setFormData(newFormData);
     }
   };
   const validateField = (name, value, password = null) => {
@@ -96,20 +110,87 @@ const SignIn = () => {
     return isValid;
   };
 
-  const isFormValid = useCallback(() => {
+  const isFormValid = (formData) => {
     for (const key in formData) {
       if (formData[key].hasOwnProperty("isValid")) {
-        console.log(formData[key], formData[key].isValid);
         if (!formData[key].isValid) {
           return false;
         }
       }
     }
     return true;
-  }, [formData]);
+  };
 
-  const handleSubmit = (e) => {
+  const handleVerify = async () => {
+    const body = {
+      receiverEmailAddress: formData.email.value,
+    };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/email", body, config);
+      if (res.status === 200) {
+        alert("인증번호 전송이 완료되었습니다.");
+        setIsSent(true);
+      }
+    } catch (err) {
+      alert("존재하지 않는 이메일입니다.");
+    }
+  };
+  const handleVerifyCheck = async () => {
+    const body = {
+      receiverEmailAddress: formData.email.value,
+      verificationCode: formData.verificationCode.value,
+    };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/email/validity", body, config);
+      if (res.status === 200) {
+        alert("인증 번호 확인이 완료되었습니다.");
+        setIsSent(false);
+        setFormData((prevData) => ({
+          ...prevData,
+          verificationCode: {
+            ...prevData["verificationCode"],
+            isValid: true,
+          },
+        }));
+      }
+    } catch (err) {
+      alert("인증 번호 확인이 실패했습니다.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const body = {
+      memberName: formData.name,
+      password: formData.password.value,
+      email: formData.email.value,
+      role: "guest",
+    };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/api/member/join", body, config);
+      if (res.status === 200) {
+        alert("회원가입이 완료되었습니다.");
+        Navigate("/signin");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("이미 가입된 아이디이거나 유효하지 않은 정보입니다.");
+    }
   };
   return (
     <Container onSubmit={handleSubmit}>
@@ -134,7 +215,13 @@ const SignIn = () => {
               handleChange(e);
             }}
           />
-          <button>인증번호 받기</button>
+          <button
+            disabled={!formData.email.isValid}
+            type="button"
+            onClick={handleVerify}
+          >
+            인증번호 받기
+          </button>
         </Box>
         {formErrors.email && <p style={{ color: "red" }}>{formErrors.email}</p>}
         <Box>
@@ -146,7 +233,9 @@ const SignIn = () => {
               handleChange(e);
             }}
           />
-          <button>확인</button>
+          <button disabled={!isSent} onClick={handleVerifyCheck} type="button">
+            확인
+          </button>
         </Box>
         <Box>
           <input
@@ -180,7 +269,7 @@ const SignIn = () => {
           가입하기
         </Button>
         <Link to={`/signin`}>
-          <Button>회원이라면 ? 로그인</Button>
+          <Button type="button">회원이라면 ? 로그인</Button>
         </Link>
       </BoxContainer>
       <span style={{ fontSize: "1rem" }}>또는</span>
@@ -261,6 +350,15 @@ const Box = styled.div`
     border-radius: 0.4rem;
     color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
+
+    &:hover {
+      background-color: ${colors.hover01};
+      color: rgba(0, 0, 0, 1);
+    }
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #ddd;
+    }
   }
 `;
 const ApiBox = styled.div`
