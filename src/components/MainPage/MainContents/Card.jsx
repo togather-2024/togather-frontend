@@ -25,6 +25,7 @@ const CardImage = styled.div`
 `;
 
 const CardDescription = styled.div`
+  color: black;
   width: 100%;
   height: 30%;
   border-top: 1px solid black;
