@@ -93,6 +93,40 @@ const MainPage = () => {
       </Container>
     </>
   );
+        // for (let i = 0; i < arrSize; i++) {
+        //     await setPhotos((prev) => [
+        //         ...prev,
+        //         data.slice(i, (i + 1) * 100 + 1),
+        //     ]);
+        // }
+        // await setExp(photos[page.current]);
+        setPhotos(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPhotos();
+  }, [photos]);
+  return (
+    <>
+      {/* profile dropdown은 Link to */}
+      <Container>
+        <MainSearch></MainSearch>
+        <MainCategory keywords={keywords}></MainCategory>
+        {/* 카테고리 값과 , 검색 결과 변수 바뀔 때마다 Contents 내용 변경 */}
+        <MainContents>
+          {/* 파티룸id로 key 및 링크 파라미터(${내용}) 변경 */}
+          {photos &&
+            photos.map((photo, idx) => (
+              <Link to={`/${idx + 1}/detail`}>
+                <Card key={idx} photo={photo}></Card>
+              </Link>
+            ))}
+          {/* {isLoading && <p>Loading</p>} */}
+        </MainContents>
+      </Container>
+    </>
+  );
 };
 
 export default MainPage;
