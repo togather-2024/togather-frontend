@@ -92,7 +92,6 @@ const MainPage = () => {
 export default MainPage;
 
 const Container = styled.div`
-  width: 100vw;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
