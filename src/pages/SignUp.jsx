@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { colors } from "../styles/colors";
 import axios from "axios";
 
 const SignIn = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
         email: {
@@ -189,7 +190,7 @@ const SignIn = () => {
             const res = await axios.post("/api/member/join", body, config);
             if (res.status === 200) {
                 alert("회원가입이 완료되었습니다.");
-                Navigate("/signin");
+                navigate("/signin");
             }
         } catch (err) {
             console.log(err);
