@@ -42,6 +42,7 @@ const ModalBackdrop = styled.div`
   justify-content: center;
   align-items: center;
   animation: ${fadeIn} ease-in-out 0.2s;
+  z-index: 1;
 `;
 const Container = styled.div`
   background-color: ${colors.white};
