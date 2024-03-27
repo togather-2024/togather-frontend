@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { colors } from "../styles/colors";
 import axios from "axios";
 
@@ -184,9 +185,10 @@ const SignIn = () => {
     };
     try {
       const res = await axios.post("/api/member/join", body, config);
+      // navigate 수정
       if (res.status === 200) {
         alert("회원가입이 완료되었습니다.");
-        Navigate("/signin");
+        navigate("/signin");
       }
     } catch (err) {
       console.log(err);
@@ -274,7 +276,6 @@ const SignIn = () => {
         </Link>
       </BoxContainer>
       <span style={{ fontSize: "1rem" }}>또는</span>
-
       <ApiBox>
         <div>구글로 시작하기</div>
         <div>카카오로 시작하기</div>
