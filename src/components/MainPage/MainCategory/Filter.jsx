@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { BsFilterLeft } from "react-icons/bs";
+import { colors } from "../../../styles/colors";
 
 const FilterBox = styled.div`
   width: 6vw;
-  border: 1px solid black;
+  background-color: ${colors.gray30};
   padding: 0.4rem 0;
   margin-left: auto;
   display: flex;
@@ -11,6 +12,7 @@ const FilterBox = styled.div`
   align-items: center;
   border-radius: 10px;
   cursor: pointer;
+  color: ${colors.white};
 
   & > span {
     font-size: 0.8rem;

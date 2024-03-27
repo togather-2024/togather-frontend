@@ -21,7 +21,7 @@ const CategoryItem = styled.div`
   border: 1px solid ${colors.gray30};
 
   &:hover {
-    border: 1px solid #2f9d27;
+    background-color: ${colors.hover01};
     color: rgba(0, 0, 0, 0.8);
   }
 `;
