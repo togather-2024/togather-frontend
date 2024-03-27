@@ -14,9 +14,11 @@ const TimeList = ({ data, selectedRange, setSelectedRange }) => {
       setSelectedRange(newSelectedRange);
     } else if (index === selectedRange.end && index === selectedRange.start) {
       setSelectedRange({ start: null, end: null });
-    } else if (index === selectedRange.end) {
-      setSelectedRange({ start: selectedRange.start, end: index - 1 });
-    } else {
+    }
+    // else if (index === selectedRange.end) {
+    //   setSelectedRange({ start: selectedRange.start, end: index - 1 });
+    // }
+    else {
       setSelectedRange({ start: index, end: index });
     }
   };

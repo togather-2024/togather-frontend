@@ -60,7 +60,7 @@ const RoomDetail = () => {
                   <ReviewProfile>
                     <CgProfile /> 000
                   </ReviewProfile>
-                  <CreatedAt>0000년 00월 00일</CreatedAt>
+                  <CreatedAt>YYYY-MM-DD 이용</CreatedAt>
                 </ReviewInfo>
                 <ReviewContent>
                   이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기
@@ -71,7 +71,7 @@ const RoomDetail = () => {
                   <ReviewProfile>
                     <CgProfile /> 000
                   </ReviewProfile>
-                  <CreatedAt>0000년 00월 00일</CreatedAt>
+                  <CreatedAt>YYYY-MM-DD 이용</CreatedAt>
                 </ReviewInfo>
                 <ReviewContent>
                   이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기
@@ -82,7 +82,7 @@ const RoomDetail = () => {
                   <ReviewProfile>
                     <CgProfile /> 000
                   </ReviewProfile>
-                  <CreatedAt>0000년 00월 00일</CreatedAt>
+                  <CreatedAt>YYYY-MM-DD 이용</CreatedAt>
                 </ReviewInfo>
                 <ReviewContent>
                   이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기

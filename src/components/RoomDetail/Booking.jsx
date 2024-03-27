@@ -12,6 +12,7 @@ const Booking = ({ data }) => {
   });
   const partyRoomDto = data?.partyRoomDto;
   const price = partyRoomDto?.price;
+  const totalPrice = price * (selectedRange.end - selectedRange.start + 1);
   function priceToString(price) {
     return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -44,9 +45,7 @@ const Booking = ({ data }) => {
         </Total>
       </SelectContainer>
       <Line />
-      <TotalPrice>
-        ₩ {price * (selectedRange.end - selectedRange.start + 1)}
-      </TotalPrice>
+      <TotalPrice>₩ {priceToString(totalPrice)}</TotalPrice>
       <BookButton>예약하기</BookButton>
     </Container>
   );
@@ -78,12 +77,6 @@ const PricePerTime = styled.div`
 `;
 
 const DateContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
-`;
-
-const ContainerTop = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;

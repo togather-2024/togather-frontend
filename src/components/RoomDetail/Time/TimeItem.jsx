@@ -18,4 +18,7 @@ const Button = styled.button`
   border-radius: 10px;
   cursor: pointer;
   background-color: ${(props) => (props.selected ? colors.hover01 : "")};
+  &:hover {
+    background-color: ${colors.point01};
+  }
 `;
