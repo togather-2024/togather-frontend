@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import { colors } from "../styles/colors";
 import axios from "axios";
 
