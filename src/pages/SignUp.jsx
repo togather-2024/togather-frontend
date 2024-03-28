@@ -76,15 +76,7 @@ const SignIn = () => {
         switch (name) {
             case "email":
                 if (value.includes("@") && value.includes(".com")) {
-                    const front = value.split("@")[0];
-                    const regex = /\d/g;
-                    const matches = front.match(regex);
-
-                    if (front.length >= 6 && matches.length >= 3) {
-                        isValid = true;
-                    } else {
-                        errorMessage = "유효하지 않은 길이의 이메일입니다.";
-                    }
+                    isValid = true;
                 } else {
                     errorMessage = "형식에 맞지 않는 이메일입니다.";
                 }

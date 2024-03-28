@@ -13,10 +13,11 @@ const Header = () => {
             <Link to={`/`}>
                 <Logo src={logo} alt="logo" />
             </Link>
+
             {!isLoggedIn ? (
                 <RightDiv>
                     {/* 추후 주소 변경 */}
-                    <Link to={`/registration`}>
+                    <Link to={`/signin`}>
                         <Menu>숙소 등록</Menu>
                     </Link>
                     <Link to={`/signin`}>

@@ -4,34 +4,10 @@ import axios from "axios";
 import MainSearch from "../components/MainPage/MainSearch";
 import MainCategory from "../components/MainPage/MainCategory";
 import Card from "../components/MainPage/MainContents/Card";
-// import useIntersect from "../hooks/useIntersect";
 
 const MainPage = () => {
-    // const dispatch = useDispatch();
-
-    // const { apiData, isLoaded, pageCount } = useSelector((state) => ({
-    //     apiData: state.apiData.data,
-    //     isLoaded: state.apiData.isLoaded,
-    //     pageCount: state.pageReducer.pageCount,
-    // }));
-
     const [keywords, setKeywords] = useState([]);
     const [photos, setPhotos] = useState([]);
-    // const [exp, setExp] = useState();
-
-    // const page = useRef(0);
-
-    // const [_, setRef] = useIntersect(
-    //     async (entry, observer) => {
-    //         observer.unobserve(entry.target);
-    //         await setExp(photos[++page.current]);
-    //         observer.observe(entry.target);
-    //     },
-    //     [exp]
-    // );
-
-    // // const [page, setPage] = useState(1);
-    // const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchKeyword = async () => {
@@ -56,15 +32,7 @@ const MainPage = () => {
                 const data = await response.data
                     .filter((_, idx) => idx < 42)
                     .map((el) => el.thumbnailUrl);
-                // const arrSize = (await data.length) / 100;
 
-                // for (let i = 0; i < arrSize; i++) {
-                //     await setPhotos((prev) => [
-                //         ...prev,
-                //         data.slice(i, (i + 1) * 100 + 1),
-                //     ]);
-                // }
-                // await setExp(photos[page.current]);
                 setPhotos(data);
             } catch (e) {
                 console.log(e);
