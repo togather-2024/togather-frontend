@@ -62,13 +62,10 @@ const MainPage = () => {
 export default MainPage;
 
 const Container = styled.div`
-    width: 100vw;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     height: calc(100vh-64px);
-    z-index: 0;
-    margin-top: 7vh;
 `;
 
 const MainContents = styled.div`

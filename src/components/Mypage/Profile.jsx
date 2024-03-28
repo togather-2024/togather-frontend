@@ -14,6 +14,7 @@ const Profile = () => {
       <InfoWrapper>
         <InfoLabel>이름</InfoLabel>
         <InfoText>홍길동</InfoText>
+        <EditBtn>이름 변경</EditBtn>
       </InfoWrapper>
       <InfoWrapper>
         <InfoLabel>이메일</InfoLabel>

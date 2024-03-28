@@ -3,20 +3,20 @@ import Category from "./MainCategory/Category";
 import Filter from "./MainCategory/Filter";
 
 const Container = styled.div`
-    margin-top: 6vh;
-    width: 92vw;
-    height: 7vh;
-    display: flex;
-    align-items: center;
+  margin: 30px 0px 20px 0px;
+  width: 92vw;
+  height: 7vh;
+  display: flex;
+  align-items: center;
 `;
 
 const MainCategory = ({ keywords }) => {
-    return (
-        <Container>
-            <Category keywords={keywords}></Category>
-            <Filter></Filter>
-        </Container>
-    );
+  return (
+    <Container>
+      <Category keywords={keywords}></Category>
+      <Filter></Filter>
+    </Container>
+  );
 };
 
 export default MainCategory;
