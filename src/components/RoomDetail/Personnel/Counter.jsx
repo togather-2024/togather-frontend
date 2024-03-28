@@ -19,7 +19,7 @@ const Counter = ({ data }) => {
   };
   return (
     <Container>
-      <Button onClick={handleCountSubtract} disabled={count <= 0}>
+      <Button onClick={handleCountSubtract} disabled={count <= 1}>
         <FaMinus size="12" color="gray" />
       </Button>
       <Text>{count}</Text>

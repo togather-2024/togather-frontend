@@ -6,7 +6,6 @@ const RoomDetailAPI = () => {
   const [data, setData] = useState(null);
   const params = useParams();
   //수정
-  console.log(typeof Number(params.roomId));
 
   useEffect(() => {
     const getDetail = async () => {

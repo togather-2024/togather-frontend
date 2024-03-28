@@ -8,6 +8,7 @@ import TagItem from "../components/RoomDetail/TagItem";
 import Host from "../components/RoomDetail/Host";
 import ReviewContainer from "../components/RoomDetail/Review/ReviewContainer";
 import ImgContainer from "../components/RoomDetail/RoomImg/ImgContainer";
+import LocationContainer from "../components/RoomDetail/LocationContainer";
 
 const RoomDetail = () => {
   const data = RoomDetailAPI();
@@ -35,10 +36,7 @@ const RoomDetail = () => {
             <Subheading>공간 설명</Subheading>
             <Description>{partyRoomDesc}</Description>
           </DescriptionContainer>
-          <LocationContainer>
-            <Subheading>위치</Subheading>
-            <Map></Map>
-          </LocationContainer>
+          <LocationContainer />
           <ReviewContainer />
         </LeftContents>
         <RightContents>
@@ -101,15 +99,6 @@ const Subheading = styled.div`
 const Description = styled.div`
   line-height: 1.5;
   white-space: wrap;
-`;
-const LocationContainer = styled.div`
-  margin-bottom: 40px;
-`;
-
-const Map = styled.div`
-  height: 300px;
-  background-color: ${colors.gray30};
-  border-radius: 20px;
 `;
 
 const RightContents = styled(LeftContents)`

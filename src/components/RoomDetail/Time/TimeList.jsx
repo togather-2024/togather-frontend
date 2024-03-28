@@ -39,6 +39,7 @@ const TimeList = ({ data }) => {
       index >= selectedRange.start && index <= selectedRange.end;
     const isAvailable = availableTimes.includes(openingHour + index);
     //현재 시간 이후의 시간들만 선택 가능, 운영 요일이 아닌 날짜의 시간은 반환x
+
     return (
       <TimeItem
         key={index}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
 
@@ -13,13 +13,14 @@ const TimeItem = ({ data, handleClick, selected, isAvailable }) => {
 export default TimeItem;
 const Button = styled.button`
   all: unset;
-  border: 1px solid ${colors.point01};
+  border: 1px solid
+    ${(props) => (props.isAvailable ? colors.point01 : colors.white)};
   padding: 8px;
   border-radius: 10px;
-  cursor: pointer;
+  cursor: ${(props) => (props.isAvailable ? "pointer" : "")};
   background-color: ${(props) =>
     props.isAvailable ? (props.selected ? colors.hover01 : "") : colors.gray10};
   &:hover {
-    background-color: ${colors.point01};
+    background-color: ${(props) => (props.isAvailable ? colors.hover01 : "")};
   }
 `;

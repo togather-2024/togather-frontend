@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
@@ -7,37 +7,11 @@ import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import { colors } from "../../../styles/colors";
 import { weight } from "../../../styles/fonts";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { selectedDateState } from "../../../recoil/atoms/selectedDate";
-import { availableTimeState } from "../../../recoil/atoms/availableTimeState";
 
-const CustomCalendar = () => {
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
-  const [availableTime, setAvailableTime] = useRecoilState(availableTimeState);
-  const date = selectedDate.toISOString().split("T")[0]; //yyyy-mm--dd로 포맷
-  const roomId = useParams();
-  const token = null;
-  const handleDateChange = useCallback(
-    async (newDate) => {
-      try {
-        // 날짜를 서버로 전송하는 비동기 함수 호출
-        setSelectedDate(newDate);
-        const res = await axios.get(
-          `/partyroom/reservation/search/available?partyroomId=${roomId}&date=${date}`,
-          {
-            headers: {
-              Authorization: `Bearer${token}`,
-            },
-          }
-        );
-        setAvailableTime(res.data.availableTimes);
-        // 선택한 날짜를 상태에 업데이트합니다.
-      } catch (error) {
-        console.error("서버 요청 중 오류 발생:", error);
-      }
-    },
-    [date, roomId, setAvailableTime, setSelectedDate]
-  );
+const CustomCalendar = ({ handleDateChange }) => {
+  const selectedDate = useRecoilValue(selectedDateState);
 
   return (
     <StyledCalendarWrapper>

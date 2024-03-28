@@ -7,13 +7,14 @@ import { timeRangeState } from "../../../recoil/atoms/timeRangeState";
 
 const TimeContainer = ({ data }) => {
   const selectedRange = useRecoilValue(timeRangeState);
+  const startTime = selectedRange.start + data?.partyRoomDto?.openingHour;
+  const endTime = selectedRange.end + data?.partyRoomDto?.openingHour + 1;
   return (
     <Container>
       <ContainerTop>
         <Title>이용 시간</Title>
         <Text>
-          {selectedRange.start + data?.partyRoomDto?.openingHour}:00 ~{" "}
-          {selectedRange.end + data?.partyRoomDto?.openingHour + 1}:00 (총{" "}
+          {startTime}:00 ~ {endTime}:00 (총{" "}
           {selectedRange.end - selectedRange.start + 1}시간)
         </Text>
       </ContainerTop>
