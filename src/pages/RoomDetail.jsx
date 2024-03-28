@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { colors } from "../styles/colors";
-import { FaHeart } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import { size } from "../styles/fonts";
-import { weight } from "../styles/fonts";
+import { size, weight } from "../styles/fonts";
 import Booking from "../components/RoomDetail/Booking";
 import RoomDetailAPI from "../components/RoomDetail/RoomDetailAPI";
 import TagItem from "../components/RoomDetail/TagItem";
 import Host from "../components/RoomDetail/Host";
+import ReviewContainer from "../components/RoomDetail/Review/ReviewContainer";
+import ImgContainer from "../components/RoomDetail/RoomImg/ImgContainer";
 
 const RoomDetail = () => {
   const data = RoomDetailAPI();
@@ -22,18 +21,7 @@ const RoomDetail = () => {
   ));
   return (
     <>
-      <ImgContainer>
-        <HeartContainer>
-          <FaHeart size="15" color="#ABABAB" />
-        </HeartContainer>
-        <FirstImg></FirstImg>
-        <SmallImgContainer>
-          <SmallImg />
-          <SmallImg />
-          <SmallImg />
-          <SmallImg />
-        </SmallImgContainer>
-      </ImgContainer>
+      <ImgContainer />
       <Contents>
         <LeftContents>
           <Intro>
@@ -51,45 +39,7 @@ const RoomDetail = () => {
             <Subheading>위치</Subheading>
             <Map></Map>
           </LocationContainer>
-          <ReviewContainer>
-            <ReviewHeading>이용 후기</ReviewHeading>
-            <ReviewCount>n 건</ReviewCount>
-            <ReviewList>
-              <Review>
-                <ReviewInfo>
-                  <ReviewProfile>
-                    <CgProfile /> 000
-                  </ReviewProfile>
-                  <CreatedAt>YYYY-MM-DD 이용</CreatedAt>
-                </ReviewInfo>
-                <ReviewContent>
-                  이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기
-                </ReviewContent>
-              </Review>
-              <Review>
-                <ReviewInfo>
-                  <ReviewProfile>
-                    <CgProfile /> 000
-                  </ReviewProfile>
-                  <CreatedAt>YYYY-MM-DD 이용</CreatedAt>
-                </ReviewInfo>
-                <ReviewContent>
-                  이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기
-                </ReviewContent>
-              </Review>
-              <Review>
-                <ReviewInfo>
-                  <ReviewProfile>
-                    <CgProfile /> 000
-                  </ReviewProfile>
-                  <CreatedAt>YYYY-MM-DD 이용</CreatedAt>
-                </ReviewInfo>
-                <ReviewContent>
-                  이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기이용후기
-                </ReviewContent>
-              </Review>
-            </ReviewList>
-          </ReviewContainer>
+          <ReviewContainer />
         </LeftContents>
         <RightContents>
           <RightInner>
@@ -104,50 +54,12 @@ const RoomDetail = () => {
 
 export default RoomDetail;
 
-const HeartContainer = styled.div`
-  border-radius: 50%;
-  padding: 10px;
-  position: absolute;
-  right: 0;
-  top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: inline-flex;
-  background-color: white;
-  margin-right: 10px;
-  cursor: pointer;
-`;
-
-const ImgContainer = styled.div`
-  margin: 32px 0;
-  display: flex;
-  position: relative;
-  height: 400px;
-  gap: 10px;
-`;
-
-const FirstImg = styled.div`
-  background-color: ${colors.gray30};
-  flex-grow: 1;
-  border-radius: 10px;
-`;
-const SmallImgContainer = styled.div`
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-`;
-const SmallImg = styled.div`
-  background-color: ${colors.gray30};
-  border-radius: 10px;
-`;
-
 const Contents = styled.div`
   /* border: 1px solid blue; */
   display: flex;
   width: 100%;
   justify-content: space-between;
+  height: 1000px;
 `;
 const LeftContents = styled.div`
   /* border: 1px solid red; */
@@ -155,6 +67,7 @@ const LeftContents = styled.div`
   display: flex;
   flex-direction: column;
   padding-right: 60px;
+  margin-bottom: auto;
 `;
 
 const Intro = styled.div``;
@@ -198,56 +111,15 @@ const Map = styled.div`
   background-color: ${colors.gray30};
   border-radius: 20px;
 `;
-const ReviewContainer = styled.div`
-  margin-bottom: 40px;
-`;
-
-const ReviewHeading = styled(Subheading)`
-  display: inline-block;
-  margin-right: 16px;
-`;
-
-const ReviewCount = styled.span`
-  color: ${colors.gray30};
-`;
-const ReviewList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-`;
-
-const Review = styled.div``;
-
-const ReviewInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const ReviewProfile = styled.div`
-  font-weight: ${weight.medium};
-`;
-
-const CreatedAt = styled.div`
-  font-size: ${size.caption};
-`;
-
-const ReviewContent = styled.div``;
 
 const RightContents = styled(LeftContents)`
+  margin-bottom: 0;
   /* border: 1px solid green; */
   flex: 1;
   padding: 0;
-  position: relative;
 `;
 
 const RightInner = styled.div`
   position: sticky;
-  top: 20px;
-`;
-
-const Text = styled.div`
-  color: ${colors.dark};
-  margin-left: auto;
-  cursor: pointer;
+  top: 100px;
 `;

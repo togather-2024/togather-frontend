@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
-import Counter from "./Counter";
 import TimeContainer from "./Time/TimeContainer";
 import { timeRangeState } from "../../recoil/atoms/timeRangeState";
 import DateContainer from "./Date/DateContainer";
+import PersonnelContainer from "./Personnel/PersonnelContainer";
 
 const Booking = ({ data }) => {
   const selectedRange = useRecoilValue(timeRangeState);
@@ -25,10 +25,7 @@ const Booking = ({ data }) => {
         </PricePerTimeContainer>
         <DateContainer />
         <TimeContainer data={data} />
-        <PersonnelContainer>
-          <Title>인원</Title>
-          <Counter data={data?.partyRoomDto} />
-        </PersonnelContainer>
+        <PersonnelContainer data={data?.partyRoomDto} />
         <Total>
           <Title>총 결제 금액</Title>
           <Text>
@@ -66,12 +63,6 @@ const PricePerTimeContainer = styled.div`
 const PricePerTime = styled.div`
   font-size: ${size.body02};
   font-weight: ${weight.bold};
-`;
-
-const PersonnelContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
 `;
 
 const Total = styled.div`
