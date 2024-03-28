@@ -23,7 +23,7 @@ const Header = () => {
                 </Link>
                 {!isLoggedIn ? (
                     <MenuContainer>
-                        <Link to={`/registration`}>
+                        <Link to={`/signin`}>
                             <Menu>숙소 등록</Menu>
                         </Link>
                         <Link to={`/signin`}>
