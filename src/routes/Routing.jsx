@@ -9,6 +9,7 @@ import ReservationDetail from "../pages/ReservationDetail";
 import Layout from "../components/Common/Layout";
 import Mypage from "../pages/Mypage";
 
+
 const Routing = () => {
   return (
     <>

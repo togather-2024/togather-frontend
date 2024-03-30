@@ -5,16 +5,16 @@ import { FaRegComment } from "react-icons/fa";
 // import Cat from "../../../assets/cat.1014.jpg";
 
 const Container = styled.div`
-  width: 20vw;
-  height: 48vh;
-  border: 1px solid black;
-  border-radius: 25px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 0rem;
-  overflow: hidden;
-  cursor: pointer;
+    width: 20vw;
+    height: 48vh;
+    border: 1px solid black;
+    border-radius: 25px;
+    cursor:pointer
+    display: flex;
+    flex-direction: column;
+    margin:1rem 0rem;
+    overflow: hidden;
+    cursor:pointer;
 `;
 
 const CardImage = styled.div`
@@ -122,5 +122,6 @@ const Card = ({ photo }) => {
       </CardDescription>
     </Container>
   );
+
 };
 export default Card;

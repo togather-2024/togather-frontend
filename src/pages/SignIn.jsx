@@ -6,9 +6,97 @@ import { loginState } from "../recoil/atoms/loginState";
 import axios from "axios";
 
 const initialState = {
-  email: "",
-  password: "",
+    email: "",
+    password: "",
 };
+
+function reducer(state, action) {
+    switch (action.type) {
+        case "CHANGE":
+            return {
+                ...state,
+                [action.id]: action.value,
+            };
+        default:
+            return state;
+    }
+}
+
+const SignIn = () => {
+    const navigate = useNavigate();
+
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    // 아이디 , 패스워드 입력했을 때 , useReducer 내부에서 값 변화
+    const handleChange = (e) => {
+        dispatch({ type: "CHANGE", id: e.target.name, value: e.target.value });
+    };
+
+    // 로그인 버튼 클릭했을 때
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const body = { email: state.email, password: state.password };
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        try {
+            const res = await axios.post("api/member/login", body, config);
+            if (res.status === 200) {
+                alert("로그인 성공");
+                setIsLoggedIn(true);
+                navigate("/");
+            }
+        } catch (error) {
+            alert("해당하는 계정이 없거나 잘못된 입력입니다.");
+        }
+    };
+    return (
+        <Container onSubmit={handleSubmit}>
+            <Title>로그인</Title>
+            <BoxContainer>
+                <Box>
+                    <input
+                        type="text"
+                        placeholder="이메일"
+                        name="email"
+                        onChange={handleChange}
+                    />
+                </Box>
+
+                <Box>
+                    <input
+                        type="password"
+                        placeholder="비밀번호"
+                        name="password"
+                        onChange={handleChange}
+                    />
+                </Box>
+            </BoxContainer>
+            <BoxContainer style={{ marginTop: "1rem" }}>
+                <Button>로그인</Button>
+                <Link to={`/signup`}>
+                    <Button>회원가입</Button>
+                </Link>
+            </BoxContainer>
+            <span style={{ fontSize: "1rem" }}>또는</span>
+
+            <ApiBox>
+                <div>구글로 시작하기</div>
+                <div>카카오로 시작하기</div>
+            </ApiBox>
+        </Container>
+    );
+};
+
+export default SignIn;
+
+const Container = styled.form`
+    width: 50vw;
+    height: 93vh;
+    margin: 0 auto;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -117,6 +205,7 @@ const BoxContainer = styled.div`
   align-items: center;
   justify-content: center;
 
+
   & > button:first-child {
     background-color: #89d825;
     color: white;
@@ -134,6 +223,7 @@ const Button = styled.button`
   background-color: #ddf7bd;
 
   color: black;
+
 `;
 
 const Box = styled.div`

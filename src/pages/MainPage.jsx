@@ -5,6 +5,7 @@ import MainSearch from "../components/MainPage/MainSearch";
 import MainCategory from "../components/MainPage/MainCategory";
 import Card from "../components/MainPage/MainContents/Card";
 import { Link } from "react-router-dom";
+
 // import useIntersect from "../hooks/useIntersect";
 
 const MainPage = () => {
@@ -81,6 +82,7 @@ const MainPage = () => {
         <MainSearch></MainSearch>
         <MainCategory keywords={keywords}></MainCategory>
         {/* 카테고리 값과 , 검색 결과 변수 바뀔 때마다 Contents 내용 변경 */}
+
         {/* idx변수는 roomId로 변경 필요 */}
         <MainContents>
           {photos &&
@@ -106,10 +108,6 @@ const Container = styled.div`
 `;
 
 const MainContents = styled.div`
-  width: 92vw;
-  display: flex;
-  gap: 0px 3.6rem;
-  flex-wrap: wrap;
   width: 92vw;
   display: flex;
   gap: 0px 3.6rem;
