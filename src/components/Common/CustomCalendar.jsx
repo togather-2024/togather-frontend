@@ -1,30 +1,27 @@
-import React, { useCallback, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
-import { colors } from "../../../styles/colors";
-import { weight } from "../../../styles/fonts";
-import { useRecoilValue } from "recoil";
-import { selectedDateState } from "../../../recoil/atoms/selectedDate";
+import { colors } from "../../styles/colors";
+import { weight } from "../../styles/fonts";
+//캘린더를 사용할 때 value값에 넣어줄 selectedDate랑, onChange값에 넣어줄 handleDateChange값만 프롭스로 내려주면 됩니다!!
+//예시: <CustomCalendar handleDateChange={함수 이름} selectedDate={변수이름} />
+//recoil에 만들어져있는 roomdetail 페이지에 쓰이는 selectedDateState 상태와 혼동하지 않도록 주의!!
 
-const CustomCalendar = ({ handleDateChange }) => {
-  const selectedDate = useRecoilValue(selectedDateState);
-
+const CustomCalendar = ({ handleDateChange, selectedDate }) => {
   return (
     <StyledCalendarWrapper>
       <StyledCalendar
-        value={selectedDate}
-        onChange={handleDateChange}
-        formatDay={(locale, date) => moment(date).format("DD")}
+        value={selectedDate} //상태관리 변수
+        onChange={handleDateChange} //상태 변경 함수
+        formatDay={(locale, date) => moment(date).format("DD")} //날짜 옆에 '일' 문자 제거
         formatMonthYear={(locale, date) => moment(date).format("YYYY. MM")} // 네비게이션에서 2023. 12 이렇게 보이도록 설정
         calendarType="gregory" // 일요일 부터 시작
         next2Label={null} // +1년 & +10년 이동 버튼 숨기기
         prev2Label={null} // -1년 & -10년 이동 버튼 숨기기
         minDetail="year" // 10년단위 년도 숨기기
-        minDate={new Date()}
+        minDate={new Date()} //선택 가능한 날짜(오늘부터로 설정)
       />
     </StyledCalendarWrapper>
   );
@@ -63,6 +60,7 @@ const StyledCalendarWrapper = styled.div`
     text-decoration: none;
     font-weight: 800;
   }
+
   .react-calendar__tile--active,
   .react-calendar__tile--active:enabled:focus {
     background: ${colors.point04};

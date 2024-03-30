@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import React, { useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { weight, size } from "../../../styles/fonts";
 import { colors } from "../../../styles/colors";
-import CustomCalendar from "./CustomCalendar";
+import CustomCalendar from "../../Common/CustomCalendar";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { selectedDateState } from "../../../recoil/atoms/selectedDate";
-import { availableTimeState } from "../../../recoil/atoms/availableTimeState";
 import useFetchAvailTimes from "./useFetchAvailTimes";
 
 const DateContainer = () => {
@@ -46,7 +44,12 @@ const DateContainer = () => {
         <Text>{formattedDate}</Text>
         <Edit onClick={handleShowCalendar}>변경</Edit>
       </Container>
-      {show && <CustomCalendar handleDateChange={handleDateChange} />}
+      {show && (
+        <CustomCalendar
+          handleDateChange={handleDateChange}
+          selectedDate={selectedDate}
+        />
+      )}
     </>
   );
 };
