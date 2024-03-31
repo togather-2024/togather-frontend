@@ -4,6 +4,8 @@ import axios from "axios";
 import MainSearch from "../components/MainPage/MainSearch";
 import MainCategory from "../components/MainPage/MainCategory";
 import Card from "../components/MainPage/MainContents/Card";
+import { Link } from "react-router-dom";
+
 // import useIntersect from "../hooks/useIntersect";
 
 const MainPage = () => {
@@ -72,6 +74,7 @@ const MainPage = () => {
     };
     fetchPhotos();
   }, [photos]);
+
   return (
     <>
       {/* profile dropdown은 Link to */}
@@ -79,9 +82,15 @@ const MainPage = () => {
         <MainSearch></MainSearch>
         <MainCategory keywords={keywords}></MainCategory>
         {/* 카테고리 값과 , 검색 결과 변수 바뀔 때마다 Contents 내용 변경 */}
+
+        {/* idx변수는 roomId로 변경 필요 */}
         <MainContents>
           {photos &&
-            photos.map((photo, idx) => <Card key={idx} photo={photo}></Card>)}
+            photos.map((photo, idx) => (
+              <Link to={`/${idx + 1}/detail`}>
+                <Card key={idx} photo={photo}></Card>
+              </Link>
+            ))}
           {/* {isLoading && <p>Loading</p>} */}
         </MainContents>
       </Container>
