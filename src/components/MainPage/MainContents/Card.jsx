@@ -15,7 +15,6 @@ const Container = styled.div`
     margin:1rem 0rem;
     overflow: hidden;
     cursor:pointer;
-
 `;
 
 const CardImage = styled.div`
@@ -26,6 +25,7 @@ const CardImage = styled.div`
 `;
 
 const CardDescription = styled.div`
+  color: black;
   width: 100%;
   height: 30%;
   border-top: 1px solid black;
@@ -69,7 +69,6 @@ const Footer = styled.div`
   height: 25%;
   display: flex;
   align-items: center;
-
   justify-content: space-between;
 `;
 
@@ -93,36 +92,36 @@ const Into = styled.div`
 
 // props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
 const Card = ({ photo }) => {
-    return (
-        <Container>
-            <CardImage style={{ backgroundImage: `url(${photo})` }}></CardImage>
-            <CardDescription>
-                <Title>투게더 서울 스튜디오</Title>
-                <Location>
-                    <IoLocationSharp />
-                    역삼
-                </Location>
-                <Keywords>
-                    <Keyword>#키워드</Keyword>
-                    <Keyword>#키워드</Keyword>
-                    <Keyword>#키워드</Keyword>
-                </Keywords>
-                <Footer>
-                    <Price>₩ 250,000 / 시간</Price>
-                    <Into>
-                        <div>
-                            <CiHeart></CiHeart>
-                            <span>5</span>
-                        </div>
-                        <div>
-                            <FaRegComment />
-                            <span>6</span>
-                        </div>
-                    </Into>
-                </Footer>
-            </CardDescription>
-        </Container>
-    );
+  return (
+    <Container>
+      <CardImage style={{ backgroundImage: `url(${photo})` }}></CardImage>
+      <CardDescription>
+        <Title>투게더 서울 스튜디오</Title>
+        <Location>
+          <IoLocationSharp />
+          역삼
+        </Location>
+        <Keywords>
+          <Keyword>#키워드</Keyword>
+          <Keyword>#키워드</Keyword>
+          <Keyword>#키워드</Keyword>
+        </Keywords>
+        <Footer>
+          <Price>₩ 250,000 / 시간</Price>
+          <Into>
+            <div>
+              <CiHeart></CiHeart>
+              <span>5</span>
+            </div>
+            <div>
+              <FaRegComment />
+              <span>6</span>
+            </div>
+          </Into>
+        </Footer>
+      </CardDescription>
+    </Container>
+  );
 
 };
 export default Card;

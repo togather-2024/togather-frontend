@@ -1,41 +1,40 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useRecoilValue } from "recoil";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
-import Counter from "./Counter";
-import TimeList from "./TimeList";
+import TimeContainer from "./Time/TimeContainer";
+import { timeRangeState } from "../../recoil/atoms/timeRangeState";
+import DateContainer from "./Date/DateContainer";
+import PersonnelContainer from "./Personnel/PersonnelContainer";
 
-const Booking = () => {
+const Booking = ({ data }) => {
+  const selectedRange = useRecoilValue(timeRangeState);
+  const partyRoomDto = data?.partyRoomDto;
+  const price = partyRoomDto?.price;
+  const totalPrice = price * (selectedRange.end - selectedRange.start + 1);
+  function priceToString(price) {
+    return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <Container>
       <SelectContainer>
         <PricePerTimeContainer>
-          <PricePerTime>₩ 20,000</PricePerTime>
+          <PricePerTime>₩ {priceToString(price)}</PricePerTime>
           <Text>/ 시간</Text>
         </PricePerTimeContainer>
-        <DateContainer>
-          <Title>날짜</Title>
-          <Text>0000년 00월 00일 (월)</Text>
-          <Edit>변경</Edit>
-        </DateContainer>
-        <TimeContainer>
-          <ContainerTop>
-            <Title>이용 시간</Title>
-            <Text>20:00 ~ 24:00 (4시간)</Text>
-          </ContainerTop>
-          <TimeList />
-        </TimeContainer>
-        <PersonnelContainer>
-          <Title>인원</Title>
-          <Counter />
-        </PersonnelContainer>
+        <DateContainer />
+        <TimeContainer data={data} />
+        <PersonnelContainer data={data?.partyRoomDto} />
         <Total>
           <Title>총 결제 금액</Title>
-          <Text>₩ 20,000 * 4시간</Text>
+          <Text>
+            ₩ {price} * {selectedRange.end - selectedRange.start + 1}시간
+          </Text>
         </Total>
       </SelectContainer>
       <Line />
-      <TotalPrice>₩ 80,000</TotalPrice>
+      <TotalPrice>₩ {priceToString(totalPrice)}</TotalPrice>
       <BookButton>예약하기</BookButton>
     </Container>
   );
@@ -66,26 +65,6 @@ const PricePerTime = styled.div`
   font-weight: ${weight.bold};
 `;
 
-const DateContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
-`;
-
-const TimeContainer = styled.div``;
-
-const ContainerTop = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
-`;
-
-const PersonnelContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
-
 const Total = styled.div`
   display: flex;
   justify-content: space-between;
@@ -105,12 +84,6 @@ const Text = styled.div`
 
 const Title = styled.div`
   font-weight: ${weight.semibold};
-`;
-
-const Edit = styled.div`
-  font-size: ${size.caption};
-  color: ${colors.dark};
-  text-decoration: underline;
 `;
 
 const Line = styled.hr`

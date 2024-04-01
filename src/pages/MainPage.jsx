@@ -4,6 +4,8 @@ import axios from "axios";
 import MainSearch from "../components/MainPage/MainSearch";
 import MainCategory from "../components/MainPage/MainCategory";
 import Card from "../components/MainPage/MainContents/Card";
+import { Link } from "react-router-dom";
+
 
 const MainPage = () => {
     const [keywords, setKeywords] = useState([]);
@@ -57,6 +59,7 @@ const MainPage = () => {
             </Container>
         </>
     );
+
 };
 
 export default MainPage;
