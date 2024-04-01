@@ -13,6 +13,7 @@ const ProfileDropdown = () => {
         setIsLoggedIn(false);
         setIsDropped(false);
         localStorage.removeItem("refresh_token");
+        window.location.replace("/");
     };
 
     const links = {
@@ -20,7 +21,6 @@ const ProfileDropdown = () => {
         메시지: "/my/messages",
         "예약 관리": "/my/reservations",
         "내 정보": "my/profile",
-        // 로그아웃: null,
     };
     return (
         <Container>
