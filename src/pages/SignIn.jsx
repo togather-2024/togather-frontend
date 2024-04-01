@@ -46,6 +46,10 @@ const SignIn = () => {
             const res = await axios.post("api/member/login", body, config);
             if (res.status === 200) {
                 alert("로그인 성공");
+                localStorage.setItem(
+                    "refresh_token",
+                    res.headers.authorization
+                );
                 setIsLoggedIn(true);
                 navigate("/");
             }

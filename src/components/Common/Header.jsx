@@ -1,22 +1,29 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaBell } from "react-icons/fa";
 import logo from "../../assets/logo.png";
+import { useEffect } from "react";
 import { colors } from "../../styles/colors";
 import { useRecoilValue } from "recoil";
-import { loginState } from "../../recoil/atoms/loginState";
+import { loginState, dropDownState } from "../../recoil/atoms/loginState";
+import { useRecoilState } from "recoil";
 import ProfileDropdown from "../Profile/ProfileDropdown";
 const Header = () => {
-    const [dropDown, setDropDown] = useState(false);
     const handleDropDown = () => {
-        setDropDown(!dropDown);
+        setIsDropped(!isDropped);
     };
-    const isLoggedIn = useRecoilValue(loginState);
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+    const [isDropped, setIsDropped] = useRecoilState(dropDownState);
+    useEffect(() => {
+        if (localStorage.getItem("refresh_token")) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
     return (
         <>
-            {dropDown ? <ProfileDropdown /> : ""}
+            {isDropped ? <ProfileDropdown /> : ""}
             <Block>
                 <Link to={`/`}>
                     <Logo src={logo} alt="logo" />

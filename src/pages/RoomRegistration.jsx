@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -60,10 +60,10 @@ const PhotoInput = styled.div`
     margin-bottom: 20px;
 `;
 
-const PhotoLabel = styled(Label)`
-    display: block;
-    margin-bottom: 5px;
-`;
+// const PhotoLabel = styled(Label)`
+//     display: block;
+//     margin-bottom: 5px;
+// `;
 
 const PhotoUpload = styled.input`
     display: block;
