@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { size, weight } from "../../styles/fonts";
-import { colors } from "../../styles/colors";
-import { Map, useKakaoLoader, MapMarker } from "react-kakao-maps-sdk";
-
-const { kakao } = window;
+import { size, weight } from "../../../styles/fonts";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
+import useKakaoLoader from "./useKakaoLoader";
 
 const LocationContainer = () => {
   const [location, setLocation] = useState({ lat: 33.5563, lng: 126.79581 });
   useKakaoLoader();
+  const { kakao } = window;
 
   const getLocationByAddress = async (address) => {
     const geocoder = new kakao.maps.services.Geocoder();
