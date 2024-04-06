@@ -5,7 +5,6 @@ import { FaBell } from "react-icons/fa";
 import logo from "../../assets/logo.png";
 import { useEffect } from "react";
 import { colors } from "../../styles/colors";
-import { useRecoilValue } from "recoil";
 import { loginState, dropDownState } from "../../recoil/atoms/loginState";
 import { useRecoilState } from "recoil";
 import ProfileDropdown from "../Profile/ProfileDropdown";
@@ -42,7 +41,9 @@ const Header = () => {
                     </MenuContainer>
                 ) : (
                     <MenuContainer>
-                        <Menu>숙소 등록</Menu>
+                        <Link to={`/registration`}>
+                            <Menu>숙소 등록</Menu>
+                        </Link>
                         <Menu onClick={handleDropDown}>
                             <CgProfile /> 000 님
                         </Menu>
