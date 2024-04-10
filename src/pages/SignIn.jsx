@@ -80,9 +80,9 @@ const SignIn = () => {
                 </Box>
             </BoxContainer>
             <BoxContainer style={{ marginTop: "1rem" }}>
-                <Button>로그인</Button>
-                <Link to={`/signup`}>
-                    <Button>회원가입</Button>
+                <Button type="submit">로그인</Button>
+                <Link to={`/signup`} style={{ width: "100%" }}>
+                    <Button type="button">회원가입</Button>
                 </Link>
             </BoxContainer>
             <span style={{ fontSize: "1rem" }}>또는</span>
@@ -128,7 +128,7 @@ const BoxContainer = styled.div`
 `;
 
 const Button = styled.button`
-    width: 31.5rem;
+    width: 100%;
     height: 2.5rem;
     margin-bottom: 1rem;
     border: none;

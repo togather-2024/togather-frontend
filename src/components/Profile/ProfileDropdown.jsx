@@ -25,7 +25,7 @@ const ProfileDropdown = () => {
     return (
         <Container>
             {Object.entries(links).map(([label, path], index) => (
-                <Link to={path} key={index}>
+                <Link to={path} key={index} onClick={() => setIsDropped(false)}>
                     <Box>{label}</Box>
                 </Link>
             ))}

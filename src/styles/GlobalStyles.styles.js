@@ -13,6 +13,10 @@ const GlobalStyle = createGlobalStyle`
     }
     *{
         box-sizing:border-box;
+        -ms-overflow-style: none;
+    }
+    *::-webkit-scrollbar{
+        display:none;
     }
 
     html, body{

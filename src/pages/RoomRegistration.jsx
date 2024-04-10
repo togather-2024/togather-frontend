@@ -5,38 +5,60 @@ import styled from "styled-components";
 import RoomInfo from "../components/Registration/RoomInfo";
 import RoomAddress from "../components/Registration/RoomAddress";
 import RoomPictures from "../components/Registration/RoomPictures";
+import RoomHeadcount from "../components/Registration/RoomHeadcount";
+import RoomKeywordPrice from "../components/Registration/RoomKeywordPrice";
 
 const RoomRegistration = () => {
     const [compIdx, setCompIdx] = useState(0);
-    const compArr = [<RoomInfo />, <RoomAddress />, <RoomPictures />];
-    const compTitle = ["숙소 정보", "숙소 주소", "숙소 사진"];
 
-    const handleNext = () => {
-        setCompIdx(compIdx + 1);
+    const compObj = {
+        0: { comp: <RoomInfo />, title: "숙소 정보" },
+        1: { comp: <RoomAddress />, title: "숙소 주소" },
+        2: { comp: <RoomPictures />, title: "숙소 사진" },
+        3: { comp: <RoomHeadcount />, title: "숙소 이용" },
+        4: { comp: <RoomKeywordPrice />, title: "숙소 상세" },
     };
+    console.log(compIdx);
     return (
         <Container>
-            <Title>{compTitle[compIdx]}</Title>
-            {compArr[compIdx]}
+            <Title>{compObj[compIdx].title}</Title>
+
+            {compObj[compIdx].comp}
+
             <Footer>
-                {compIdx !== 0 && (
-                    <PrevButton onClick={() => setCompIdx(compIdx - 1)}>
+                {/* button의 타입을 제대로 설정해주지 않으면 submit 효과가 발생할 수 있음. */}
+                {compIdx > 0 && (
+                    <PrevButton
+                        type="button"
+                        onClick={() => setCompIdx((prev) => prev - 1)}
+                    >
                         이전
                     </PrevButton>
                 )}
-                {compIdx !== compArr.length && (
-                    <NextButton onClick={() => setCompIdx(compIdx + 1)}>
-                        다음
-                    </NextButton>
-                )}
+                <NextButton
+                    type={
+                        compIdx === Object.entries(compObj).length - 1
+                            ? "submit"
+                            : "button"
+                    }
+                    onClick={() => {
+                        if (compIdx < Object.entries(compObj).length - 1) {
+                            setCompIdx((prev) => prev + 1);
+                        }
+                    }}
+                >
+                    {compIdx === Object.entries(compObj).length - 1
+                        ? "등록하기"
+                        : "다음"}
+                </NextButton>
             </Footer>
         </Container>
     );
 };
 
-export default RoomRegistration;
+export default React.memo(RoomRegistration);
 
-const Container = styled.div`
+const Container = styled.form`
     width: 65vw;
     height: 60vh;
     border: 1px solid black;
