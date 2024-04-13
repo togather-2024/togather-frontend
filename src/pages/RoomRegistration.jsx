@@ -18,7 +18,7 @@ const RoomRegistration = () => {
         3: { comp: <RoomHeadcount />, title: "숙소 이용" },
         4: { comp: <RoomKeywordPrice />, title: "숙소 상세" },
     };
-    console.log(compIdx);
+
     return (
         <Container>
             <Title>{compObj[compIdx].title}</Title>
@@ -41,6 +41,7 @@ const RoomRegistration = () => {
                             ? "submit"
                             : "button"
                     }
+                    /* 이 부분에서 유효성 검사 및 input 값 입력해야 함*/
                     onClick={() => {
                         if (compIdx < Object.entries(compObj).length - 1) {
                             setCompIdx((prev) => prev + 1);
@@ -56,7 +57,7 @@ const RoomRegistration = () => {
     );
 };
 
-export default React.memo(RoomRegistration);
+export default RoomRegistration;
 
 const Container = styled.form`
     width: 65vw;
