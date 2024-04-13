@@ -5,6 +5,7 @@ import MainCategory from "../components/MainPage/MainCategory";
 import MainContents from "../components/MainPage/MainContents";
 
 const MainPage = () => {
+
     return (
         <>
             <Container>
@@ -12,6 +13,7 @@ const MainPage = () => {
                 <MainCategory></MainCategory>
                 {/* props로 전달한 후 렌더링 시키면 될 것 같음 */}
                 <MainContents></MainContents>
+
             </Container>
         </>
     );
@@ -25,4 +27,3 @@ const Container = styled.div`
     flex-direction: column;
     overflow-y: auto;
     height: calc(100vh-64px);
-`;
