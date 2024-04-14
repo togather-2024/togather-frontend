@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { size } from "../styles/fonts";
 import { colors } from "../styles/colors";
 import styled from "styled-components";
+import axios from "axios";
 import RoomInfo from "../components/Registration/RoomInfo";
 import RoomAddress from "../components/Registration/RoomAddress";
 import RoomPictures from "../components/Registration/RoomPictures";
 import RoomHeadcount from "../components/Registration/RoomHeadcount";
+import {
+    registrationUserState,
+    registrationImage,
+} from "../recoil/atoms/registrationUserState";
+
 import RoomKeywordPrice from "../components/Registration/RoomKeywordPrice";
 
 const RoomRegistration = () => {
@@ -17,6 +23,43 @@ const RoomRegistration = () => {
         2: { comp: <RoomPictures />, title: "숙소 사진" },
         3: { comp: <RoomHeadcount />, title: "숙소 이용" },
         4: { comp: <RoomKeywordPrice />, title: "숙소 상세" },
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+
+        formData.append(
+            "partyRoomRequestDto",
+            JSON.stringify(registrationUserState)
+        );
+        formData.append("mainImage", registrationImage.mainImage);
+
+        if (
+            Array.isArray(registrationImage.subImages) &&
+            registrationImage.subImages.length > 0
+        ) {
+            for (let sub of registrationImage.subImages) {
+                formData.append("subImages", sub);
+            }
+        }
+        try {
+            const res = axios.post("/api/partyroom/register", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const handleNextButton = (e) => {
+        if (compIdx !== Object.entries(compObj).length - 1) {
+            setCompIdx((prev) => prev + 1);
+        } else {
+            handleSubmit(e);
+        }
     };
 
     return (
@@ -36,17 +79,9 @@ const RoomRegistration = () => {
                     </PrevButton>
                 )}
                 <NextButton
-                    type={
-                        compIdx === Object.entries(compObj).length - 1
-                            ? "submit"
-                            : "button"
-                    }
+                    type="button"
                     /* 이 부분에서 유효성 검사 및 input 값 입력해야 함*/
-                    onClick={() => {
-                        if (compIdx < Object.entries(compObj).length - 1) {
-                            setCompIdx((prev) => prev + 1);
-                        }
-                    }}
+                    onClick={handleNextButton}
                 >
                     {compIdx === Object.entries(compObj).length - 1
                         ? "등록하기"
