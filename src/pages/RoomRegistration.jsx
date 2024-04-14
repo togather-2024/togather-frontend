@@ -1,162 +1,119 @@
-import React, { useReducer } from "react";
+import React, { useState } from "react";
+import { size } from "../styles/fonts";
+import { colors } from "../styles/colors";
 import styled from "styled-components";
-
-const Container = styled.div`
-    max-width: 50vw;
-    margin: 0 auto;
-`;
-const Title = styled.div`
-    margin-top: 2rem;
-    font-size: 2rem;
-    padding: 2rem 3rem;
-    text-align: center;
-`;
-const Box = styled.div`
-    margin-top: 1rem;
-    & > input {
-        margin-bottom: 0.5rem;
-    }
-`;
-const InputBox = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-`;
-const Button = styled.button`
-    margin-left: 1rem;
-    width: 6rem;
-    height: 2.5rem;
-    font-size: 0.8rem;
-    background-color: white;
-    border: 1px solid #bcef7b;
-    border-radius: 0.4rem;
-    color: rgba(0, 0, 0, 1);
-    cursor: pointer;
-`;
-
-const Input = styled.input`
-    width: 100%;
-    padding: 10px;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-`;
-
-const TextArea = styled.textarea`
-    width: 100%;
-    padding: 10px;
-    border-radius: 0.5rem;
-`;
-
-const Label = styled.div`
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-`;
-
-const Divider = styled.div`
-    margin-bottom: 20px;
-`;
-
-const PhotoInput = styled.div`
-    margin-bottom: 20px;
-`;
-
-const PhotoLabel = styled(Label)`
-    display: block;
-    margin-bottom: 5px;
-`;
-
-const PhotoUpload = styled.input`
-    display: block;
-    margin-bottom: 10px;
-`;
-
-const RegistButton = styled.button`
-    width: 10rem;
-    height: 4rem;
-    font-size: 1.5rem;
-    background-color: white;
-    border: 1px solid #bcef7b;
-    border-radius: 0.4rem;
-    color: rgba(0, 0, 0, 1);
-    cursor: pointer;
-`;
-const ButtonWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0;
-`;
+import RoomInfo from "../components/Registration/RoomInfo";
+import RoomAddress from "../components/Registration/RoomAddress";
+import RoomPictures from "../components/Registration/RoomPictures";
+import RoomHeadcount from "../components/Registration/RoomHeadcount";
+import RoomKeywordPrice from "../components/Registration/RoomKeywordPrice";
 
 const RoomRegistration = () => {
+    const [compIdx, setCompIdx] = useState(0);
+
+    const compObj = {
+        0: { comp: <RoomInfo />, title: "숙소 정보" },
+        1: { comp: <RoomAddress />, title: "숙소 주소" },
+        2: { comp: <RoomPictures />, title: "숙소 사진" },
+        3: { comp: <RoomHeadcount />, title: "숙소 이용" },
+        4: { comp: <RoomKeywordPrice />, title: "숙소 상세" },
+    };
+
     return (
         <Container>
-            <Title>숙소 등록</Title>
-            <Box>
-                <Label>숙소 이름</Label>
-                <InputBox>
-                    <Input
-                        type="text"
-                        placeholder="숙소 이름을 입력하세요."
-                        name="roomName"
-                    />
-                    <Button>중복 확인</Button>
-                </InputBox>
-            </Box>
+            <Title>{compObj[compIdx].title}</Title>
 
-            <Divider />
-            <Box>
-                <Label>주소</Label>
-                <InputBox>
-                    <Input type="text" name="address" />
-                    <Button>주소 입력</Button>
-                </InputBox>
+            {compObj[compIdx].comp}
 
-                <Input type="text" name="detailAddress" />
-                <Input type="text" name="detailAddress2" />
-            </Box>
-
-            <Divider />
-            <Label>사진</Label>
-            <PhotoInput>
-                <InputBox>
-                    <PhotoUpload type="file" />
-                    <PhotoUpload type="file" />
-                    <PhotoUpload type="file" />
-                </InputBox>
-            </PhotoInput>
-            <Divider />
-            <Box>
-                <Label>숙소 설명</Label>
-                <TextArea />
-            </Box>
-            <Divider />
-            <Box>
-                <Label>인원 수</Label>
-                <Input type="number" name="headCount" />
-            </Box>
-            <Divider />
-            <Box>
-                <Label>1박 당 가격</Label>
-                <Input type="number" name="price" />
-            </Box>
-            <Divider />
-            <Box>
-                <Label>이용 가능 시간</Label>
-                <Input type="text" name="minUse" />
-                <Input type="text" name="maxUse" />
-            </Box>
-            <Divider />
-            <Box>
-                <Label>키워드 등록</Label>
-                <InputBox>
-                    <Input type="text" name="keyword"></Input>
-                    <Button>키워드 등록</Button>
-                </InputBox>
-            </Box>
-            <ButtonWrapper>
-                <RegistButton>등록하기</RegistButton>
-            </ButtonWrapper>
+            <Footer>
+                {/* button의 타입을 제대로 설정해주지 않으면 submit 효과가 발생할 수 있음. */}
+                {compIdx > 0 && (
+                    <PrevButton
+                        type="button"
+                        onClick={() => setCompIdx((prev) => prev - 1)}
+                    >
+                        이전
+                    </PrevButton>
+                )}
+                <NextButton
+                    type={
+                        compIdx === Object.entries(compObj).length - 1
+                            ? "submit"
+                            : "button"
+                    }
+                    /* 이 부분에서 유효성 검사 및 input 값 입력해야 함*/
+                    onClick={() => {
+                        if (compIdx < Object.entries(compObj).length - 1) {
+                            setCompIdx((prev) => prev + 1);
+                        }
+                    }}
+                >
+                    {compIdx === Object.entries(compObj).length - 1
+                        ? "등록하기"
+                        : "다음"}
+                </NextButton>
+            </Footer>
         </Container>
     );
 };
 
 export default RoomRegistration;
+
+const Container = styled.form`
+    width: 65vw;
+    height: 60vh;
+    border: 1px solid black;
+    margin: 0 auto;
+    margin-top: 15vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const Title = styled.div`
+    width: 100%;
+    height: 20%;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: ${size.h1};
+`;
+
+const Footer = styled.footer`
+    width: 100%;
+    height: 10vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 0;
+`;
+
+const PrevButton = styled.button`
+    position: absolute;
+    font-size: 1rem;
+
+    left: 10px;
+    width: 6vw;
+    height: 7vh;
+    background-color: ${colors.hover01};
+    border: 1px solid #bcef7b;
+    border-radius: 0.4rem;
+    color: rgba(0, 0, 0, 1);
+    cursor: pointer;
+`;
+
+const NextButton = styled.button`
+    position: absolute;
+    font-size: 1rem;
+
+    right: 10px;
+    width: 6vw;
+    height: 7vh;
+    background-color: ${colors.hover01};
+    border: 1px solid #bcef7b;
+    border-radius: 0.4rem;
+    color: rgba(0, 0, 0, 1);
+    cursor: pointer;
+`;
