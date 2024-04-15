@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
 import { colors } from "../../../styles/colors";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import { useRecoilState } from "recoil";
+import { counterState } from "../../../recoil/atoms/counterState";
 
 const Counter = ({ data }) => {
   const guestCapacity = data?.guestCapacity;
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useRecoilState(counterState);
   const handleCountAdd = () => {
     if (count < guestCapacity) {
       setCount(count + 1);
