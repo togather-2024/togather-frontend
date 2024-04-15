@@ -14,12 +14,11 @@ const Container = styled.div`
 
 const MainCategory = () => {
     const [keywords, setKeywords] = useState([]);
-
     useEffect(() => {
         const fetchKeyword = async () => {
             try {
                 const response = await axios.get(
-                    "https://jsonplaceholder.typicode.com/users/"
+                    "api/partyroom/tags/getPopular"
                 );
                 setKeywords(response.data);
             } catch (e) {
@@ -27,7 +26,7 @@ const MainCategory = () => {
             }
         };
         fetchKeyword();
-    }, [keywords]);
+    }, []);
 
     return (
         <Container>

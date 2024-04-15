@@ -27,7 +27,7 @@ const MainContents = () => {
         };
         fetchPhotos();
     }, [page]);
-    console.log(page);
+
     const handleObserver = (entries) => {
         const target = entries[0];
         if (target.isIntersecting && !isLoading) {
