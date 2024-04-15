@@ -14,8 +14,10 @@ const TimeContainer = ({ data }) => {
       <ContainerTop>
         <Title>이용 시간</Title>
         <Text>
-          {startTime}:00 ~ {endTime}:00 (총{" "}
-          {selectedRange.end - selectedRange.start + 1}시간)
+          {selectedRange.start === null && selectedRange.end === null
+            ? "이용 시간을 선택해주세요."
+            : `${startTime}:00 ~ ${endTime}:00 (총
+          ${selectedRange.end - selectedRange.start + 1}시간)`}
         </Text>
       </ContainerTop>
       <TimeList data={data?.partyRoomDto} />

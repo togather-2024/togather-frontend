@@ -3,8 +3,18 @@ import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
 
 const TimeItem = ({ data, handleClick, selected, isAvailable }) => {
+  const handleClickIfAvailable = () => {
+    if (isAvailable) {
+      handleClick();
+    }
+  };
+
   return (
-    <Button onClick={handleClick} selected={selected} isAvailable={isAvailable}>
+    <Button
+      onClick={handleClickIfAvailable}
+      selected={selected}
+      isAvailable={isAvailable}
+    >
       {data}
     </Button>
   );
