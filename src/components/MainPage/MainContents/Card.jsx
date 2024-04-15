@@ -7,16 +7,16 @@ import { MdOutlineStarOutline, MdOutlineStarPurple500 } from "react-icons/md";
 import axios from "axios";
 
 const Container = styled.div`
-    width: 20vw;
-    height: 48vh;
-    border: 1px solid black;
-    border-radius: 25px;
-    cursor:pointer
-    display: flex;
-    flex-direction: column;
-    margin:1rem 0rem;
-    overflow: hidden;
-    cursor:pointer;
+  width: 20vw;
+  height: 48vh;
+  border: 1px solid black;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0rem;
+  overflow: hidden;
+  cursor: pointer;
 `;
 
 const CardImage = styled.div`
@@ -182,5 +182,6 @@ const Card = ({ photo, id, keyword, price }) => {
             </CardDescription>
         </Container>
     );
+
 };
 export default Card;

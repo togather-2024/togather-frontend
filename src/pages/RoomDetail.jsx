@@ -8,7 +8,7 @@ import TagItem from "../components/RoomDetail/TagItem";
 import Host from "../components/RoomDetail/Host";
 import ReviewContainer from "../components/RoomDetail/Review/ReviewContainer";
 import ImgContainer from "../components/RoomDetail/RoomImg/ImgContainer";
-import LocationContainer from "../components/RoomDetail/LocationContainer";
+import LocationContainer from "../components/RoomDetail/Map/LocationContainer";
 
 const RoomDetail = () => {
   const data = RoomDetailAPI();
