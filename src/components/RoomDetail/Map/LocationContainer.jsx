@@ -9,19 +9,12 @@ const LocationContainer = ({ data }) => {
   useKakaoLoader();
   const { kakao, loading } = window;
 
-  let partyRoomAddress;
-
-  if (
+  let partyRoomAddress =
     data?.partyRoomLocationDto?.roadAddress ||
-    data?.partyRoomLocationDto?.jibunAddress
-  ) {
-    partyRoomAddress =
-      data?.partyRoomLocationDto?.roadAddress ||
-      data?.partyRoomLocationDto?.jibunAddress;
-  } else {
-    partyRoomAddress =
-      data?.partyRoomLocationDto?.sido + data?.partyRoomLocationDto?.sigungu;
-  }
+    data?.partyRoomLocationDto?.jibunAddress ||
+    `${data?.partyRoomLocationDto?.sido} ${data?.partyRoomLocationDto?.sigungu}`;
+
+  console.log(partyRoomAddress);
 
   const getLocationByAddress = async (address) => {
     const geocoder = new kakao.maps.services.Geocoder();
@@ -33,35 +26,38 @@ const LocationContainer = ({ data }) => {
   };
 
   useEffect(() => {
-    const setMapCenterByAddress = async () => {
-      if (!loading && kakao) {
-        const result = await getLocationByAddress(
-          partyRoomAddress //네이버본사
-        );
-        setLocation({ lat: result.getLat(), lng: result.getLng() });
-      }
-    };
-
-    setMapCenterByAddress();
-  }, [loading, kakao]);
+    if (data) {
+      const setMapCenterByAddress = async () => {
+        if (!loading && kakao) {
+          const result = await getLocationByAddress(
+            partyRoomAddress //네이버본사
+          );
+          setLocation({ lat: result.getLat(), lng: result.getLng() });
+        }
+      };
+      setMapCenterByAddress();
+    }
+  }, [loading, kakao, data]);
 
   return (
     <Container>
       <Subheading>위치</Subheading>
-      <MapContainer>
-        <Map
-          id="map"
-          center={location}
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: "20px",
-          }}
-          level={4}
-        >
-          <MapMarker position={location}></MapMarker>
-        </Map>
-      </MapContainer>
+      {data && (
+        <MapContainer>
+          <Map
+            id="map"
+            center={location}
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "20px",
+            }}
+            level={4}
+          >
+            <MapMarker position={location}></MapMarker>
+          </Map>
+        </MapContainer>
+      )}
     </Container>
   );
 };
