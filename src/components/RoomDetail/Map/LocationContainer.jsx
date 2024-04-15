@@ -4,10 +4,24 @@ import { size, weight } from "../../../styles/fonts";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import useKakaoLoader from "./useKakaoLoader";
 
-const LocationContainer = () => {
+const LocationContainer = ({ data }) => {
   const [location, setLocation] = useState({ lat: 33.5563, lng: 126.79581 });
   useKakaoLoader();
   const { kakao, loading } = window;
+
+  let partyRoomAddress;
+
+  if (
+    data?.partyRoomLocationDto?.roadAddress ||
+    data?.partyRoomLocationDto?.jibunAddress
+  ) {
+    partyRoomAddress =
+      data?.partyRoomLocationDto?.roadAddress ||
+      data?.partyRoomLocationDto?.jibunAddress;
+  } else {
+    partyRoomAddress =
+      data?.partyRoomLocationDto?.sido + data?.partyRoomLocationDto?.sigungu;
+  }
 
   const getLocationByAddress = async (address) => {
     const geocoder = new kakao.maps.services.Geocoder();
@@ -22,7 +36,7 @@ const LocationContainer = () => {
     const setMapCenterByAddress = async () => {
       if (!loading && kakao) {
         const result = await getLocationByAddress(
-          "경기 성남시 분당구 정자일로 95 " //네이버본사
+          partyRoomAddress //네이버본사
         );
         setLocation({ lat: result.getLat(), lng: result.getLng() });
       }

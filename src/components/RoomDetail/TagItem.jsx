@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "../../styles/colors";
 
 const TagItem = ({ data }) => {
-  return <Tag>#{data?.tagContent}</Tag>;
+  return <Tag>{data?.tagContent}</Tag>;
 };
 
 export default TagItem;

@@ -3,17 +3,37 @@ import styled from "@emotion/styled";
 import HeartContainer from "../Likes/HeartContainer";
 import { colors } from "../../../styles/colors";
 
-const ImgContainer = () => {
+const ImgContainer = ({ data }) => {
+  const image = data?.partyRoomImageDtoList;
+  const mainImg = image?.find((img) => img?.partyRoomImageType === "MAIN");
+  const subImgList = image?.filter(
+    (el) => el?.partyRoomImageType === "SECONDARY"
+  );
+
+  while (subImgList?.length < 4) {
+    subImgList.push("0");
+  }
+  if (subImgList?.length > 4) {
+    subImgList.splice(4);
+  }
+
   return (
     <Container>
       <HeartContainer />
-      <FirstImg></FirstImg>
-      <SmallImgContainer>
-        <SmallImg />
-        <SmallImg />
-        <SmallImg />
-        <SmallImg />
-      </SmallImgContainer>
+      <FirstImgContainer>
+        <FirstImg src={mainImg?.imageFileName} alt="메인이미지" />
+      </FirstImgContainer>
+      <SubListContainer>
+        {subImgList?.map((el, index) =>
+          el === "0" ? (
+            <Blank key={index} />
+          ) : (
+            <SubImgContainer key={index}>
+              <SubImg src={el?.imageFileName} alt="서브이미지" />
+            </SubImgContainer>
+          )
+        )}
+      </SubListContainer>
     </Container>
   );
 };
@@ -28,18 +48,28 @@ const Container = styled.div`
   gap: 10px;
 `;
 
-const FirstImg = styled.div`
-  background-color: ${colors.gray30};
-  flex-grow: 1;
+const FirstImgContainer = styled.div`
+  flex: 1;
+`;
+const FirstImg = styled.img`
+  height: 100%;
+  width: 100%;
+  flex: 1;
   border-radius: 10px;
 `;
-const SmallImgContainer = styled.div`
-  flex-grow: 1;
+const SubListContainer = styled.div`
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 `;
-const SmallImg = styled.div`
+const SubImgContainer = styled.div``;
+const SubImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+`;
+const Blank = styled.div`
   background-color: ${colors.gray30};
   border-radius: 10px;
 `;

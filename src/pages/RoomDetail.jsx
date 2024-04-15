@@ -22,13 +22,13 @@ const RoomDetail = () => {
   ));
   return (
     <>
-      <ImgContainer />
+      <ImgContainer data={data} />
       <Contents>
         <LeftContents>
           <Intro>
             <RoomName>{roomName}</RoomName>
             <Summary>
-              {region} • 최대 인원 {guestCapacity} 명 • 후기 n 건
+              {region} • 최대 인원 {guestCapacity} 명
             </Summary>
             <TagList>{tagList}</TagList>
           </Intro>
@@ -36,7 +36,7 @@ const RoomDetail = () => {
             <Subheading>공간 설명</Subheading>
             <Description>{partyRoomDesc}</Description>
           </DescriptionContainer>
-          <LocationContainer />
+          <LocationContainer data={data} />
           <ReviewContainer />
         </LeftContents>
         <RightContents>
@@ -82,6 +82,7 @@ const Summary = styled.div`
 
 const TagList = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin: 16px 0 40px 0;
 `;
