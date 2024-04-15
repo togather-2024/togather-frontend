@@ -183,5 +183,66 @@ const Card = ({ photo, id, keyword, price }) => {
         </Container>
     );
 
+const Card = ({ photo, id, keyword, price }) => {
+  // 즐겨찾기 등록 여부에 따른 state값 지정후 true면
+  const [favorite, setFavorite] = useState(true);
+
+  const handleAddFavorite = () => {
+    try {
+      axios.post(`/partyroom/bookmark/${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleDeleteFavorite = () => {
+    try {
+      axios.delete(`/partyroom/bookmark/${id}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  return (
+    <Container>
+      <CardImage style={{ backgroundImage: `url(${photo})` }}>
+        {favorite ? (
+          <MdOutlineStarPurple500
+            className="star"
+            onClick={handleAddFavorite}
+          />
+        ) : (
+          <MdOutlineStarOutline
+            className="star_full"
+            color="yellow"
+            onClick={handleDeleteFavorite}
+          />
+        )}
+      </CardImage>
+      <CardDescription>
+        <Title>투게더 서울 스튜디오</Title>
+        <Location>
+          <IoLocationSharp />
+          역삼
+        </Location>
+        <Keywords>
+          <Keyword>#키워드</Keyword>
+          <Keyword>#키워드</Keyword>
+          <Keyword>#키워드</Keyword>
+        </Keywords>
+        <Footer>
+          <Price>₩ 250,000 / 시간</Price>
+          <Into>
+            <div>
+              <CiHeart></CiHeart>
+              <span>5</span>
+            </div>
+            <div>
+              <FaRegComment />
+              <span>6</span>
+            </div>
+          </Into>
+        </Footer>
+      </CardDescription>
+    </Container>
+  );
 };
 export default Card;
