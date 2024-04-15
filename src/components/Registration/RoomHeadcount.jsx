@@ -75,18 +75,25 @@ const RoomInfo = () => {
     return (
         <ContentsBox>
             <Content>
-                <InputTitle>숙소 운영 시간</InputTitle>
+                <InputTitle>숙소 운영 시간 및 날짜</InputTitle>
+                <SelectContainer>
+                    <SelectBox>
+                        <span>시작</span>
+                        <Select name="start_time">
+                            <option value="0">00:00</option>
+                        </Select>
+                    </SelectBox>
+                    <span>~</span>
+                    <SelectBox>
+                        <span>끝</span>
+                        <Select name="finish_time">
+                            <option value="0">00:00</option>
+                        </Select>
+                    </SelectBox>
+                </SelectContainer>
                 <ButtonBox>
-                    {timeArr.map((time, idx) => (
-                        <Button
-                            type="button"
-                            key={idx}
-                            clicked={time.clicked}
-                            onClick={() => handleOperationTime(idx)}
-                        >
-                            {`${String(time.time).padStart(2, "0")}:00`}
-                        </Button>
-                    ))}
+                    <Button></Button>
+                    <Button></Button>
                 </ButtonBox>
             </Content>
             <Content>
@@ -162,4 +169,27 @@ const Button = styled.button`
     &:hover {
         background-color: ${colors.point02};
     }
+`;
+
+const SelectContainer = styled.div`
+    display: flex;
+    width: 100%;
+    height: 8vh;
+    align-items: center;
+`;
+
+const SelectBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    margin-right: 10px;
+`;
+
+const Select = styled.select`
+    margin-left: 10px;
+    width: 7rem;
+    height: 2rem;
+    font-size: 1.2rem;
+    padding-left: 25px;
 `;

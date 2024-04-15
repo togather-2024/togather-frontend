@@ -34,6 +34,7 @@ const RoomRegistration = () => {
             JSON.stringify(registrationUserState)
         );
         formData.append("mainImage", registrationImage.mainImage);
+        console.log(formData.partyRoomRequestDto);
 
         if (
             Array.isArray(registrationImage.subImages) &&

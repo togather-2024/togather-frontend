@@ -26,7 +26,7 @@ const MainCategory = () => {
             }
         };
         fetchKeyword();
-    }, [keywords]);
+    }, []);
 
     return (
         <Container>
