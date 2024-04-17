@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const RoomDetailAPI = () => {
+import React from "react";
+
+const GetResInfo = (reservationId) => {
   const [data, setData] = useState(null);
-  const params = useParams();
-  //수정
+  const token = localStorage.getItem("refresh_token");
 
   useEffect(() => {
     const getDetail = async () => {
       try {
         const res = await axios.get(
-          `/api/partyroom/detail/${Number(params.roomId)}`
+          `/partyroom/reservation/my/${reservationId}`,
+          {
+            headers: { Authorization: token },
+          }
         );
         setData(res.data);
       } catch (e) {
@@ -20,9 +24,9 @@ const RoomDetailAPI = () => {
     };
 
     getDetail();
-  }, [params.roomId]);
+  }, [reservationId]);
 
   return data;
 };
 
-export default RoomDetailAPI;
+export default GetResInfo;

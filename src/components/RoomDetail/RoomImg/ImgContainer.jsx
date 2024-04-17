@@ -72,4 +72,6 @@ const SubImg = styled.img`
 const Blank = styled.div`
   background-color: ${colors.gray30};
   border-radius: 10px;
+  width: 100%;
+  height: 100%;
 `;

@@ -32,6 +32,15 @@ const TimeList = ({ data }) => {
     (_, index) => `${openingHour + index}:00`
   );
 
+  const opertionTimeArr = Array.from(
+    { length: closingHour - openingHour },
+    (_, index) => openingHour + index
+  );
+
+  const unAvailableTimes = opertionTimeArr.filter(
+    (el) => !availableTimes.includes(el)
+  );
+
   const availableTimes = useRecoilValue(availableTimeState);
 
   const list = times?.map((time, index) => {
