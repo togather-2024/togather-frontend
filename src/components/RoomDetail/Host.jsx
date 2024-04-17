@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { CgProfile } from "react-icons/cg";
 import { size, weight } from "../../styles/fonts";
 import { colors } from "../../styles/colors";
+import profile from "../../assets/profile.png";
 
 const Host = ({ data }) => {
   return (
@@ -12,7 +13,7 @@ const Host = ({ data }) => {
         {data?.profilePicFile ? (
           <ProfileImg src={data?.profilePicFile} />
         ) : (
-          <CgProfile size={30} />
+          <ProfileImg src={profile} size={30} />
         )}
         <HostName>{data?.memberName}</HostName>
         <Text>호스트에게 문의하기 💌</Text>
@@ -53,4 +54,5 @@ const ProfileImg = styled.img`
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  margin-right: 10px;
 `;
