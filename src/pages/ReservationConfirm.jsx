@@ -4,7 +4,7 @@ import { size, weight } from "../styles/fonts";
 import ReservateInfo from "../components/ReservationConfirm/ReservateInfo";
 import PriceInfo from "../components/ReservationConfirm/PriceInfo";
 import PaymentContainer from "../components/ReservationConfirm/PaymentContainer";
-import GetResInfo from "../components/ReservationConfirm/GetResInfoAPI";
+import GetResInfo from "../components/ReservationConfirm/GetResInfo";
 
 const ReservationConfirm = () => {
   const reservationId = Number(useParams().Id);

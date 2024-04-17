@@ -31,7 +31,7 @@ const useFetchAvailTimes = (roomId) => {
 
     fetchData(); // selectedDate가 변경될 때마다 fetchData 함수 호출
   }, [date, formattedDate2]);
-  return availableTime;
+  return;
 };
 
 export default useFetchAvailTimes;

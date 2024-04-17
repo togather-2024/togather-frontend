@@ -3,56 +3,53 @@ import styled from "@emotion/styled";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
 
-const PriceInfo = () => {
-  const PriceInfo = ({ data }) => {
-    const partyroomName =
-      data?.partyRoomReservationDto?.partyRoomDto?.partyRoomName;
-    const region = data?.partyRoomLocationDto?.sigungu;
-    const guestCapacity =
-      data?.partyRoomReservationDto?.partyRoomDto?.guestCapacity;
-    function priceToString(price) {
-      return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    const pricePerHour = data?.partyRoomReservationDto?.partyRoomDto?.price;
-    const totailPrice = data?.partyRoomReservationDto?.totalPrice;
+const PriceInfo = ({ data }) => {
+  const partyroomName =
+    data?.partyRoomReservationDto?.partyRoomDto?.partyRoomName;
+  const region = data?.partyRoomLocationDto?.sigungu;
+  const guestCapacity =
+    data?.partyRoomReservationDto?.partyRoomDto?.guestCapacity;
+  function priceToString(price) {
+    return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  const pricePerHour = data?.partyRoomReservationDto?.partyRoomDto?.price;
+  const totailPrice = data?.partyRoomReservationDto?.totalPrice;
 
-    function extractTime(dateTimeString) {
-      const time = dateTimeString.split("T")[1];
-      const result = time.slice(0, 5);
-      return result;
-    }
+  function extractTime(dateTimeString) {
+    const time = dateTimeString.split("T")[1];
+    const result = time.slice(0, 5);
+    return result;
+  }
 
-    const startTime =
-      data && extractTime(data?.partyRoomReservationDto?.startTime);
-    const endTime = data && extractTime(data?.partyRoomReservationDto?.endTime);
-    const reservedHours =
-      Number(data && endTime.slice(0, 2)) -
-      Number(data && startTime.slice(0, 2));
-    return (
-      <Container>
-        <Img></Img>
-        <RoomInfo>
-          <RoomName>{partyroomName}</RoomName>
-          <Summary>
-            {region} • 최대 인원 {guestCapacity} 명 • 후기 n 건
-          </Summary>
-          <TagList>
-            <Tag>#키워드</Tag>
-            <Tag>#키워드</Tag>
-            <Tag>#키워드</Tag>
-          </TagList>
-        </RoomInfo>
-        <Total>
-          <BoldText>총 결제 금액</BoldText>
-          <Text>
-            ₩ {priceToString(pricePerHour)} * {reservedHours}시간
-          </Text>
-        </Total>
-        <Line />
-        <TotalPrice>₩ {priceToString(totailPrice)}</TotalPrice>
-      </Container>
-    );
-  };
+  const startTime =
+    data && extractTime(data?.partyRoomReservationDto?.startTime);
+  const endTime = data && extractTime(data?.partyRoomReservationDto?.endTime);
+  const reservedHours =
+    Number(data && endTime.slice(0, 2)) - Number(data && startTime.slice(0, 2));
+  return (
+    <Container>
+      <Img></Img>
+      <RoomInfo>
+        <RoomName>{partyroomName}</RoomName>
+        <Summary>
+          {region} • 최대 인원 {guestCapacity} 명 • 후기 n 건
+        </Summary>
+        <TagList>
+          <Tag>#키워드</Tag>
+          <Tag>#키워드</Tag>
+          <Tag>#키워드</Tag>
+        </TagList>
+      </RoomInfo>
+      <Total>
+        <BoldText>총 결제 금액</BoldText>
+        <Text>
+          ₩ {priceToString(pricePerHour)} * {reservedHours}시간
+        </Text>
+      </Total>
+      <Line />
+      <TotalPrice>₩ {priceToString(totailPrice)}</TotalPrice>
+    </Container>
+  );
 };
 export default PriceInfo;
 
