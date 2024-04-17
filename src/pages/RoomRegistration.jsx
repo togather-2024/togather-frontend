@@ -27,26 +27,31 @@ const RoomRegistration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const token = localStorage.getItem("refresh_token");
         const formData = new FormData();
+        console.log(registrationUserState);
 
         formData.append(
             "partyRoomRequestDto",
             JSON.stringify(registrationUserState)
         );
         formData.append("mainImage", registrationImage.mainImage);
-        console.log(formData.partyRoomRequestDto);
-
         if (
             Array.isArray(registrationImage.subImages) &&
             registrationImage.subImages.length > 0
         ) {
-            for (let sub of registrationImage.subImages) {
-                formData.append("subImages", sub);
+            for (let subImage of registrationImage.subImages) {
+                formData.append("subImage", subImage);
             }
         }
+        for (let [key, value] of formData) {
+            console.log(`${key}는 ${value}`);
+        }
+
         try {
             const res = axios.post("/api/partyroom/register", formData, {
                 headers: {
+                    Authorization: `${token}`,
                     "Content-Type": "multipart/form-data",
                 },
             });

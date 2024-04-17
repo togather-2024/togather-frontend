@@ -1,5 +1,4 @@
 // 숙소 사진 입력 및 미리보기
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import cameraAddImg from "../../assets/camera-add-svgrepo-com.svg";
 import { useRecoilState } from "recoil";
@@ -20,7 +19,6 @@ const RoomInfo = () => {
         const fileRead = new FileReader();
         fileRead.readAsDataURL(file[0]);
         fileRead.onload = () => {
-            console.log(fileRead.result);
             setRegistrationImageState((prev) => {
                 if (!prev.images || prev.images.length === 0) {
                     return {
