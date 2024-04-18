@@ -7,7 +7,6 @@ import { registrationImage } from "../../recoil/atoms/registrationUserState";
 const RoomInfo = () => {
     const [registrationImageState, setRegistrationImageState] =
         useRecoilState(registrationImage);
-    console.log(registrationImageState);
 
     const handleFileUpload = (e) => {
         if (registrationImageState.images.length >= 9) {

@@ -10,7 +10,6 @@ const RoomInfo = () => {
     const [roomOperationState, setRoomOperationState] = useRecoilState(
         registrationUserState
     );
-    console.log(roomOperationState);
 
     const days = [
         ["월요일", "MONDAY"],
@@ -33,7 +32,6 @@ const RoomInfo = () => {
     const [timeArr, setTimeArr] = useState(
         Array.from({ length: 24 }, (_, idx) => idx)
     );
-    console.log(timeArr);
 
     const handleWeekend = (idx) => {
         setWeekend((prev) => {

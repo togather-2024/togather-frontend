@@ -15,9 +15,7 @@ const RoomInfo = () => {
     const [roomCharState, setRoomCharState] = useRecoilState(
         registrationUserState
     );
-    console.log(roomCharState);
-    console.log(registrationImage.mainImage);
-    console.log(registrationImage.subImages);
+
     const [addPrice, setAddPrice] = useState(null);
     const handleKeywordChange = (e) => {
         setKeyword(e.target.value);

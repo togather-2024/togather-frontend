@@ -12,7 +12,6 @@ const RoomAddress = () => {
     const [roomAddressState, setRoomAddressState] = useRecoilState(
         registrationUserState
     );
-    console.log(roomAddressState);
 
     const [zipCode, setZipCode] = useState("");
 

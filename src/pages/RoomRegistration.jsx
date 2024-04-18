@@ -12,7 +12,7 @@ import {
     registrationImage,
 } from "../recoil/atoms/registrationUserState";
 import { useRecoilValue } from "recoil";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import RoomKeywordPrice from "../components/Registration/RoomKeywordPrice";
 
@@ -33,9 +33,6 @@ const RoomRegistration = () => {
         e.preventDefault();
         const token = localStorage.getItem("refresh_token");
         const formData = new FormData();
-        console.log(token);
-        console.log(registrationInput);
-        console.log(registrationImageInput);
 
         formData.append(
             "partyRoomRequestDto",
@@ -63,6 +60,7 @@ const RoomRegistration = () => {
                 navigate("/");
             }
         } catch (e) {
+            alert("호스트 권한이 없는 계정이거나 잘못된 정보 입력입니다.");
             console.log(e);
         }
     };
