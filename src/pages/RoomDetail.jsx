@@ -9,6 +9,7 @@ import Host from "../components/RoomDetail/Host";
 import ReviewContainer from "../components/RoomDetail/Review/ReviewContainer";
 import ImgContainer from "../components/RoomDetail/RoomImg/ImgContainer";
 import LocationContainer from "../components/RoomDetail/Map/LocationContainer";
+import HeartContainer from "../components/RoomDetail/Likes/HeartContainer";
 
 const RoomDetail = () => {
   const roomId = Number(useParams().roomId);
@@ -27,7 +28,10 @@ const RoomDetail = () => {
       <Contents>
         <LeftContents>
           <Intro>
-            <RoomName>{roomName}</RoomName>
+            <Title>
+              <RoomName>{roomName}</RoomName>
+              <HeartContainer data={data?.bookmared} />
+            </Title>
             <Summary>
               {region} • 최대 인원 {guestCapacity} 명
             </Summary>
@@ -54,14 +58,12 @@ const RoomDetail = () => {
 export default RoomDetail;
 
 const Contents = styled.div`
-  /* border: 1px solid blue; */
   display: flex;
   width: 100%;
   justify-content: space-between;
   height: 1000px;
 `;
 const LeftContents = styled.div`
-  /* border: 1px solid red; */
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -71,14 +73,20 @@ const LeftContents = styled.div`
 
 const Intro = styled.div``;
 
+const Title = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+`;
+
 const RoomName = styled.div`
   font-size: ${size.h2};
   font-weight: ${weight.bold};
-  margin-bottom: 12px;
 `;
 
 const Summary = styled.div`
   color: ${colors.gray50};
+  margin-top: 12px;
 `;
 
 const TagList = styled.div`

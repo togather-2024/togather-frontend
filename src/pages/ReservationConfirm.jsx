@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
 import ReservateInfo from "../components/ReservationConfirm/ReservateInfo";
@@ -9,6 +10,7 @@ import GetResInfo from "../components/ReservationConfirm/GetResInfo";
 const ReservationConfirm = () => {
   const reservationId = Number(useParams().Id);
   const data = GetResInfo(reservationId);
+
   return (
     <>
       <Title>확인 및 결제</Title>

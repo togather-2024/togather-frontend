@@ -26,19 +26,17 @@ const PriceInfo = ({ data }) => {
   const endTime = data && extractTime(data?.partyRoomReservationDto?.endTime);
   const reservedHours =
     Number(data && endTime.slice(0, 2)) - Number(data && startTime.slice(0, 2));
+
   return (
     <Container>
-      <Img></Img>
+      <ImgContainer>
+        <Img src={data?.partyRoomImageDto?.imageFileName} />
+      </ImgContainer>
       <RoomInfo>
         <RoomName>{partyroomName}</RoomName>
         <Summary>
-          {region} • 최대 인원 {guestCapacity} 명 • 후기 n 건
+          {region} • 최대 인원 {guestCapacity} 명
         </Summary>
-        <TagList>
-          <Tag>#키워드</Tag>
-          <Tag>#키워드</Tag>
-          <Tag>#키워드</Tag>
-        </TagList>
       </RoomInfo>
       <Total>
         <BoldText>총 결제 금액</BoldText>
@@ -58,12 +56,14 @@ const Container = styled.div`
   padding: 30px;
   border-radius: 30px;
 `;
-
-const Img = styled.div`
+const ImgContainer = styled.div`
   width: 200px;
   height: 200px;
+`;
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
   border-radius: 20px;
-  background-color: ${colors.gray50};
 `;
 
 const RoomInfo = styled.div`
@@ -80,17 +80,6 @@ const RoomName = styled.div`
 
 const Summary = styled.div`
   color: ${colors.gray50};
-`;
-
-const Tag = styled.div`
-  background-color: ${colors.point04};
-  padding: 6px 12px;
-  border-radius: 15px;
-`;
-
-const TagList = styled.div`
-  display: flex;
-  gap: 12px;
 `;
 
 const Total = styled.div`

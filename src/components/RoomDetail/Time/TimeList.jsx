@@ -52,10 +52,11 @@ const TimeList = ({ data }) => {
 
     //선택된 범위가 예약된 시간과 겹치는지 확인
     const overlap = unavialableTimeToIndex.some(
-      (time) => time > selectedRange.start && time < index
+      (time) =>
+        selectedRange.start !== null &&
+        time > selectedRange.start &&
+        time < index
     );
-    console.log(unavailableTimeArr, index, overlap);
-    console.log(overlap);
 
     if (overlap) {
       setSelectedRange({ start: selectedRange.start, end: selectedRange.end });

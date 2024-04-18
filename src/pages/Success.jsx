@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
 import { colors } from "../styles/colors";
-
+import { IoMdHome } from "react-icons/io";
 const Success = () => {
   const [data, setData] = useState(null);
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const orderId = searchParams.get("orderId");
@@ -28,6 +27,7 @@ const Success = () => {
         setData(res.data);
       } catch (e) {
         console.log(e);
+      } finally {
       }
     };
     confirm();
@@ -53,7 +53,15 @@ const Success = () => {
           </Column>
         </Table>
       </InfoContainer>
-      <GoToReservationBtn>예약 내역 바로 가기 </GoToReservationBtn>
+      <ButtonWrapper>
+        <Link to={`/`}>
+          <GoToHome>
+            <IoMdHome />
+            <p>홈으로</p>
+          </GoToHome>
+        </Link>
+        <GoToReservaionDetail>예약 내역 바로 가기 </GoToReservaionDetail>
+      </ButtonWrapper>
     </Wrapper>
   );
 };
@@ -74,7 +82,7 @@ const Heading = styled.h1`
   border-bottom: 1px solid ${colors.gray10};
 `;
 
-const GoToReservationBtn = styled.button`
+const GoToReservaionDetail = styled.button`
   all: unset;
   background-color: ${colors.point01};
   padding: 10px 30px;
@@ -85,8 +93,19 @@ const GoToReservationBtn = styled.button`
     background-color: ${colors.hover01};
   }
   width: fit-content;
+  display: flex;
+  gap: 5px;
 `;
 
+const GoToHome = styled(GoToReservaionDetail)`
+  background-color: ${colors.point03};
+  color: ${colors.dark};
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 15px;
+`;
 const InfoContainer = styled.div``;
 
 const SubHeading = styled.h2`

@@ -19,7 +19,6 @@ const ImgContainer = ({ data }) => {
 
   return (
     <Container>
-      <HeartContainer />
       <FirstImgContainer>
         <FirstImg src={mainImg?.imageFileName} alt="메인이미지" />
       </FirstImgContainer>
