@@ -11,12 +11,16 @@ import {
     registrationUserState,
     registrationImage,
 } from "../recoil/atoms/registrationUserState";
+import { useRecoilValue } from "recoil";
+import { Link, useNavigate } from "react-router-dom";
 
 import RoomKeywordPrice from "../components/Registration/RoomKeywordPrice";
 
 const RoomRegistration = () => {
     const [compIdx, setCompIdx] = useState(0);
-
+    const navigate = useNavigate();
+    const registrationInput = useRecoilValue(registrationUserState);
+    const registrationImageInput = useRecoilValue(registrationImage);
     const compObj = {
         0: { comp: <RoomInfo />, title: "숙소 정보" },
         1: { comp: <RoomAddress />, title: "숙소 주소" },
@@ -25,36 +29,39 @@ const RoomRegistration = () => {
         4: { comp: <RoomKeywordPrice />, title: "숙소 상세" },
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("refresh_token");
         const formData = new FormData();
-        console.log(registrationUserState);
+        console.log(token);
+        console.log(registrationInput);
+        console.log(registrationImageInput);
 
         formData.append(
             "partyRoomRequestDto",
-            JSON.stringify(registrationUserState)
+            JSON.stringify(registrationInput)
         );
-        formData.append("mainImage", registrationImage.mainImage);
+        formData.append("mainImage", registrationImageInput.mainImage);
         if (
-            Array.isArray(registrationImage.subImages) &&
-            registrationImage.subImages.length > 0
+            Array.isArray(registrationImageInput.subImages) &&
+            registrationImageInput.subImages.length > 0
         ) {
-            for (let subImage of registrationImage.subImages) {
+            for (let subImage of registrationImageInput.subImages) {
                 formData.append("subImage", subImage);
             }
         }
-        for (let [key, value] of formData) {
-            console.log(`${key}는 ${value}`);
-        }
 
         try {
-            const res = axios.post("/api/partyroom/register", formData, {
+            const res = await axios.post("/api/partyroom/register", formData, {
                 headers: {
-                    Authorization: `${token}`,
+                    Authorization: token,
                     "Content-Type": "multipart/form-data",
                 },
             });
+            if (res.status === 200) {
+                alert("숙소 등록이 완료되었습니다.");
+                navigate("/");
+            }
         } catch (e) {
             console.log(e);
         }

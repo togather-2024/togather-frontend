@@ -75,7 +75,7 @@ const RoomInfo = () => {
             .fill(0)
             .map((_, idx) => idx);
 
-        setTimeArr((prev) => {
+        setTimeArr(() => {
             const updated = times.slice(idx);
             return updated;
         });

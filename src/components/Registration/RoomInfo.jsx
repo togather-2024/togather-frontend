@@ -9,7 +9,6 @@ const RoomInfo = () => {
     const [partyRoomInfoState, setPartyRoomInfoState] = useRecoilState(
         registrationUserState
     );
-    console.log(partyRoomInfoState);
     const handlePartyRoomNameChange = (e) => {
         setPartyRoomInfoState((prev) => ({
             ...prev,
