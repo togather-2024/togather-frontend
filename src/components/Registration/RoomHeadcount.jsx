@@ -29,12 +29,18 @@ const RoomInfo = () => {
             clicked: false,
         }))
     );
-
     const [timeArr, setTimeArr] = useState(
-        Array(24)
-            .fill(0)
-            .map((_, idx) => idx)
+        Array.from({ length: 24 }, (_, idx) => ({
+            time: idx,
+            clicked: false,
+        }))
     );
+    console.log(timeArr);
+    const [operationTime, setOperationTime] = useState({
+        start: undefined,
+        finish: undefined,
+    });
+
     const handleWeekend = (idx) => {
         setWeekend((prev) => {
             return prev.map((day, index) => {
