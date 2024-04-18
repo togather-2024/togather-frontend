@@ -11,21 +11,7 @@ const TimeList = ({ data }) => {
   const openingHour = data?.openingHour;
   const closingHour = data?.closingHour;
 
-  const handleClick = (index) => {
-    if (selectedRange.start === null) {
-      setSelectedRange({ start: index, end: index });
-    } else if (index > selectedRange.end) {
-      //클릭된 요소가 끝나는 시간 이후라면 해당 요소를 끝나는 시간으로 설정
-      const newSelectedRange = { start: selectedRange.start, end: index };
-      setSelectedRange(newSelectedRange);
-    } else if (index === selectedRange.end && index === selectedRange.start) {
-      setSelectedRange({ start: null, end: null });
-    } else if (index === selectedRange.end) {
-      setSelectedRange({ start: selectedRange.start, end: index - 1 });
-    } else {
-      setSelectedRange({ start: index, end: index });
-    }
-  };
+  const availableTimes = useRecoilValue(availableTimeState);
 
   let times = Array.from(
     { length: closingHour - openingHour },
@@ -37,7 +23,45 @@ const TimeList = ({ data }) => {
     (_, index) => openingHour + index
   );
 
-  const availableTimes = useRecoilValue(availableTimeState);
+  const unavailableTimeArr = opertionTimeArr.filter(
+    (time) => !availableTimes.includes(time)
+  );
+
+  const unavialableTimeToIndex = unavailableTimeArr.map(
+    (el) => el - openingHour
+  );
+
+  const handleClick = (index) => {
+    //선택된 범위가 없는 경우
+    if (selectedRange.start === null) {
+      setSelectedRange({ start: index, end: index });
+      //클릭 요소가 끝나는 시간 이후인 경우
+    } else if (index > selectedRange.end) {
+      const newSelectedRange = { start: selectedRange.start, end: index };
+      setSelectedRange(newSelectedRange);
+      //시작시간과 끝시간이 같을 때, 선택된 시간대를 클릭하면 선택 취소
+    } else if (index === selectedRange.end && index === selectedRange.start) {
+      setSelectedRange({ start: null, end: null });
+      //선택된 범위의 끝 시간을 클릭했을 때는 이전 요소로 끝 시간 재설정
+    } else if (index === selectedRange.end) {
+      setSelectedRange({ start: selectedRange.start, end: index - 1 });
+      //새로운 시작 시간 설정
+    } else {
+      setSelectedRange({ start: index, end: index });
+    }
+
+    //선택된 범위가 예약된 시간과 겹치는지 확인
+    const overlap = unavialableTimeToIndex.some(
+      (time) => time > selectedRange.start && time < index
+    );
+    console.log(unavailableTimeArr, index, overlap);
+    console.log(overlap);
+
+    if (overlap) {
+      setSelectedRange({ start: selectedRange.start, end: selectedRange.end });
+      alert("이미 예약된 시간 범위는 선택하실 수 없습니다.");
+    }
+  };
 
   const list = times?.map((time, index) => {
     const isSelected =
