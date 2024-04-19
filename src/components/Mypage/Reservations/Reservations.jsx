@@ -4,10 +4,12 @@ import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
 import ReservationItem from "./ReservationItem";
 import GetReservationList from "./GetReservationList";
+import LoadingContainer from "../../Common/LoadingContainer";
 
 const Reservations = () => {
-  const data = GetReservationList();
   const [active, setActive] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const data = GetReservationList({ setLoading });
   const filteredData = data?.filter(
     (data) => data?.partyRoomReservationDto?.paymentStatus !== "PENDING"
   );
@@ -40,7 +42,11 @@ const Reservations = () => {
           취소된 예약
         </Menu>
       </Nav>
-      <ListContainer>{reservationList}</ListContainer>
+      {!loading ? (
+        <ListContainer>{reservationList}</ListContainer>
+      ) : (
+        <LoadingContainer />
+      )}
     </Wrapper>
   );
 };

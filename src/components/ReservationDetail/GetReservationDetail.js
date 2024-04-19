@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-const GetReservationDetail = ({ reservationId }) => {
+const GetReservationDetail = ({ reservationId, setLoading }) => {
   const [data, setData] = useState(null);
   const token = localStorage.getItem("refresh_token");
 
@@ -16,9 +16,10 @@ const GetReservationDetail = ({ reservationId }) => {
           }
         );
         setData(res.data);
-        console.log(res.data);
       } catch (e) {
         console.log(e);
+      } finally {
+        setLoading(false);
       }
     };
     getData();

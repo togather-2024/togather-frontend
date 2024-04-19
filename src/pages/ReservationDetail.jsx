@@ -8,11 +8,13 @@ import ReservatedRoomInfo from "../components/ReservationDetail/ReservatedRoomIn
 import ReservationInfo from "../components/ReservationDetail/ReservationInfo";
 import CancelContainer from "../components/ReservationDetail/CancelContainer";
 import { useParams } from "react-router-dom";
+import LoadingContainer from "../components/Common/LoadingContainer";
 
 const ReservationDetail = () => {
-  const { reservationId } = useParams();
-  const data = GetReservationDetail({ reservationId });
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const { reservationId } = useParams();
+  const data = GetReservationDetail({ reservationId, setLoading });
 
   useEffect(() => {
     //CancelModal이 열렸을 때 스크롤 방지
@@ -37,16 +39,25 @@ const ReservationDetail = () => {
       {isOpen && <CancelModal setIsOpen={setIsOpen} />}
       <Container>
         <Heading>예약 상세 내역</Heading>
-        <ReservatedRoomInfo data={data} />
-        <ReservationInfo
-          data={data}
-          reservationId={reservationId}
-          paymentStatus={paymentStatus}
-        />
-        {paymentStatus === "결제 완료" ? (
-          <CancelContainer handleClick={handleClick} setIsOpen={setIsOpen} />
+        {loading ? (
+          <LoadingContainer />
         ) : (
-          ""
+          <>
+            <ReservatedRoomInfo data={data} />
+            <ReservationInfo
+              data={data}
+              reservationId={reservationId}
+              paymentStatus={paymentStatus}
+            />
+            {paymentStatus === "결제 완료" ? (
+              <CancelContainer
+                handleClick={handleClick}
+                setIsOpen={setIsOpen}
+              />
+            ) : (
+              ""
+            )}
+          </>
         )}
       </Container>
     </>
