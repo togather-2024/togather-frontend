@@ -49,11 +49,11 @@ const PaymentContainer = ({ data }) => {
     paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
 
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
-  }, [paymentWidget, price, setPaymentWidget]);
+  }, [paymentWidget, price]);
 
   const requestToServer = async () => {
     const selectedPaymentMethod =
-      paymentMethodsWidgetRef?.current?.getSelectedPaymentMethod().method;
+      paymentMethodsWidgetRef.current.getSelectedPaymentMethod().method;
     const requestBody = {
       amount: price,
       orderName: partyroomName,

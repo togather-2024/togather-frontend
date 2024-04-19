@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
 import ReservateInfo from "../components/ReservationConfirm/ReservateInfo";
@@ -30,11 +29,9 @@ const ReservationConfirm = () => {
 export default ReservationConfirm;
 
 const Container = styled.div`
-  /* border: 1px solid red; */
   display: flex;
 `;
 const Left = styled.div`
-  /* border: 1px solid blue; */
   flex: 2;
 `;
 
@@ -45,6 +42,5 @@ const Title = styled.div`
 `;
 
 const Right = styled.div`
-  /* border: 1px solid green; */
   flex: 1;
 `;
