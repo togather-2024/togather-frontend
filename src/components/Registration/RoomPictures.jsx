@@ -7,33 +7,54 @@ import { registrationImage } from "../../recoil/atoms/registrationUserState";
 const RoomInfo = () => {
     const [registrationImageState, setRegistrationImageState] =
         useRecoilState(registrationImage);
-
     const handleFileUpload = (e) => {
         if (registrationImageState.images.length >= 9) {
             alert("추가할 수 있는 사진의 갯수가 초과되었습니다.");
             return;
         }
-        const file = e.target.files;
-        // 비동기로 동작
+        const file = e.target.files[0];
+        console.log(file);
+
         const fileRead = new FileReader();
-        fileRead.readAsDataURL(file[0]);
+        fileRead.readAsDataURL(file);
         fileRead.onload = () => {
+            const base64String = fileRead.result;
+            // Base64 문자열을 Blob 객체로 변환
+            const blob = base64StringToBlob(base64String);
+
             setRegistrationImageState((prev) => {
                 if (!prev.images || prev.images.length === 0) {
                     return {
                         ...prev,
-                        mainImage: fileRead.result,
-                        images: [fileRead.result],
+                        mainImage: blob,
+                        images: [base64String],
                     };
                 } else {
                     return {
                         ...prev,
-                        subImages: [...prev.subImages, fileRead.result],
-                        images: [...prev.images, fileRead.result],
+                        subImages: [...prev.subImages, blob],
+                        images: [...prev.images, base64String],
                     };
                 }
             });
         };
+    };
+
+    // Base64 문자열을 Blob 객체로 변환하는 함수
+    const base64StringToBlob = (base64String) => {
+        const byteString = atob(base64String.split(",")[1]);
+        const mimeString = base64String
+            .split(",")[0]
+            .split(":")[1]
+            .split(";")[0];
+
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([ab], { type: mimeString });
     };
 
     const handleFileDelete = (idx) => {

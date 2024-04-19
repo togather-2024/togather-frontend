@@ -44,13 +44,10 @@ const RoomRegistration = () => {
             registrationImageInput.subImages.length > 0
         ) {
             for (let subImage of registrationImageInput.subImages) {
-                formData.append("subImage", subImage);
+                formData.append("subImages", subImage);
             }
         }
 
-        for (let [key, value] of formData) {
-            console.log(`${key}는 ${value}`);
-        }
         try {
             const res = await axios.post("/api/partyroom/register", formData, {
                 headers: {
@@ -60,8 +57,7 @@ const RoomRegistration = () => {
             });
             if (res.status === 200) {
                 alert("숙소 등록이 완료되었습니다.");
-                console.log(res);
-                // navigate("/");
+                navigate("/");
             }
         } catch (e) {
             alert("호스트 권한이 없는 계정이거나 잘못된 정보 입력입니다.");
