@@ -24,7 +24,10 @@ const Routing = () => {
           <Route path="/my/:menu" element={<Mypage />}></Route>
           <Route path="/fail" element={<Fail />}></Route>
           <Route path="/success" element={<Success />}></Route>
-          <Route path="/reservation/pk" element={<ReservationDetail />}></Route>
+          <Route
+            path="/reservation/:reservationId"
+            element={<ReservationDetail />}
+          ></Route>
           <Route path="/registration" element={<Registration />}></Route>
         </Route>
       </Routes>

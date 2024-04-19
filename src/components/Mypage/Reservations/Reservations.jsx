@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
 import ReservationItem from "./ReservationItem";
+import GetReservationList from "./GetReservationList";
 
 const Reservations = () => {
+  const data = GetReservationList();
   const [active, setActive] = useState("all");
-  const reservationData = Array(5)
-    .fill(0)
-    .map((_, idx) => idx + 1);
+  const filteredData = data?.filter(
+    (data) => data?.partyRoomReservationDto?.paymentStatus !== "PENDING"
+  );
+  console.log(filteredData);
 
-  const reservationList = reservationData?.map((list, idx) => (
-    <ReservationItem key={idx} />
+  const reservationList = filteredData?.map((data, index) => (
+    <Link
+      to={`/reservation/${data?.partyRoomReservationDto?.reservationId}`}
+      key={index}
+    >
+      <ReservationItem data={data} />
+    </Link>
   ));
   return (
     <Wrapper>

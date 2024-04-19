@@ -2,17 +2,34 @@ import React from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../styles/colors";
 import { keyframes } from "@emotion/react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CancelModal = ({ setIsOpen }) => {
+  const navigate = useNavigate();
+  const { reservationId } = useParams();
+  const token = localStorage.getItem("refresh_token");
   function handleClose() {
     setIsOpen(false);
   }
+  const handleCancel = async () => {
+    try {
+      await axios.delete(`/partyroom/reservation/${Number(reservationId)}`, {
+        headers: { Authoration: token },
+      });
+      setIsOpen(false);
+      alert("예약이 취소되었습니다.");
+      navigate(`/my/reservations`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <ModalBackdrop>
       <Container>
         <ConfirmText>예약을 취소하시겠습니까?</ConfirmText>
         <BtnWrapper>
-          <YesBtn>확인</YesBtn>
+          <YesBtn onClick={handleCancel}>확인</YesBtn>
           <NoBtn onClick={handleClose}>취소</NoBtn>
         </BtnWrapper>
       </Container>
