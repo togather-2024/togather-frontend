@@ -40,11 +40,17 @@ const ReservationItem = ({ data }) => {
   const reservedHours =
     Number(data && endTime.slice(0, 2)) - Number(data && startTime.slice(0, 2));
 
+  const bookState =
+    data?.partyRoomReservationDto?.paymentStatus === "COMPLETE"
+      ? "결제완료"
+      : "취소완료";
+  const isCanceled = bookState === "취소완료";
+
   return (
     <Container>
       <Thumbnail src={thumbnail} alt="partyroomimg"></Thumbnail>
       <InfoContainer>
-        <BookState>결제완료</BookState>
+        <BookState isCanceled={isCanceled}>{bookState}</BookState>
         <BookInfo>
           <CaptionWrapper>
             <BoldCaption> 예약번호</BoldCaption>
@@ -85,7 +91,7 @@ const Thumbnail = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 15px;
-`; //썸네일 이미지
+`;
 
 const InfoContainer = styled.div`
   display: flex;
@@ -94,7 +100,8 @@ const InfoContainer = styled.div`
 `;
 
 const BookState = styled.div`
-  background-color: ${colors.black};
+  background-color: ${(props) =>
+    props.isCanceled ? colors.gray10 : colors.black};
   color: ${colors.white};
   padding: 6px 10px;
   border-radius: 20px;

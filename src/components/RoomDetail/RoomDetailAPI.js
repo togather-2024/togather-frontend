@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const RoomDetailAPI = () => {
+const RoomDetailAPI = ({ setLoading }) => {
   const [data, setData] = useState(null);
   const params = useParams();
   //수정
@@ -17,6 +17,8 @@ const RoomDetailAPI = () => {
         console.log(res.data);
       } catch (e) {
         console.log(e);
+      } finally {
+        setLoading(false);
       }
     };
 

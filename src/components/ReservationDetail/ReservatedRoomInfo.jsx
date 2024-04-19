@@ -3,8 +3,11 @@ import { size, weight } from "../../styles/fonts";
 import { colors } from "../../styles/colors";
 import { IoLocationSharp } from "react-icons/io5";
 import profile from "../../assets/profile.png";
+import { useNavigate } from "react-router-dom";
 
 const ReservatedRoomInfo = ({ data }) => {
+  const navigate = useNavigate();
+  const roomId = data?.partyRoomReservationDto?.partyRoomDto?.partyRoomId;
   const roomName = data?.partyRoomReservationDto?.partyRoomDto?.partyRoomName;
   const region = data?.partyRoomLocationDto?.sigungu;
   const hostName =
@@ -31,7 +34,7 @@ const ReservatedRoomInfo = ({ data }) => {
             <Caption>호스트</Caption>
           </TextInfo>
         </HostProfile>
-        <Button>상세 보기</Button>
+        <Button onClick={() => navigate(`/detail/${roomId}`)}>상세 보기</Button>
       </TextInfo>
     </Container>
   );

@@ -13,16 +13,23 @@ const Reservations = () => {
   const filteredData = data?.filter(
     (data) => data?.partyRoomReservationDto?.paymentStatus !== "PENDING"
   );
-  console.log(filteredData);
 
-  const reservationList = filteredData?.map((data, index) => (
-    <Link
-      to={`/reservation/${data?.partyRoomReservationDto?.reservationId}`}
-      key={index}
-    >
-      <ReservationItem data={data} />
-    </Link>
-  ));
+  const completeData = data?.filter(
+    (data) => data?.partyRoomReservationDto?.paymentStatus === "COMPLETE"
+  );
+  const canceledData = data?.filter(
+    (data) => data?.partyRoomReservationDto?.paymentStatus === "CANCELED"
+  );
+
+  const renderReservationList = (reservationData) =>
+    reservationData?.map((data, index) => (
+      <Link
+        to={`/reservation/${data?.partyRoomReservationDto?.reservationId}`}
+        key={index}
+      >
+        <ReservationItem data={data} />
+      </Link>
+    ));
   return (
     <Wrapper>
       <Nav>
@@ -43,7 +50,11 @@ const Reservations = () => {
         </Menu>
       </Nav>
       {!loading ? (
-        <ListContainer>{reservationList}</ListContainer>
+        <ListContainer>
+          {active === "all" && renderReservationList(filteredData)}
+          {active === "reservated" && renderReservationList(completeData)}
+          {active === "canceled" && renderReservationList(canceledData)}
+        </ListContainer>
       ) : (
         <LoadingContainer />
       )}
