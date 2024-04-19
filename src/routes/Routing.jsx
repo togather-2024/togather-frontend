@@ -17,10 +17,10 @@ const Routing = () => {
                     <Route path="" element={<MainPage />}></Route>
                     <Route path="signup" element={<SignUp />}></Route>
                     <Route path="signin" element={<SignIn />}></Route>
-                    {/* <Route
+                    <Route
                         path="/detail/:roomId"
                         element={<RoomDetail />}
-                    ></Route> */}
+                    ></Route>
                     <Route
                         path="/num/reservate"
                         element={<ReservationConfirm />}
