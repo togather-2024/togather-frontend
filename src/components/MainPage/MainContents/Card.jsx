@@ -85,10 +85,9 @@ const Keywords = styled.div`
     display: flex;
 `;
 const Keyword = styled.div`
-    width: 15%;
-    height: 80%;
+    padding: 0 5px;
     font-size: 0.6rem;
-    line-height: 220%;
+    line-height: 230%;
     text-align: center;
     border: 1px solid black;
     border-radius: 5px;
@@ -123,9 +122,8 @@ const Into = styled.div`
 // props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
 const Card = ({ id, title, price, thumbnail, customTags, sigungu }) => {
     // 즐겨찾기 등록 여부에 따른 state값 지정후 true면
-    console.log(customTags);
     const [favorite, setFavorite] = useState(true);
-
+    const showCustomTags = customTags.slice(0, 3);
     const handleAddFavorite = () => {
         try {
             axios.post(`/partyroom/bookmark/${id}`);
@@ -166,7 +164,7 @@ const Card = ({ id, title, price, thumbnail, customTags, sigungu }) => {
                     {sigungu}
                 </Location>
                 <Keywords>
-                    {customTags?.map((tag) => (
+                    {showCustomTags?.map((tag) => (
                         <Keyword id={tag.tagId}>{tag.tagContent}</Keyword>
                     ))}
                 </Keywords>

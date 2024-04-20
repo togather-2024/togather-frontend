@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 
 const Region = ({ clicked, handleProvince, handleDistrict, province }) => {
     const provinces = [
-        { id: 1, name: "서울특별시" },
-        { id: 2, name: "경기도" },
+        { id: 1, name: "서울" },
+        { id: 2, name: "경기" },
     ];
     const districts = {
-        서울특별시: [
+        서울: [
             "종로구",
             "중구",
             "용산구",
@@ -35,7 +35,7 @@ const Region = ({ clicked, handleProvince, handleDistrict, province }) => {
             "송파구",
             "강동구",
         ],
-        경기도: [
+        경기: [
             "수원시",
             "용인시",
             "성남시",

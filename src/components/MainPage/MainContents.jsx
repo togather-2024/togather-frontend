@@ -1,23 +1,29 @@
 import styled from "@emotion/styled";
 import Card from "../../components/MainPage/MainContents/Card";
 import { useState, useEffect } from "react";
+import { searchValueState } from "../../recoil/atoms/searchValueState";
+import { useRecoilValue } from "recoil";
 import axios from "axios";
 
 const MainContents = () => {
     const [cardInfo, setCardInfo] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
-
-    console.log(cardInfo);
+    const searchValue = useRecoilValue(searchValueState);
     useEffect(() => {
         setIsLoading(true);
+
         const fetchDatas = async () => {
+            console.log(cardInfo);
+            console.log(page);
+            console.log(searchValue);
             try {
                 const body = {
-                    sido: "",
-                    sigungu: "",
-                    guestCount: 0,
-                    keywords: [],
+                    sido: searchValue.sido,
+                    sigungu: searchValue.sigungu,
+                    date: searchValue.date,
+                    guestCount: searchValue.guestCount,
+                    keywords: searchValue.keywords,
                     pageNum: page,
                     pageSize: 10,
                 };
@@ -26,11 +32,11 @@ const MainContents = () => {
                         "Content-Type": "application/json",
                     },
                 };
-                const response = await axios.get(
-                    "/api/partyroom/search",
-                    body,
-                    config
-                );
+                const response = await axios.get("/api/partyroom/search", {
+                    params: body,
+                    config,
+                });
+                await console.log(response.status);
                 const datas = await response.data.map((data) => ({
                     partyRoomDto: {
                         partyRoomId: data.partyRoomDto.partyRoomId,
@@ -53,7 +59,12 @@ const MainContents = () => {
             }
         };
         fetchDatas();
-    }, [page]);
+    }, [page, searchValue]);
+
+    useEffect(() => {
+        setPage(1);
+        setCardInfo([]);
+    }, [searchValue]);
 
     const handleObserver = (entries) => {
         const target = entries[0];
@@ -78,7 +89,7 @@ const MainContents = () => {
                 {cardInfo &&
                     cardInfo.map((info) => (
                         <Card
-                            id={info.partyRoomDto.id}
+                            id={info.partyRoomDto.partyRoomId}
                             title={info.partyRoomDto.partyRoomName}
                             price={info.partyRoomDto.price}
                             thumbnail={info.partyRoomImage.thumbnail}
