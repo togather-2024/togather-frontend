@@ -5,6 +5,7 @@ import Sidebar from "../components/Mypage/Sidebar";
 import Favorites from "../components/Mypage/Favorites";
 import Reservations from "../components/Mypage/Reservations/Reservations";
 import Profile from "../components/Mypage/Profile";
+import Review from "../components/Mypage/Review/Review";
 
 const Mypage = () => {
   const { menu } = useParams();
@@ -18,6 +19,7 @@ const Mypage = () => {
         {activeMenu === "favorites" && <Favorites />}
         {activeMenu === "reservations" && <Reservations />}
         {activeMenu === "profile" && <Profile />}
+        {activeMenu === "review" && <Review />}
       </RightWrapper>
     </Wrapper>
   );
