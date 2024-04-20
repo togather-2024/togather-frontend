@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
+import { useRecoilState } from "recoil";
+import { searchValueState } from "../../../recoil/atoms/searchValueState";
+import { useState } from "react";
 
 const CategoryBar = styled.nav`
     width: 90%;
@@ -19,6 +22,7 @@ const CategoryItem = styled.div`
     cursor: pointer;
     border-radius: 20px;
     border: 1px solid ${colors.gray30};
+    background-color: ${(props) => (props.clicked ? colors.hover01 : "white")};
 
     &:hover {
         background-color: ${colors.hover01};
@@ -27,13 +31,36 @@ const CategoryItem = styled.div`
 `;
 
 const Category = ({ keywords }) => {
+    const [keywordsValue, setKeywordsValue] = useRecoilState(searchValueState);
+
+    // 각 CategoryItem의 클릭 상태를 관리할 clicked 상태 배열
+    const [clicked, setClicked] = useState(Array(keywords.length).fill(false));
+
+    const handleKeywordsAPI = (index, keyword) => {
+        // 이전의 clicked 상태 배열 복사 후 클릭된 항목만 수정
+        const newClicked = [...clicked];
+        newClicked[index] = !newClicked[index];
+
+        setKeywordsValue((prev) => ({
+            ...prev,
+            keywords: newClicked[index]
+                ? [...prev.keywords, keyword]
+                : prev.keywords.filter((k) => k !== keyword),
+        }));
+        setClicked(newClicked);
+    };
+
     return (
         <CategoryBar>
-            {keywords.map((keyword) => {
+            {keywords.map((keyword, index) => {
                 return (
                     <CategoryItem
-                        key={keyword.username}
-                    >{`${keyword}`}</CategoryItem>
+                        key={index}
+                        clicked={clicked[index]}
+                        onClick={() => handleKeywordsAPI(index, keyword)}
+                    >
+                        {keyword}
+                    </CategoryItem>
                 );
             })}
         </CategoryBar>
