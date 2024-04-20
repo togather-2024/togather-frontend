@@ -3,6 +3,8 @@ import Card from "../../components/MainPage/MainContents/Card";
 import { useState, useEffect } from "react";
 import { searchValueState } from "../../recoil/atoms/searchValueState";
 import { useRecoilValue } from "recoil";
+import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 const MainContents = () => {
@@ -14,9 +16,6 @@ const MainContents = () => {
         setIsLoading(true);
 
         const fetchDatas = async () => {
-            console.log(cardInfo);
-            console.log(page);
-            console.log(searchValue);
             try {
                 const body = {
                     sido: searchValue.sido,
@@ -88,14 +87,16 @@ const MainContents = () => {
             <Container>
                 {cardInfo &&
                     cardInfo.map((info) => (
-                        <Card
-                            id={info.partyRoomDto.partyRoomId}
-                            title={info.partyRoomDto.partyRoomName}
-                            price={info.partyRoomDto.price}
-                            thumbnail={info.partyRoomImage.thumbnail}
-                            customTags={info.customTags}
-                            sigungu={info.sigungu}
-                        ></Card>
+                        <Link to={`/detail/${info.partyRoomDto.partyRoomId}`}>
+                            <Card
+                                id={info.partyRoomDto.partyRoomId}
+                                title={info.partyRoomDto.partyRoomName}
+                                price={info.partyRoomDto.price}
+                                thumbnail={info.partyRoomImage.thumbnail}
+                                customTags={info.customTags}
+                                sigungu={info.sigungu}
+                            ></Card>
+                        </Link>
                     ))}
             </Container>
             <div id="observer" style={{ height: "20px" }}></div>
