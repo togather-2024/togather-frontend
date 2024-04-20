@@ -15,7 +15,7 @@ const CancelModal = ({ setIsOpen }) => {
   const handleCancel = async () => {
     try {
       await axios.delete(`/partyroom/reservation/${Number(reservationId)}`, {
-        headers: { Authoration: token },
+        headers: { Authorization: token },
       });
       setIsOpen(false);
       alert("예약이 취소되었습니다.");
