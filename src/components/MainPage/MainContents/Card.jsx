@@ -170,8 +170,8 @@ const Card = ({ id, title, price, thumbnail, customTags, sigungu }) => {
                 </Keywords>
                 <Footer>
                     <Price>
-                        ₩{" "}
-                        {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                        ₩
+                        {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         / 시간
                     </Price>
                     <Into>
