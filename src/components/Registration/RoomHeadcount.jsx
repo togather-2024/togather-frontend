@@ -10,39 +10,50 @@ const RoomInfo = () => {
     const [roomOperationState, setRoomOperationState] = useRecoilState(
         registrationUserState
     );
-    console.log(roomOperationState);
-    const [timeArr, setTimeArr] = useState(
-        Array.from({ length: 24 }, (_, idx) => ({
-            time: idx,
+
+    const days = [
+        ["월요일", "MONDAY"],
+        ["화요일", "TUESDAY"],
+        ["수요일", "WEDNESDAY"],
+        ["목요일", "THURSDAY"],
+        ["금요일", "FRIDAY"],
+        ["토요일", "SATURDAY"],
+        ["일요일", "SUNDAY"],
+    ];
+    const [weekend, setWeekend] = useState(
+        Array.from({ length: 7 }, (_, idx) => ({
+            id: days[idx][1],
+            idx: idx,
+            day: days[idx][0],
             clicked: false,
         }))
     );
-    const [operationTime, setOperationTime] = useState({
-        start: undefined,
-        finish: undefined,
-    });
 
-    const handleOperationTime = (idx) => {
-        setOperationTime((prev) => {
-            const updated = { ...prev };
+    const [timeArr, setTimeArr] = useState(
+        Array.from({ length: 24 }, (_, idx) => idx)
+    );
 
-            if (updated.start === undefined) {
-                updated.start = idx;
-                updated.finish = idx;
-            } else if (idx > updated.finish) {
-                updated.finish = idx;
-            } else if (idx === updated.start && idx === updated.finish) {
-                updated.start = undefined;
-                updated.finish = undefined;
-            } else if (idx === updated.finish) {
-                updated.finish = idx - 1;
-            } else {
-                updated.start = idx;
-                updated.finish = idx;
-            }
-            return updated;
+    const handleWeekend = (idx) => {
+        setWeekend((prev) => {
+            return prev.map((day, index) => {
+                if (index === idx) {
+                    return { ...day, clicked: !day.clicked };
+                } else {
+                    return day;
+                }
+            });
         });
     };
+
+    useEffect(() => {
+        setRoomOperationState((prev) => ({
+            ...prev,
+            operationDays: weekend
+                .filter((day) => day.clicked)
+                .map((day) => day.id),
+        }));
+    }, [weekend]);
+
     const handleHeadcountChange = (e) => {
         setRoomOperationState((prev) => ({
             ...prev,
@@ -50,27 +61,23 @@ const RoomInfo = () => {
         }));
     };
 
-    useEffect(() => {
-        if (operationTime.start && operationTime.finish) {
-            setTimeArr((prev) => {
-                const updated = [...prev];
-                updated.map((time, i) => {
-                    if (i < operationTime?.start || i > operationTime?.finish) {
-                        time.clicked = false;
-                    } else {
-                        time.clicked = true;
-                    }
-                });
-                return updated;
-            });
+    const handleTime = (e) => {
+        const name = e.target.name;
+        setRoomOperationState((prev) => ({
+            ...prev,
+            [name]: e.target.value,
+        }));
 
-            setRoomOperationState((prev) => ({
-                ...prev,
-                openingHour: operationTime.start,
-                closingHour: operationTime.finish,
-            }));
-        }
-    }, [operationTime]);
+        const idx = e.target.value;
+        const times = Array(24)
+            .fill(0)
+            .map((_, idx) => idx);
+
+        setTimeArr(() => {
+            const updated = times.slice(idx);
+            return updated;
+        });
+    };
 
     return (
         <ContentsBox>
@@ -79,21 +86,40 @@ const RoomInfo = () => {
                 <SelectContainer>
                     <SelectBox>
                         <span>시작</span>
-                        <Select name="start_time">
-                            <option value="0">00:00</option>
+                        <Select name="openingHour" onChange={handleTime}>
+                            {Array(24)
+                                .fill(0)
+                                .map((_, idx) => (
+                                    <option
+                                        value={idx}
+                                    >{`${String(idx).padStart(2, 0)}:00`}</option>
+                                ))}
                         </Select>
                     </SelectBox>
                     <span>~</span>
                     <SelectBox>
                         <span>끝</span>
-                        <Select name="finish_time">
-                            <option value="0">00:00</option>
+                        <Select name="closingHour" onChange={handleTime}>
+                            {timeArr.map((time) => (
+                                <option
+                                    value={time}
+                                >{`${String(time).padStart(2, 0)}:00`}</option>
+                            ))}
                         </Select>
                     </SelectBox>
                 </SelectContainer>
                 <ButtonBox>
-                    <Button></Button>
-                    <Button></Button>
+                    {weekend.map((day) => (
+                        <Button
+                            type="button"
+                            id={day.id}
+                            idx={day.idx}
+                            clicked={day.clicked}
+                            onClick={() => handleWeekend(day.idx)}
+                        >
+                            {day.day}
+                        </Button>
+                    ))}
                 </ButtonBox>
             </Content>
             <Content>

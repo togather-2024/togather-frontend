@@ -10,12 +10,12 @@ export const registrationUserState = atom({
         price: undefined,
         guestCapacity: undefined,
         customTags: [],
-        sido: undefined, //완료
-        sigungu: undefined, //완료
-        roadName: undefined, //완료
-        roadAddress: undefined, //완료
-        jibunAddress: undefined,
-        detailAddress: undefined,
+        sido: "", //완료
+        sigungu: "", //완료
+        roadName: "", //완료
+        roadAddress: "", //완료
+        jibunAddress: "",
+        detailAddress: "",
         operationDays: [],
     },
 });

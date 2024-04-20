@@ -12,15 +12,6 @@ const RoomAddress = () => {
     const [roomAddressState, setRoomAddressState] = useRecoilState(
         registrationUserState
     );
-    console.log(roomAddressState);
-    const {
-        sido,
-        sigungu,
-        roadName,
-        roadAddress,
-        jibunAddress,
-        detailAddress,
-    } = roomAddressState;
 
     const [zipCode, setZipCode] = useState("");
 
@@ -37,16 +28,20 @@ const RoomAddress = () => {
         const roadName = data.roadname;
         const roadAddress = data.roadAddress;
         const jibunAddress = data.jibunAddress;
+        const zoneCode = data.zonecode;
 
-        setRoomAddressState({
-            sido: sido,
-            sigungu: sigungu,
-            roadName: roadName,
-            roadAddress: roadAddress,
-            jibunAddress: jibunAddress,
+        setRoomAddressState((prev) => {
+            return {
+                ...prev,
+                sido: sido,
+                sigungu: sigungu,
+                roadName: roadName,
+                roadAddress: roadAddress,
+                jibunAddress: jibunAddress,
+            };
         });
         setModalState(false);
-        setZipCode(data.zonecode);
+        setZipCode(zoneCode);
     };
 
     const handleDetailAddress = (e) => {
@@ -80,7 +75,7 @@ const RoomAddress = () => {
             <InputBox>
                 <Input
                     placeholder={"도로명 주소를 입력하세요."}
-                    value={roadAddress}
+                    value={roomAddressState.roadAddress}
                     readOnly
                 ></Input>
             </InputBox>

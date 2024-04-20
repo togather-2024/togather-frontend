@@ -9,18 +9,16 @@ const RoomInfo = () => {
     const [partyRoomInfoState, setPartyRoomInfoState] = useRecoilState(
         registrationUserState
     );
-    console.log(partyRoomInfoState);
-    const { partyRoomName, partyRoomDesc } = partyRoomInfoState;
     const handlePartyRoomNameChange = (e) => {
-        setPartyRoomInfoState((prevState) => ({
-            ...prevState,
+        setPartyRoomInfoState((prev) => ({
+            ...prev,
             partyRoomName: e.target.value,
         }));
     };
 
     const handlePartyRoomDescChange = (e) => {
-        setPartyRoomInfoState((prevState) => ({
-            ...prevState,
+        setPartyRoomInfoState((prev) => ({
+            ...prev,
             partyRoomDesc: e.target.value,
         }));
     };
@@ -33,7 +31,7 @@ const RoomInfo = () => {
                     <Input
                         type="text"
                         name="partyRoomName"
-                        value={partyRoomName}
+                        value={partyRoomInfoState.partyRoomName}
                         onChange={handlePartyRoomNameChange}
                         required
                     />
@@ -44,7 +42,7 @@ const RoomInfo = () => {
                 <InputTitle>숙소 설명</InputTitle>
                 <TextArea
                     name="partyRoomDesc"
-                    value={partyRoomDesc}
+                    value={partyRoomInfoState.partyRoomDesc}
                     onChange={handlePartyRoomDescChange}
                     required
                 ></TextArea>

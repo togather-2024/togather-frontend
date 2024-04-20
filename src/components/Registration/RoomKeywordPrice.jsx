@@ -5,14 +5,17 @@ import { colors } from "../../styles/colors";
 import styled from "styled-components";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { registrationUserState } from "../../recoil/atoms/registrationUserState";
+import {
+    registrationUserState,
+    registrationImage,
+} from "../../recoil/atoms/registrationUserState";
 
 const RoomInfo = () => {
     const [keyword, setKeyword] = useState("");
     const [roomCharState, setRoomCharState] = useRecoilState(
         registrationUserState
     );
-    console.log(roomCharState);
+
     const [addPrice, setAddPrice] = useState(null);
     const handleKeywordChange = (e) => {
         setKeyword(e.target.value);
@@ -89,7 +92,7 @@ const RoomInfo = () => {
                         등록
                     </Button>
                 </InputBox>
-                <p>1인당 가격{addPrice} 원</p>
+                <p>시간당 1인 가격{addPrice} 원</p>
             </Content>
         </ContentsBox>
     );

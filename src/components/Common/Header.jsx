@@ -15,8 +15,6 @@ const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isDropped, setIsDropped] = useRecoilState(dropDownState);
 
-    console.log(isLoggedIn);
-
     useEffect(() => {
         if (localStorage.getItem("refresh_token")) {
             setIsLoggedIn(true);
