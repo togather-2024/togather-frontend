@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
-import CancelModal from "../components/ReservationDetail/CancelModal";
 import GetReservationDetail from "../components/ReservationDetail/GetReservationDetail";
 import ReservatedRoomInfo from "../components/ReservationDetail/ReservatedRoomInfo";
 import ReservationInfo from "../components/ReservationDetail/ReservationInfo";
@@ -12,23 +10,9 @@ import LoadingContainer from "../components/Common/LoadingContainer";
 
 const ReservationDetail = () => {
   const [loading, setLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
   const { reservationId } = useParams();
   const data = GetReservationDetail({ reservationId, setLoading });
-
-  useEffect(() => {
-    //CancelModal이 열렸을 때 스크롤 방지
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isOpen]);
-
-  function handleClick() {
-    setIsOpen(true);
-  }
-
+  const paymentKey = data?.paymentKey;
   const paymentStatus =
     data?.partyRoomReservationDto?.paymentStatus === "COMPLETE"
       ? "결제 완료"
@@ -36,7 +20,6 @@ const ReservationDetail = () => {
 
   return (
     <>
-      {isOpen && <CancelModal setIsOpen={setIsOpen} />}
       <Container>
         <Heading>예약 상세 내역</Heading>
         {loading ? (
@@ -50,10 +33,7 @@ const ReservationDetail = () => {
               paymentStatus={paymentStatus}
             />
             {paymentStatus === "결제 완료" ? (
-              <CancelContainer
-                handleClick={handleClick}
-                setIsOpen={setIsOpen}
-              />
+              <CancelContainer data={data} />
             ) : (
               ""
             )}

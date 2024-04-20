@@ -1,11 +1,27 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
+import CancelModal from "./CancelModal";
 
-const CancelContainer = ({ handleClick, setIsOpen }) => {
+const CancelContainer = ({ data }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    //CancelModal이 열렸을 때 스크롤 방지
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
+
+  function handleClick() {
+    setIsOpen(true);
+  }
   return (
     <Container>
+      {isOpen && <CancelModal setIsOpen={setIsOpen} data={data} />}
       <CancelLabel>예약 취소</CancelLabel>
       <CancelButton onClick={handleClick}>예약 취소하기</CancelButton>
     </Container>

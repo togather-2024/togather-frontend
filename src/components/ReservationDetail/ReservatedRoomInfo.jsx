@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 const ReservatedRoomInfo = ({ data }) => {
   const { reservationId } = useParams();
   const [qualified, setQualified] = useState(false);
+  const { paymentStatus } = data?.partyRoomReservationDto;
   const token = localStorage.getItem("refresh_token");
   useEffect(() => {
     const checkQualification = async () => {
@@ -61,7 +62,7 @@ const ReservatedRoomInfo = ({ data }) => {
           </TextInfo>
         </HostProfile>
         <Button onClick={() => navigate(`/detail/${roomId}`)}>상세 보기</Button>
-        {qualified ? (
+        {qualified && paymentStatus !== "CANCELED" ? (
           <ReviewButton>
             <FaPen color="#ffffff" />
             <p>후기 작성하기</p>
