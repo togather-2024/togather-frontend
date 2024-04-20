@@ -4,28 +4,55 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const MainContents = () => {
-    const [photos, setPhotos] = useState([]);
+    const [cardInfo, setCardInfo] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
 
+    console.log(cardInfo);
     useEffect(() => {
         setIsLoading(true);
-        const fetchPhotos = async () => {
+        const fetchDatas = async () => {
             try {
+                const body = {
+                    sido: "",
+                    sigungu: "",
+                    guestCount: 0,
+                    keywords: [],
+                    pageNum: page,
+                    pageSize: 10,
+                };
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
                 const response = await axios.get(
-                    `https://api.thedogapi.com/v1/images/search?size=small&format=json&has_breeds=true&order=ASC&page=${page}&limit=10`
+                    "/api/partyroom/search",
+                    body,
+                    config
                 );
-                const data = await response.data.map((dogImg) => ({
-                    id: dogImg.id,
-                    dogUrl: dogImg.url,
+                const datas = await response.data.map((data) => ({
+                    partyRoomDto: {
+                        partyRoomId: data.partyRoomDto.partyRoomId,
+                        partyRoomName: data.partyRoomDto.partyRoomName,
+                        price: data.partyRoomDto.price,
+                    },
+                    partyRoomImage: {
+                        partyRoomImageId: data.partyRoomImage?.partyRoomImageId,
+                        thumbnail: data.partyRoomImageDtoList[0]
+                            ? data.partyRoomImageDtoList[0]
+                            : null,
+                    },
+                    customTags: data.customTags.slice(),
+                    sigungu: data.partyRoomLocationDto.sigungu,
                 }));
 
-                setPhotos((prevPhotos) => [...prevPhotos, ...data]);
+                setCardInfo((prevData) => [...prevData, ...datas]);
             } catch (e) {
                 console.log(e);
             }
         };
-        fetchPhotos();
+        fetchDatas();
     }, [page]);
 
     const handleObserver = (entries) => {
@@ -48,9 +75,16 @@ const MainContents = () => {
     return (
         <>
             <Container>
-                {photos &&
-                    photos.map((photo) => (
-                        <Card key={photo.id} photo={photo.dogUrl}></Card>
+                {cardInfo &&
+                    cardInfo.map((info) => (
+                        <Card
+                            id={info.partyRoomDto.id}
+                            title={info.partyRoomDto.partyRoomName}
+                            price={info.partyRoomDto.price}
+                            thumbnail={info.partyRoomImage.thumbnail}
+                            customTags={info.customTags}
+                            sigungu={info.sigungu}
+                        ></Card>
                     ))}
             </Container>
             <div id="observer" style={{ height: "20px" }}></div>
