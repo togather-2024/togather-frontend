@@ -23,7 +23,7 @@ const Sidebar = ({ active }) => {
           onClick={() => handleMenuClick("favorites")}
         >
           <FaHeart />
-          찜한 숙소
+          찜한 목록
         </Menu>
         <Menu
           active={active === "messages"}

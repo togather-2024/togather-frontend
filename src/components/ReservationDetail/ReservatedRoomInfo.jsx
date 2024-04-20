@@ -5,35 +5,22 @@ import { IoLocationSharp } from "react-icons/io5";
 import profile from "../../assets/profile.png";
 import { useNavigate } from "react-router-dom";
 import { FaPen } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import useCheckQualfication from "../../hooks/useCheckQualfication";
+import { useState } from "react";
+import ReviewModal from "../Mypage/Review/ReviewModal";
 
 const ReservatedRoomInfo = ({ data }) => {
-  const { reservationId } = useParams();
-  const [qualified, setQualified] = useState(false);
-  const { paymentStatus } = data?.partyRoomReservationDto;
-  const token = localStorage.getItem("refresh_token");
-  useEffect(() => {
-    const checkQualification = async () => {
-      try {
-        const res = await axios.post(
-          `/api/review/check/qualification?partyRoomReservationId=${Number(reservationId)}`,
-          "",
-          {
-            headers: { Authorization: token },
-          }
-        );
-        setQualified(res.data);
-        console.log(res.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    checkQualification();
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+  const { reservationId } = useParams();
+  const qualified = useCheckQualfication(Number(reservationId));
   const navigate = useNavigate();
+
+  const { paymentStatus } = data?.partyRoomReservationDto;
   const roomId = data?.partyRoomReservationDto?.partyRoomDto?.partyRoomId;
   const roomName = data?.partyRoomReservationDto?.partyRoomDto?.partyRoomName;
   const region = data?.partyRoomLocationDto?.sigungu;
@@ -44,6 +31,7 @@ const ReservatedRoomInfo = ({ data }) => {
     data?.partyRoomReservationDto?.partyRoomDto?.partyRoomHost?.profilePicFile;
   return (
     <Container>
+      {isOpen ? <ReviewModal setIsOpen={setIsOpen} /> : ""}
       <RoomImg src={roomImg} alt="partyroomimg" />
       <TextInfo>
         <RoomName>{roomName}</RoomName>
@@ -63,7 +51,7 @@ const ReservatedRoomInfo = ({ data }) => {
         </HostProfile>
         <Button onClick={() => navigate(`/detail/${roomId}`)}>상세 보기</Button>
         {qualified && paymentStatus !== "CANCELED" ? (
-          <ReviewButton>
+          <ReviewButton onClick={handleOpen}>
             <FaPen color="#ffffff" />
             <p>후기 작성하기</p>
           </ReviewButton>

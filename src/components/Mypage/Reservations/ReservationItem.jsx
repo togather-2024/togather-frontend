@@ -3,9 +3,11 @@ import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
 import { size, weight } from "../../../styles/fonts";
 import { IoLocationSharp } from "react-icons/io5";
+import useCheckQualfication from "../../../hooks/useCheckQualfication";
 
 const ReservationItem = ({ data }) => {
   const reservationId = data?.partyRoomReservationDto?.reservationId;
+  const qualified = useCheckQualfication(reservationId);
   const partyroomName =
     data?.partyRoomReservationDto?.partyRoomDto?.partyRoomName;
   const thumbnail = data?.partyRoomImageDto?.imageFileName;
@@ -50,7 +52,14 @@ const ReservationItem = ({ data }) => {
     <Container>
       <Thumbnail src={thumbnail} alt="partyroomimg"></Thumbnail>
       <InfoContainer>
-        <BookState isCanceled={isCanceled}>{bookState}</BookState>
+        <LabelContainer>
+          <BookState isCanceled={isCanceled}>{bookState}</BookState>
+          {qualified && !isCanceled ? (
+            <ReviewAvailable>리뷰 작성 가능</ReviewAvailable>
+          ) : (
+            ""
+          )}
+        </LabelContainer>
         <BookInfo>
           <CaptionWrapper>
             <BoldCaption> 예약번호</BoldCaption>
@@ -107,6 +116,15 @@ const BookState = styled.div`
   border-radius: 20px;
   font-size: ${size.caption};
   width: fit-content;
+`;
+
+const ReviewAvailable = styled.div``;
+
+const LabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: ${colors.dark};
 `;
 
 const BookInfo = styled.div`

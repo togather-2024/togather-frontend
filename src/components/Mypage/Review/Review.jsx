@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { size, weight } from "../../../styles/fonts";
 import { colors } from "../../../styles/colors";
-import ReviewItem from "../../RoomDetail/Review/ReviewItem";
+import MyReviewItem from "./MyReviewItem";
 import GetMyReview from "./GetMyReview";
 import LoadingContainer from "../../Common/LoadingContainer";
 
@@ -12,7 +12,7 @@ const Review = () => {
   const reviewList = data?.map((item, index) => {
     return (
       <React.Fragment key={item.reviewId}>
-        <ReviewItem data={item} />
+        <MyReviewItem data={item} />
         {index !== data.length - 1 && <Line />}
       </React.Fragment>
     );
@@ -22,7 +22,11 @@ const Review = () => {
       <ReviewHeading>이용 후기</ReviewHeading>
       <ReviewCount>{data?.length} 건</ReviewCount>
       <BoldLine />
-      {loading ? <LoadingContainer /> : <ReviewList>{reviewList}</ReviewList>}
+      {loading ? (
+        <LoadingContainer />
+      ) : (
+        <ReviewList>{reviewList || "작성한 이용후기가 없습니다"}</ReviewList>
+      )}
     </Container>
   );
 };
