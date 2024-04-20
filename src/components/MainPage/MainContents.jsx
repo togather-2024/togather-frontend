@@ -22,7 +22,7 @@ const MainContents = () => {
                     sigungu: searchValue.sigungu,
                     date: searchValue.date,
                     guestCount: searchValue.guestCount,
-                    keywords: [searchValue.keywords],
+                    keywords: searchValue.keywords.join(","),
                     pageNum: page,
                     pageSize: 10,
                 };
