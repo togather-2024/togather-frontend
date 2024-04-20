@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
 import { colors } from "../styles/colors";
@@ -75,7 +76,7 @@ const ReservationDetail = () => {
             </LabelContainer>
             <TextContainter>
               <Text>결제 완료</Text>
-              <RedText>₩80,000</RedText>
+              <Price>₩80,000</Price>
             </TextContainter>
           </Section>
         </ReserveInfo>
@@ -207,7 +208,7 @@ const TextContainter = styled(LabelContainer)`
 
 const Text = styled.div``;
 
-const RedText = styled.div`
+const Price = styled.div`
   color: #f24b4b;
 `;
 

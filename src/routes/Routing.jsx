@@ -8,36 +8,28 @@ import Registration from "../pages/RoomRegistration";
 import ReservationDetail from "../pages/ReservationDetail";
 import Layout from "../components/Common/Layout";
 import Mypage from "../pages/Mypage";
+import Fail from "../pages/Fail";
+import Success from "../pages/Success";
 
 const Routing = () => {
-    return (
-        <>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route path="" element={<MainPage />}></Route>
-                    <Route path="signup" element={<SignUp />}></Route>
-                    <Route path="signin" element={<SignIn />}></Route>
-                    <Route
-                        path="/detail/:roomId"
-                        element={<RoomDetail />}
-                    ></Route>
-                    <Route
-                        path="/num/reservate"
-                        element={<ReservationConfirm />}
-                    ></Route>
-                    <Route path="/my/:menu" element={<Mypage />}></Route>
-                    <Route
-                        path="/reservation/pk"
-                        element={<ReservationDetail />}
-                    ></Route>
-                    <Route
-                        path="/registration"
-                        element={<Registration />}
-                    ></Route>
-                </Route>
-            </Routes>
-        </>
-    );
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="" element={<MainPage />}></Route>
+          <Route path="signup" element={<SignUp />}></Route>
+          <Route path="signin" element={<SignIn />}></Route>
+          <Route path="/detail/:roomId" element={<RoomDetail />}></Route>
+          <Route path="/reservate/:Id" element={<ReservationConfirm />}></Route>
+          <Route path="/my/:menu" element={<Mypage />}></Route>
+          <Route path="/fail" element={<Fail />}></Route>
+          <Route path="/success" element={<Success />}></Route>
+          <Route path="/reservation/pk" element={<ReservationDetail />}></Route>
+          <Route path="/registration" element={<Registration />}></Route>
+        </Route>
+      </Routes>
+    </>
+  );
 };
 
 export default Routing;

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { weight, size } from "../../../styles/fonts";
@@ -8,11 +8,22 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { selectedDateState } from "../../../recoil/atoms/selectedDate";
 import useFetchAvailTimes from "./useFetchAvailTimes";
 
-const DateContainer = () => {
+const DateContainer = ({ data }) => {
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const [show, setShow] = useState(false);
   const roomId = useParams();
-  const date = useRecoilValue(selectedDateState);
+  const date = useRecoilValue(selectedDateState) || new Date();
+  const operationDays = data?.operationDays;
+  const operationDayArr = operationDays?.map((el) => el.operationDay);
+  const daysOfWeek = [
+    "SUNDAY",
+    "MONDAY",
+    "TUESDAY",
+    "WEDNESDAY",
+    "THURSDAY",
+    "FRIDAY",
+    "SATURDAY",
+  ];
 
   const handleDateChange = useCallback(
     (newDate) => {
@@ -37,6 +48,14 @@ const DateContainer = () => {
 
   useFetchAvailTimes(roomId, selectedDate, date);
 
+  const disabledDate = ({ date }) => {
+    const dayOfWeek = date.getDay();
+    const dayName = daysOfWeek[dayOfWeek];
+    if (!operationDayArr.includes(dayName)) {
+      return date;
+    }
+  };
+
   return (
     <>
       <Container>
@@ -48,6 +67,7 @@ const DateContainer = () => {
         <CustomCalendar
           handleDateChange={handleDateChange}
           selectedDate={selectedDate}
+          tileDisabled={disabledDate}
         />
       )}
     </>

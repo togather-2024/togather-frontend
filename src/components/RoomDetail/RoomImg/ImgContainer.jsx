@@ -19,14 +19,15 @@ const ImgContainer = ({ data }) => {
 
   return (
     <Container>
-      <HeartContainer />
       <FirstImgContainer>
         <FirstImg src={mainImg?.imageFileName} alt="메인이미지" />
       </FirstImgContainer>
       <SubListContainer>
         {subImgList?.map((el, index) =>
           el === "0" ? (
-            <Blank key={index} />
+            <SubImgContainer key={index}>
+              <Blank />
+            </SubImgContainer>
           ) : (
             <SubImgContainer key={index}>
               <SubImg src={el?.imageFileName} alt="서브이미지" />
@@ -62,6 +63,7 @@ const SubListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  grid-auto-rows: 1fr;
 `;
 const SubImgContainer = styled.div``;
 const SubImg = styled.img`
@@ -70,6 +72,8 @@ const SubImg = styled.img`
   border-radius: 10px;
 `;
 const Blank = styled.div`
-  background-color: ${colors.gray30};
+  background-color: ${colors.hover02};
   border-radius: 10px;
+  width: 100%;
+  height: 100%;
 `;
