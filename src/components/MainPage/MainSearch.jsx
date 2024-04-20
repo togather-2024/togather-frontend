@@ -6,6 +6,7 @@ import {
     regionInputState,
     dateInputState,
 } from "../../recoil/atoms/searchState";
+import { searchValueState } from "../../recoil/atoms/searchValueState";
 import { useRecoilState } from "recoil";
 import CustomCalendar from "../Common/CustomCalendar";
 
@@ -17,15 +18,16 @@ const MainSearch = () => {
     const [headCount, setHeadcount] = useState(2);
     const [keyword, setKeyword] = useState("");
 
-    // Region component props
+    // 지역
     const [province, setProvince] = useState(undefined);
 
     // 지역 , 날짜 변경
     const [regionState, setRegionState] = useRecoilState(regionInputState);
     const [dateState, setDateState] = useRecoilState(dateInputState);
+    const [searchInput, setSearchInput] = useRecoilState(searchValueState);
 
     const handleDateChange = (newDate) => {
-        const dateForm = `${newDate.getFullYear()}. ${newDate.getMonth() + 1}. ${newDate.getDate()}. `;
+        const dateForm = `${newDate.getFullYear()}-${String(newDate.getMonth() + 1).padStart(2, "0")}-${newDate.getDate()}`;
         setDateState(dateForm);
         setDateClicked(false);
     };
@@ -49,13 +51,20 @@ const MainSearch = () => {
         const provinceInput = e.target.id;
         if (provinceInput !== regionState.province) {
             setProvince(provinceInput);
+            setRegionState((prevRegionState) => ({
+                ...prevRegionState,
+                region: {
+                    ...prevRegionState.region,
+                    province: provinceInput,
+                },
+            }));
         }
     };
 
     const handleDistrict = (e) => {
         const district = e.target.id;
         if (district !== regionState.district) {
-            setRegionState((prev) => ({
+            setRegionState(() => ({
                 region: {
                     province: province,
                     district: district,
@@ -67,8 +76,13 @@ const MainSearch = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // regionState , dateState , headCount , keyword props로 묶어서 api요청하면 됨
-        // 이후 메인 페이지 parameter넣어주면 됨
+        setSearchInput(() => ({
+            sido: `${regionState.region.province}`,
+            sigungu: `${regionState.region.district}`,
+            date: dateState,
+            guestCount: headCount,
+            keywords: keyword !== "" ? [keyword] : [],
+        }));
     };
 
     return (

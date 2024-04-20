@@ -85,10 +85,9 @@ const Keywords = styled.div`
     display: flex;
 `;
 const Keyword = styled.div`
-    width: 15%;
-    height: 80%;
+    padding: 0 5px;
     font-size: 0.6rem;
-    line-height: 220%;
+    line-height: 230%;
     text-align: center;
     border: 1px solid black;
     border-radius: 5px;
@@ -121,10 +120,10 @@ const Into = styled.div`
 `;
 
 // props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
-const Card = ({ photo, id, keyword, price }) => {
+const Card = ({ id, title, price, thumbnail, customTags, sigungu }) => {
     // 즐겨찾기 등록 여부에 따른 state값 지정후 true면
     const [favorite, setFavorite] = useState(true);
-
+    const showCustomTags = customTags.slice(0, 3);
     const handleAddFavorite = () => {
         try {
             axios.post(`/partyroom/bookmark/${id}`);
@@ -140,8 +139,11 @@ const Card = ({ photo, id, keyword, price }) => {
         }
     };
     return (
-        <Container>
-            <CardImage style={{ backgroundImage: `url(${photo})` }}>
+        <Container id={id}>
+            <CardImage
+                id={thumbnail?.partyRoomImageId}
+                style={{ backgroundImage: `url(${thumbnail?.imageFileName})` }}
+            >
                 {favorite ? (
                     <MdOutlineStarPurple500
                         className="star"
@@ -156,18 +158,22 @@ const Card = ({ photo, id, keyword, price }) => {
                 )}
             </CardImage>
             <CardDescription>
-                <Title>투게더 서울 스튜디오</Title>
+                <Title>{title}</Title>
                 <Location>
                     <IoLocationSharp />
-                    역삼
+                    {sigungu}
                 </Location>
                 <Keywords>
-                    <Keyword>#키워드</Keyword>
-                    <Keyword>#키워드</Keyword>
-                    <Keyword>#키워드</Keyword>
+                    {showCustomTags?.map((tag) => (
+                        <Keyword id={tag.tagId}>{tag.tagContent}</Keyword>
+                    ))}
                 </Keywords>
                 <Footer>
-                    <Price>₩ 250,000 / 시간</Price>
+                    <Price>
+                        ₩{" "}
+                        {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                        / 시간
+                    </Price>
                     <Into>
                         <div>
                             <CiHeart></CiHeart>

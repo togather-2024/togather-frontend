@@ -4,13 +4,13 @@ export const regionInputState = atom({
     key: "regionInputState",
     default: {
         region: {
-            province: undefined,
-            district: undefined,
+            province: "",
+            district: "",
         },
     },
 });
 
 export const dateInputState = atom({
     key: "dateInputState",
-    default: undefined,
+    default: "",
 });
