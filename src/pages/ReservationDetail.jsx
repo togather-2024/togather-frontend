@@ -12,7 +12,6 @@ const ReservationDetail = () => {
   const [loading, setLoading] = useState(true);
   const { reservationId } = useParams();
   const data = GetReservationDetail({ reservationId, setLoading });
-  const paymentKey = data?.paymentKey;
   const paymentStatus =
     data?.partyRoomReservationDto?.paymentStatus === "COMPLETE"
       ? "결제 완료"
