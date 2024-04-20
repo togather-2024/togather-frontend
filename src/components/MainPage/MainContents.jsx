@@ -35,7 +35,6 @@ const MainContents = () => {
                     params: body,
                     config,
                 });
-                await console.log(response.status);
                 const datas = await response.data.map((data) => ({
                     partyRoomDto: {
                         partyRoomId: data.partyRoomDto.partyRoomId,
