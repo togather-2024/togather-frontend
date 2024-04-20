@@ -4,8 +4,34 @@ import { colors } from "../../styles/colors";
 import { IoLocationSharp } from "react-icons/io5";
 import profile from "../../assets/profile.png";
 import { useNavigate } from "react-router-dom";
+import { FaPen } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const ReservatedRoomInfo = ({ data }) => {
+  const { reservationId } = useParams();
+  const [qualified, setQualified] = useState(false);
+  const token = localStorage.getItem("refresh_token");
+  useEffect(() => {
+    const checkQualification = async () => {
+      try {
+        const res = await axios.post(
+          `/api/review/check/qualification?partyRoomReservationId=${Number(reservationId)}`,
+          "",
+          {
+            headers: { Authorization: token },
+          }
+        );
+        setQualified(res.data);
+        console.log(res.data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    checkQualification();
+  }, []);
+
   const navigate = useNavigate();
   const roomId = data?.partyRoomReservationDto?.partyRoomDto?.partyRoomId;
   const roomName = data?.partyRoomReservationDto?.partyRoomDto?.partyRoomName;
@@ -35,6 +61,14 @@ const ReservatedRoomInfo = ({ data }) => {
           </TextInfo>
         </HostProfile>
         <Button onClick={() => navigate(`/detail/${roomId}`)}>상세 보기</Button>
+        {qualified ? (
+          <ReviewButton>
+            <FaPen color="#ffffff" />
+            <p>후기 작성하기</p>
+          </ReviewButton>
+        ) : (
+          ""
+        )}
       </TextInfo>
     </Container>
   );
@@ -115,4 +149,10 @@ const Button = styled.button`
   &:hover {
     background-color: ${colors.hover01};
   }
+`;
+
+const ReviewButton = styled(Button)`
+  background-color: ${colors.dark};
+  display: flex;
+  gap: 12px;
 `;
