@@ -13,7 +13,6 @@ const RoomInfo = () => {
             return;
         }
         const file = e.target.files[0];
-        console.log(file);
 
         const fileRead = new FileReader();
         fileRead.readAsDataURL(file);
@@ -74,7 +73,6 @@ const RoomInfo = () => {
             };
         });
     };
-
     return (
         <ContentsBox>
             <Gallery>
@@ -93,7 +91,7 @@ const RoomInfo = () => {
                         >
                             X
                         </Button>
-                        <Img src={img} />
+                        <Img src={img} count={idx} />
                     </ImgBox>
                 ))}
             </Gallery>
@@ -142,7 +140,9 @@ const ImgBox = styled.div`
 const Img = styled.img`
     width: 7rem;
     height: 7rem;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    border: ${(props) =>
+        props.count === 0 ? "3px solid black" : "1px solid rgba(0,0,0,0.5)"};
     border-radius: 10px;
 `;
 const Button = styled.button`
