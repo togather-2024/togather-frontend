@@ -23,7 +23,7 @@ const ReviewModal = ({ setIsOpen }) => {
   };
   const handleCreateReview = async () => {
     try {
-      await axios.post(`api/review/register`, {
+      await axios.post(`/api/review/register`, "", {
         headers: { Authorization: token },
         params: params,
       });
