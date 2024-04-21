@@ -1,11 +1,14 @@
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { selectedDateState } from "../../../recoil/atoms/selectedDate";
 import { availableTimeState } from "../../../recoil/atoms/availableTimeState";
 import axios from "axios";
+import { timeRangeState } from "../../../recoil/atoms/timeRangeState";
 
 const useFetchAvailTimes = (roomId) => {
   const [availableTime, setAvailableTime] = useRecoilState(availableTimeState);
+  const setSelectedRange = useSetRecoilState(timeRangeState);
+
   const date = useRecoilValue(selectedDateState);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -20,6 +23,7 @@ const useFetchAvailTimes = (roomId) => {
         );
         // 서버로부터 받은 데이터를 상태에 업데이트
         setAvailableTime(res.data.availableTimes);
+        setSelectedRange({ start: null, end: null });
       } catch (error) {
         console.error("서버 요청 중 오류 발생:", error);
       }
@@ -27,7 +31,7 @@ const useFetchAvailTimes = (roomId) => {
 
     fetchData(); // selectedDate가 변경될 때마다 fetchData 함수 호출
   }, [date, formattedDate2]);
-  return <div></div>;
+  return;
 };
 
 export default useFetchAvailTimes;

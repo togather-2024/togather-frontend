@@ -1,25 +1,25 @@
-import React from "react";
+import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { size, weight } from "../styles/fonts";
-import { IoIosArrowBack } from "react-icons/io";
 import ReservateInfo from "../components/ReservationConfirm/ReservateInfo";
 import PriceInfo from "../components/ReservationConfirm/PriceInfo";
+import PaymentContainer from "../components/ReservationConfirm/PaymentContainer";
+import GetResInfo from "../components/ReservationConfirm/GetResInfo";
 
 const ReservationConfirm = () => {
+  const reservationId = Number(useParams().Id);
+  const data = GetResInfo(reservationId);
+
   return (
     <>
-      <TitleContainer>
-        <PrevButton>
-          <IoIosArrowBack color="#7A7A7A" size={28} />
-        </PrevButton>
-        <Title>확인 및 결제</Title>
-      </TitleContainer>
+      <Title>확인 및 결제</Title>
       <Container>
         <Left>
-          <ReservateInfo />
+          <ReservateInfo data={data} />
+          <PaymentContainer data={data} />
         </Left>
         <Right>
-          <PriceInfo />
+          <PriceInfo data={data} />
         </Right>
       </Container>
     </>
@@ -29,31 +29,18 @@ const ReservationConfirm = () => {
 export default ReservationConfirm;
 
 const Container = styled.div`
-  /* border: 1px solid red; */
   display: flex;
 `;
 const Left = styled.div`
-  /* border: 1px solid blue; */
   flex: 2;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 32px;
-`;
-const PrevButton = styled.button`
-  all: unset;
-  cursor: pointer;
 `;
 
 const Title = styled.div`
   font-size: ${size.h2};
   font-weight: ${weight.semibold};
+  margin-top: 32px;
 `;
 
 const Right = styled.div`
-  /* border: 1px solid green; */
   flex: 1;
 `;

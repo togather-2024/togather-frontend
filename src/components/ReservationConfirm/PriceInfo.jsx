@@ -3,29 +3,52 @@ import styled from "@emotion/styled";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
 
-const PriceInfo = () => {
+const PriceInfo = ({ data }) => {
+  const partyroomName =
+    data?.partyRoomReservationDto?.partyRoomDto?.partyRoomName;
+  const region = data?.partyRoomLocationDto?.sigungu;
+  const guestCapacity =
+    data?.partyRoomReservationDto?.partyRoomDto?.guestCapacity;
+  function priceToString(price) {
+    return price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  const pricePerHour = data?.partyRoomReservationDto?.partyRoomDto?.price;
+  const totailPrice = data?.partyRoomReservationDto?.totalPrice;
+
+  function extractTime(dateTimeString) {
+    const time = dateTimeString.split("T")[1];
+    const result = time.slice(0, 5);
+    return result;
+  }
+
+  const startTime =
+    data && extractTime(data?.partyRoomReservationDto?.startTime);
+  const endTime = data && extractTime(data?.partyRoomReservationDto?.endTime);
+  const reservedHours =
+    Number(data && endTime.slice(0, 2)) - Number(data && startTime.slice(0, 2));
+
   return (
     <Container>
-      <Img></Img>
+      <ImgContainer>
+        <Img src={data?.partyRoomImageDto?.imageFileName} />
+      </ImgContainer>
       <RoomInfo>
-        <RoomName>공간 이름</RoomName>
-        <Summary>지역 • 최대 인원 n 명 • 후기 n 건</Summary>
-        <TagList>
-          <Tag>#키워드</Tag>
-          <Tag>#키워드</Tag>
-          <Tag>#키워드</Tag>
-        </TagList>
+        <RoomName>{partyroomName}</RoomName>
+        <Summary>
+          {region} • 최대 인원 {guestCapacity} 명
+        </Summary>
       </RoomInfo>
       <Total>
         <BoldText>총 결제 금액</BoldText>
-        <Text>₩ 20,000 * 4시간</Text>
+        <Text>
+          ₩ {priceToString(pricePerHour)} * {reservedHours}시간
+        </Text>
       </Total>
       <Line />
-      <TotalPrice>₩ 80,000</TotalPrice>
+      <TotalPrice>₩ {priceToString(totailPrice)}</TotalPrice>
     </Container>
   );
 };
-
 export default PriceInfo;
 
 const Container = styled.div`
@@ -33,12 +56,14 @@ const Container = styled.div`
   padding: 30px;
   border-radius: 30px;
 `;
-
-const Img = styled.div`
+const ImgContainer = styled.div`
   width: 200px;
   height: 200px;
+`;
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
   border-radius: 20px;
-  background-color: ${colors.gray50};
 `;
 
 const RoomInfo = styled.div`
@@ -55,17 +80,6 @@ const RoomName = styled.div`
 
 const Summary = styled.div`
   color: ${colors.gray50};
-`;
-
-const Tag = styled.div`
-  background-color: ${colors.point04};
-  padding: 6px 12px;
-  border-radius: 15px;
-`;
-
-const TagList = styled.div`
-  display: flex;
-  gap: 12px;
 `;
 
 const Total = styled.div`
