@@ -21,6 +21,7 @@
     "react-scripts": "5.0.1",
     "react-virtualized": "^9.22.5",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "styled-normalize": "^8.1.1",
     "styled-reset": "^4.5.2",
     "web-vitals": "^2.1.4"

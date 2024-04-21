@@ -6,20 +6,14 @@ import logo from "../../assets/logo.png";
 import { colors } from "../../styles/colors";
 import { loginState, dropDownState } from "../../recoil/atoms/loginState";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { useState, useEffect } from "react";
 import ProfileDropdown from "../Profile/ProfileDropdown";
+
 const Header = () => {
+    const loginValue = useRecoilValue(loginState);
     const handleDropDown = () => {
         setIsDropped(!isDropped);
     };
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isDropped, setIsDropped] = useRecoilState(dropDownState);
-
-    useEffect(() => {
-        if (localStorage.getItem("refresh_token")) {
-            setIsLoggedIn(true);
-        }
-    }, []);
 
     return (
         <>
@@ -28,7 +22,7 @@ const Header = () => {
                 <Link to={`/`}>
                     <Logo src={logo} alt="logo" />
                 </Link>
-                {!isLoggedIn ? (
+                {!loginValue ? (
                     <MenuContainer>
                         <Link to={`/signin`}>
                             <Menu>숙소 등록</Menu>
