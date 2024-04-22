@@ -153,10 +153,10 @@ const CardImage = styled.div`
     .favorite {
         display: block;
         position: absolute;
-        width: 40px;
-        height: 40px;
-        right: 10px;
-        top: 10px;
+        width: 30px;
+        height: 30px;
+        right: 15px;
+        top: 15px;
         cursor: pointer;
         stroke: white;
         stroke-width: 12;
@@ -170,10 +170,10 @@ const CardImage = styled.div`
         display: block;
 
         position: absolute;
-        width: 40px;
-        height: 40px;
-        right: 10px;
-        top: 10px;
+        width: 30px;
+        height: 30px;
+        right: 15px;
+        top: 15px;
         cursor: pointer;
         stroke: white;
         stroke-width: 12;
