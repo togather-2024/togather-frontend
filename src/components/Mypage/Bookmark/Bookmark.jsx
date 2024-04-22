@@ -7,9 +7,10 @@ import LoadingContainer from "../../Common/LoadingContainer";
 const Bookmark = () => {
   const [loading, setLoading] = useState(true);
   const cardData = GetBookmark({ setLoading });
+  console.log(cardData);
 
   const favoritesList = cardData?.map((item, idx) => (
-    <Card key={idx} photo={null} />
+    <Card key={idx} info={item} />
   ));
   return (
     <Wrapper>
@@ -17,8 +18,7 @@ const Bookmark = () => {
       {loading ? (
         <LoadingContainer />
       ) : (
-        ""
-        //<FavoritesList>{favoritesList || "hello"}</FavoritesList>
+        <BookmarkedList>{favoritesList}</BookmarkedList>
       )}
     </Wrapper>
   );
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 
 const Count = styled.div``;
 
-const FavoritesList = styled.div`
+const BookmarkedList = styled.div`
   margin-top: 32px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
