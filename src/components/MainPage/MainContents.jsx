@@ -3,7 +3,7 @@ import Card from "../../components/MainPage/MainContents/Card";
 import { useState, useEffect } from "react";
 import { searchValueState } from "../../recoil/atoms/searchValueState";
 import { useRecoilValue } from "recoil";
-import { Link } from "react-router-dom";
+import { loginState } from "../../recoil/atoms/loginState";
 
 import axios from "axios";
 
@@ -12,6 +12,8 @@ const MainContents = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
     const searchValue = useRecoilValue(searchValueState);
+    const loginValue = useRecoilValue(loginState);
+
     useEffect(() => {
         setIsLoading(true);
 
@@ -31,10 +33,17 @@ const MainContents = () => {
                         "Content-Type": "application/json",
                     },
                 };
+                if (loginValue) {
+                    const token = localStorage.getItem("refresh_token");
+                    config.headers["Authorization"] = token;
+                }
+                console.log(config);
+
                 const response = await axios.get("/api/partyroom/search", {
                     params: body,
                     config,
                 });
+                console.log(response);
                 const datas = await response.data.map((data) => ({
                     partyRoomDto: {
                         partyRoomId: data.partyRoomDto.partyRoomId,
@@ -49,6 +58,9 @@ const MainContents = () => {
                     },
                     customTags: data.customTags.slice(),
                     sigungu: data.partyRoomLocationDto.sigungu,
+                    reviewCount: data.reviewCount,
+                    bookmarkCount: data.bookmarkCount,
+                    bookmarked: data.bookmarked,
                 }));
 
                 setCardInfo((prevData) => [...prevData, ...datas]);
@@ -57,7 +69,7 @@ const MainContents = () => {
             }
         };
         fetchDatas();
-    }, [page, searchValue]);
+    }, [page, searchValue, loginValue]);
 
     useEffect(() => {
         setPage(1);
@@ -84,15 +96,7 @@ const MainContents = () => {
     return (
         <>
             <Container>
-                {cardInfo &&
-                    cardInfo.map((info) => (
-                        <Link
-                            key={info.partyRoomDto.partyRoomId}
-                            to={`/detail/${info.partyRoomDto.partyRoomId}`}
-                        >
-                            <Card info={info}></Card>
-                        </Link>
-                    ))}
+                {cardInfo && cardInfo.map((info) => <Card info={info}></Card>)}
             </Container>
             <div id="observer" style={{ height: "20px" }}></div>
         </>
