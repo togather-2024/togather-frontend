@@ -1,10 +1,57 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { size, weight } from "../../../styles/fonts";
 import { colors } from "../../../styles/colors";
-import profile from "../../../assets/profile.png";
+import { editReview } from "../../../api/api";
+import ReviewDeleteModal from "./ReviewDeleteModal";
+import { useNavigate } from "react-router-dom";
 
 const MyReviewItem = ({ data }) => {
+  const navigate = useNavigate();
+  const [review, setReview] = useState(data);
+  console.log(review);
+  const reviewContent = review?.reviewDesc;
+  const [editing, setEditing] = useState(false);
+  const [editContent, setEditContent] = useState(reviewContent);
+  const [isOpen, setIsOpen] = useState(false);
+  const { partyRoomId } = data?.partyRoomDto;
+
+  const goToRoomDetail = () => {
+    navigate(`/detail/${partyRoomId}`);
+  };
+  const handleStartEdit = () => {
+    setEditing(true);
+  };
+
+  const handleFocus = (e) => {
+    const target = e.target;
+    const length = target.value.length;
+    target.setSelectionRange(length, length);
+  };
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const { reviewId } = data;
+  const params = { reviewDesc: editContent };
+
+  const handleSubmitEdit = async () => {
+    try {
+      if (review !== editContent) {
+        await editReview(params, reviewId);
+        setReview(
+          review.reviewId === reviewId
+            ? { ...review, reviewDesc: editContent }
+            : review
+        );
+      }
+      setEditing(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   function formatDate(inputDateString) {
     const date = new Date(inputDateString);
     const year = date.getFullYear();
@@ -15,23 +62,48 @@ const MyReviewItem = ({ data }) => {
 
     return formattedDate;
   }
-  const usedDateString = data?.partyRoomReservationDto?.endTime;
-  const createdDateString = data?.createdAt;
-  const reviewContent = data?.reviewDesc;
+  const usedDateString = review?.partyRoomReservationDto?.endTime;
+  const createdDateString = review?.createdAt;
 
-  const { partyRoomName } = data?.partyRoomDto;
+  const partyRoomName = review?.partyRoomDto?.partyRoomName;
 
   return (
     <Review>
+      {isOpen ? (
+        <ReviewDeleteModal
+          setIsOpen={setIsOpen}
+          reviewId={reviewId}
+          setReview={setReview}
+          review={review}
+        />
+      ) : (
+        ""
+      )}
       <ReviewInfo>
-        <PartyRoomName>{partyRoomName}</PartyRoomName>
+        <PartyRoomName onClick={goToRoomDetail}>{partyRoomName}</PartyRoomName>
         <CreatedAt>{formatDate(createdDateString)}</CreatedAt>
       </ReviewInfo>
       <UsedAt>{formatDate(usedDateString)} 이용</UsedAt>
-      <ReviewContent>{reviewContent}</ReviewContent>
+      {!editing ? (
+        <ReviewContent>{reviewContent}</ReviewContent>
+      ) : (
+        <EditArea
+          value={editContent}
+          onChange={(e) => setEditContent(e.target.value)}
+          autoFocus
+          onFocus={handleFocus}
+        >
+          {editContent}
+        </EditArea>
+      )}
       <ButtonWrapper>
-        <Button>수정</Button>
-        <Button>삭제</Button>
+        <Button
+          type={editing ? "submit" : "edit"}
+          onClick={editing ? handleSubmitEdit : handleStartEdit}
+        >
+          {editing ? "등록" : "수정"}
+        </Button>
+        <Button onClick={handleOpen}>삭제</Button>
       </ButtonWrapper>
     </Review>
   );
@@ -74,8 +146,9 @@ const ButtonWrapper = styled.div`
 `;
 const Button = styled.button`
   all: unset;
-  background: ${colors.gray10};
-  color: ${colors.gray50};
+  background: ${(props) =>
+    props.type === "submit" ? colors.point02 : colors.gray10};
+  color: ${(props) => (props.type === "submit" ? colors.white : colors.gray50)};
   padding: 8px 10px;
   border-radius: 8px;
   font-size: ${size.caption};
@@ -83,4 +156,12 @@ const Button = styled.button`
   &:hover {
     background-color: ${colors.hover02};
   }
+`;
+
+const EditArea = styled.textarea`
+  resize: none;
+  width: 300px;
+  border: none;
+  outline: none;
+  caret-color: ${colors.point01};
 `;
