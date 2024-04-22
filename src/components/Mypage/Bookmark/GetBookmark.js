@@ -6,7 +6,7 @@ const GetBookmark = ({ setLoading }) => {
   useEffect(() => {
     const getReview = async () => {
       try {
-        const res = getBookmarkList();
+        const res = await getBookmarkList();
         setData(res.data);
       } catch (e) {
         console.log(e);

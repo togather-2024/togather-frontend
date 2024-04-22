@@ -8,7 +8,7 @@ const Bookmark = () => {
   const [loading, setLoading] = useState(true);
   const cardData = GetBookmark({ setLoading });
 
-  const favoritesList = cardData?.map((list, idx) => (
+  const favoritesList = cardData?.map((item, idx) => (
     <Card key={idx} photo={null} />
   ));
   return (
@@ -17,7 +17,8 @@ const Bookmark = () => {
       {loading ? (
         <LoadingContainer />
       ) : (
-        <FavoritesList>{favoritesList}</FavoritesList>
+        ""
+        //<FavoritesList>{favoritesList || "hello"}</FavoritesList>
       )}
     </Wrapper>
   );
