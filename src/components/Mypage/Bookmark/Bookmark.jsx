@@ -7,7 +7,6 @@ import LoadingContainer from "../../Common/LoadingContainer";
 const Bookmark = () => {
   const [loading, setLoading] = useState(true);
   const cardData = GetBookmark({ setLoading });
-  console.log(cardData);
 
   const favoritesList = cardData?.map((item, idx) => (
     <Card key={idx} info={item} />
