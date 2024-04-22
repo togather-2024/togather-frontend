@@ -19,8 +19,8 @@ const Sidebar = ({ active }) => {
     <Wrapper>
       <List>
         <Menu
-          active={active === "favorites"}
-          onClick={() => handleMenuClick("favorites")}
+          active={active === "bookmark"}
+          onClick={() => handleMenuClick("bookmark")}
         >
           <FaHeart />
           찜한 목록

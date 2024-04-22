@@ -10,6 +10,7 @@ import ReviewContainer from "../components/RoomDetail/Review/ReviewContainer";
 import ImgContainer from "../components/RoomDetail/RoomImg/ImgContainer";
 import LocationContainer from "../components/RoomDetail/Map/LocationContainer";
 import LoadingContainer from "../components/Common/LoadingContainer";
+import HeartContainer from "../components/RoomDetail/Likes/HeartContainer";
 
 const RoomDetail = () => {
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,10 @@ const RoomDetail = () => {
           <Contents>
             <LeftContents>
               <Intro>
-                <RoomName>{roomName}</RoomName>
+                <Title>
+                  <RoomName>{roomName}</RoomName>
+                  <HeartContainer data={data?.bookmared} />
+                </Title>
                 <Summary>
                   {region} • 최대 인원 {guestCapacity} 명
                 </Summary>
@@ -76,14 +80,20 @@ const LeftContents = styled.div`
 
 const Intro = styled.div``;
 
+const Title = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+`;
+
 const RoomName = styled.div`
   font-size: ${size.h2};
   font-weight: ${weight.bold};
-  margin-bottom: 12px;
 `;
 
 const Summary = styled.div`
   color: ${colors.gray50};
+  margin-top: 12px;
 `;
 
 const TagList = styled.div`
