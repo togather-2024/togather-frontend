@@ -1,10 +1,134 @@
 import styled from "@emotion/styled";
 import { IoLocationSharp } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
+import { useRecoilValue } from "recoil";
+import { loginState } from "../../../recoil/atoms/loginState";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { MdOutlineStarOutline, MdOutlineStarPurple500 } from "react-icons/md";
 import axios from "axios";
+
+const Card = ({ info }) => {
+    // props 정보
+    const id = info.partyRoomDto.partyRoomId;
+    const title = info.partyRoomDto.partyRoomName;
+    const price = info.partyRoomDto.price;
+    const thumbnail = info.partyRoomImage.thumbnail;
+    const customTags = info.customTags;
+    const sigungu = info.sigungu;
+    const reviewCount = info.reviewCount;
+    const bookmarkCount = info.bookmarkCount;
+    const showCustomTags = info.customTags.slice(0, 3);
+
+    const loginValue = useRecoilValue(loginState);
+    const navigate = useNavigate();
+
+    const handleMoveDetail = (e) => {
+        if (e.target.tagName === "path") return;
+        navigate(`/detail/${id}`);
+    };
+
+    const [isBookmarked, setIsBookmarked] = useState(info.bookmarked);
+
+    const handleAddFavorite = async () => {
+        if (loginValue) {
+            try {
+                const token = localStorage.getItem("refresh_token");
+                const res = await axios.post(
+                    `/partyroom/bookmark/${id}`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: token,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                if (res.status === 200) {
+                    setIsBookmarked(true); // 상태 업데이트
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        } else {
+            navigate("/signin");
+        }
+    };
+
+    const handleDeleteFavorite = async () => {
+        if (loginValue) {
+            try {
+                const token = localStorage.getItem("refresh_token");
+                const res = await axios.delete(
+                    `/partyroom/bookmark/${id}`,
+
+                    {
+                        headers: {
+                            Authorization: token,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                console.log(res.status);
+                if (res.status === 200) {
+                    setIsBookmarked(false); // 상태 업데이트
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    };
+
+    return (
+        <Container id={id} onClick={handleMoveDetail}>
+            <CardImage
+                id={thumbnail?.partyRoomImageId}
+                style={{ backgroundImage: `url(${thumbnail?.imageFileName})` }}
+            >
+                {isBookmarked ? (
+                    <FaHeart
+                        className="favorite_full"
+                        onClick={handleDeleteFavorite}
+                    />
+                ) : (
+                    <FaHeart className="favorite" onClick={handleAddFavorite} />
+                )}
+            </CardImage>
+            <CardDescription>
+                <Title>{title}</Title>
+                <Location>
+                    <IoLocationSharp />
+                    {sigungu}
+                </Location>
+                <Keywords>
+                    {showCustomTags?.map((tag) => (
+                        <Keyword id={tag.tagId}>{tag.tagContent}</Keyword>
+                    ))}
+                </Keywords>
+                <Footer>
+                    <Price>
+                        ₩
+                        {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        / 시간
+                    </Price>
+                    <Into>
+                        <div>
+                            <CiHeart></CiHeart>
+                            <span>{bookmarkCount}</span>
+                        </div>
+                        <div>
+                            <FaRegComment />
+                            <span>{reviewCount}</span>
+                        </div>
+                    </Into>
+                </Footer>
+            </CardDescription>
+        </Container>
+    );
+};
+
+export default Card;
 
 const Container = styled.div`
     width: 20vw;
@@ -26,30 +150,36 @@ const CardImage = styled.div`
     background-size: cover;
     position: relative;
 
-    .star {
+    .favorite {
+        display: block;
         position: absolute;
-        width: 40px;
-        height: 40px;
-        right: 10px;
-        top: 10px;
+        width: 30px;
+        height: 30px;
+        right: 15px;
+        top: 15px;
         cursor: pointer;
-
+        stroke: white;
+        stroke-width: 12;
+        fill: rgba(0, 0, 0, 0.5);
         &:hover {
-            background-color: white;
+            fill: red;
         }
     }
-    .star polyline {
-        stroke: rgb(148, 205, 116);
-    }
-    .star_full {
+
+    .favorite_full {
+        display: block;
+
         position: absolute;
-        width: 40px;
-        height: 40px;
-        right: 10px;
-        top: 10px;
+        width: 30px;
+        height: 30px;
+        right: 15px;
+        top: 15px;
         cursor: pointer;
+        stroke: white;
+        stroke-width: 12;
+        fill: red;
         &:hover {
-            background-color: white;
+            fill: rgba(0, 0, 0, 0.5);
         }
     }
 `;
@@ -118,76 +248,3 @@ const Into = styled.div`
         margin-left: 3px;
     }
 `;
-
-// props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
-const Card = ({ id, title, price, thumbnail, customTags, sigungu }) => {
-    // 즐겨찾기 등록 여부에 따른 state값 지정후 true면
-    const [favorite, setFavorite] = useState(true);
-    const showCustomTags = customTags.slice(0, 3);
-    const handleAddFavorite = () => {
-        try {
-            axios.post(`/partyroom/bookmark/${id}`);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-    const handleDeleteFavorite = () => {
-        try {
-            axios.delete(`/partyroom/bookmark/${id}`);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-    return (
-        <Container id={id}>
-            <CardImage
-                id={thumbnail?.partyRoomImageId}
-                style={{ backgroundImage: `url(${thumbnail?.imageFileName})` }}
-            >
-                {favorite ? (
-                    <MdOutlineStarPurple500
-                        className="star"
-                        onClick={handleAddFavorite}
-                    />
-                ) : (
-                    <MdOutlineStarOutline
-                        className="star_full"
-                        color="yellow"
-                        onClick={handleDeleteFavorite}
-                    />
-                )}
-            </CardImage>
-            <CardDescription>
-                <Title>{title}</Title>
-                <Location>
-                    <IoLocationSharp />
-                    {sigungu}
-                </Location>
-                <Keywords>
-                    {showCustomTags?.map((tag) => (
-                        <Keyword id={tag.tagId}>{tag.tagContent}</Keyword>
-                    ))}
-                </Keywords>
-                <Footer>
-                    <Price>
-                        ₩
-                        {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                        / 시간
-                    </Price>
-                    <Into>
-                        <div>
-                            <CiHeart></CiHeart>
-                            <span>5</span>
-                        </div>
-                        <div>
-                            <FaRegComment />
-                            <span>6</span>
-                        </div>
-                    </Into>
-                </Footer>
-            </CardDescription>
-        </Container>
-    );
-};
-
-export default Card;
