@@ -26,7 +26,6 @@ const MainContents = () => {
                     pageNum: page,
                     pageSize: 10,
                 };
-                console.log(body);
                 const config = {
                     headers: {
                         "Content-Type": "application/json",
@@ -87,15 +86,11 @@ const MainContents = () => {
             <Container>
                 {cardInfo &&
                     cardInfo.map((info) => (
-                        <Link to={`/detail/${info.partyRoomDto.partyRoomId}`}>
-                            <Card
-                                id={info.partyRoomDto.partyRoomId}
-                                title={info.partyRoomDto.partyRoomName}
-                                price={info.partyRoomDto.price}
-                                thumbnail={info.partyRoomImage.thumbnail}
-                                customTags={info.customTags}
-                                sigungu={info.sigungu}
-                            ></Card>
+                        <Link
+                            key={info.partyRoomDto.partyRoomId}
+                            to={`/detail/${info.partyRoomDto.partyRoomId}`}
+                        >
+                            <Card info={info}></Card>
                         </Link>
                     ))}
             </Container>

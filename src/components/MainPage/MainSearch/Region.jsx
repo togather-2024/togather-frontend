@@ -74,16 +74,16 @@ const Region = ({ clicked, handleProvince, handleDistrict, province }) => {
     return (
         <Container clicked={clicked}>
             <ContainerBox>
-                {provinces.map((prov) => (
-                    <Element id={prov.name} onClick={handleProvince}>
+                {provinces.map((prov, idx) => (
+                    <Element id={prov.name} key={idx} onClick={handleProvince}>
                         {prov.name}
                     </Element>
                 ))}
             </ContainerBox>
             {province && (
                 <ContainerBox>
-                    {districts[province].map((dist) => (
-                        <Element id={dist} onClick={handleDistrict}>
+                    {districts[province].map((dist, idx) => (
+                        <Element id={dist} key={idx} onClick={handleDistrict}>
                             {dist}
                         </Element>
                     ))}

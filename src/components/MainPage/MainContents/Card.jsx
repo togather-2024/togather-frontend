@@ -120,8 +120,14 @@ const Into = styled.div`
 `;
 
 // props로 이미지 , 이름 , 위치 , 키워드 , 금액 , 댓글 정보 , 좋아요 정보
-const Card = ({ id, title, price, thumbnail, customTags, sigungu }) => {
-    // 즐겨찾기 등록 여부에 따른 state값 지정후 true면
+const Card = ({ info }) => {
+    const id = info.partyRoomDto.partyRoomId;
+    const title = info.partyRoomDto.partyRoomName;
+    const price = info.partyRoomDto.price;
+    const thumbnail = info.partyRoomImage.thumbnail;
+    const customTags = info.customTags;
+    const sigungu = info.sigungu;
+
     const [favorite, setFavorite] = useState(true);
     const showCustomTags = customTags.slice(0, 3);
     const handleAddFavorite = () => {

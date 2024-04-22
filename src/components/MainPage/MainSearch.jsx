@@ -86,7 +86,7 @@ const MainSearch = () => {
     };
 
     return (
-        <SearchSection>
+        <SearchSection onSubmit={handleSubmit}>
             <Region
                 clicked={regionClicked}
                 handleProvince={handleProvince}
@@ -168,7 +168,7 @@ const MainSearch = () => {
                         onChange={handleKeywordChange}
                     ></input>
                 </InputBox>
-                <SearchButton type="submit" onClick={handleSubmit}>
+                <SearchButton type="submit">
                     <StyledCiSearch />
                 </SearchButton>
             </SearchBar>
