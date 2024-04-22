@@ -5,13 +5,14 @@ import axios from "axios";
 const RoomDetailAPI = ({ setLoading }) => {
   const [data, setData] = useState(null);
   const params = useParams();
-  //수정
+  const token = localStorage.getItem("refresh_token");
 
   useEffect(() => {
     const getDetail = async () => {
       try {
         const res = await axios.get(
-          `/api/partyroom/detail/${Number(params.roomId)}`
+          `/api/partyroom/detail/${Number(params.roomId)}`,
+          { headers: { Authorization: token } }
         );
         setData(res.data);
         console.log(res.data);

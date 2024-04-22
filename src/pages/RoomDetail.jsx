@@ -35,7 +35,7 @@ const RoomDetail = () => {
               <Intro>
                 <Title>
                   <RoomName>{roomName}</RoomName>
-                  <HeartContainer data={data?.bookmared} />
+                  <HeartContainer data={data} />
                 </Title>
                 <Summary>
                   {region} • 최대 인원 {guestCapacity} 명

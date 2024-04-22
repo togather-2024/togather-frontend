@@ -7,9 +7,8 @@ import { colors } from "../../../styles/colors";
 
 const HeartContainer = ({ data }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const bookmarked = data;
+  const { bookmarked } = data;
   const { roomId } = useParams();
-
   const handleBookmark = async () => {
     try {
       const res = await addBookmark(roomId);
