@@ -41,7 +41,7 @@ const MainContents = () => {
 
                 const response = await axios.get("/api/partyroom/search", {
                     params: body,
-                    config,
+                    headers: config.headers,
                 });
                 console.log(response);
                 const datas = await response.data.map((data) => ({
