@@ -19,9 +19,7 @@ const Card = ({ info }) => {
     const sigungu = info.sigungu;
     const reviewCount = info.reviewCount;
     const bookmarkCount = info.bookmarkCount;
-    const showCustomTags = customTags.slice(0, 3);
-
-    const [bookmarkedState, setBookmarkedState] = useState(info.bookmarked);
+    const showCustomTags = info.customTags.slice(0, 3);
 
     const loginValue = useRecoilValue(loginState);
     const navigate = useNavigate();
@@ -30,6 +28,8 @@ const Card = ({ info }) => {
         if (e.target.tagName === "path") return;
         navigate(`/detail/${id}`);
     };
+
+    const [isBookmarked, setIsBookmarked] = useState(info.bookmarked);
 
     const handleAddFavorite = async () => {
         if (loginValue) {
@@ -46,7 +46,7 @@ const Card = ({ info }) => {
                     }
                 );
                 if (res.status === 200) {
-                    setBookmarkedState(true);
+                    setIsBookmarked(true); // 상태 업데이트
                 }
             } catch (e) {
                 console.log(e);
@@ -55,25 +55,28 @@ const Card = ({ info }) => {
             navigate("/signin");
         }
     };
+
     const handleDeleteFavorite = async () => {
-        if (!bookmarkedState) return;
-        try {
-            const token = localStorage.getItem("refresh_token");
-            const res = await axios.post(
-                `/partyroom/bookmark/${id}`,
-                {},
-                {
-                    headers: {
-                        Authorization: token,
-                        "Content-Type": "application/json",
-                    },
+        if (loginValue) {
+            try {
+                const token = localStorage.getItem("refresh_token");
+                const res = await axios.delete(
+                    `/partyroom/bookmark/${id}`,
+
+                    {
+                        headers: {
+                            Authorization: token,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                console.log(res.status);
+                if (res.status === 200) {
+                    setIsBookmarked(false); // 상태 업데이트
                 }
-            );
-            if (res.status === 200) {
-                setBookmarkedState(false);
+            } catch (e) {
+                console.log(e);
             }
-        } catch (e) {
-            console.log(e);
         }
     };
 
@@ -83,7 +86,7 @@ const Card = ({ info }) => {
                 id={thumbnail?.partyRoomImageId}
                 style={{ backgroundImage: `url(${thumbnail?.imageFileName})` }}
             >
-                {bookmarkedState ? (
+                {isBookmarked ? (
                     <FaHeart
                         className="favorite_full"
                         onClick={handleDeleteFavorite}
