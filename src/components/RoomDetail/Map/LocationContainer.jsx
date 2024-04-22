@@ -3,9 +3,10 @@ import styled from "@emotion/styled";
 import { size, weight } from "../../../styles/fonts";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import useKakaoLoader from "./useKakaoLoader";
+import { colors } from "../../../styles/colors";
 
 const LocationContainer = ({ data }) => {
-  const [location, setLocation] = useState({ lat: 33.5563, lng: 126.79581 });
+  const [location, setLocation] = useState(null);
   useKakaoLoader();
   const { kakao, loading } = window;
 
@@ -18,7 +19,10 @@ const LocationContainer = ({ data }) => {
     const geocoder = new kakao.maps.services.Geocoder();
     return await new Promise((resolve) => {
       geocoder.addressSearch(address, function (result) {
-        resolve(new kakao.maps.LatLng(result[0].y, result[0].x));
+        resolve(
+          result?.[0]?.y &&
+            new kakao.maps.LatLng(result?.[0]?.y && result[0].y, result[0].x)
+        );
       });
     });
   };
@@ -30,7 +34,7 @@ const LocationContainer = ({ data }) => {
           const result = await getLocationByAddress(
             partyRoomAddress //네이버본사
           );
-          setLocation({ lat: result.getLat(), lng: result.getLng() });
+          result && setLocation({ lat: result.getLat(), lng: result.getLng() });
         }
       };
       setMapCenterByAddress();
@@ -40,8 +44,8 @@ const LocationContainer = ({ data }) => {
   return (
     <Container>
       <Subheading>위치</Subheading>
-      {data && (
-        <MapContainer>
+      <MapContainer>
+        {location ? (
           <Map
             id="map"
             center={location}
@@ -54,8 +58,10 @@ const LocationContainer = ({ data }) => {
           >
             <MapMarker position={location}></MapMarker>
           </Map>
-        </MapContainer>
-      )}
+        ) : (
+          <Text>지도에 위치를 표시할 수 없습니다.</Text>
+        )}
+      </MapContainer>
     </Container>
   );
 };
@@ -72,4 +78,13 @@ const Subheading = styled.div`
 
 const MapContainer = styled.div`
   height: 300px;
+  background-color: ${colors.gray10};
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Text = styled.p`
+  color: ${colors.gray80};
 `;

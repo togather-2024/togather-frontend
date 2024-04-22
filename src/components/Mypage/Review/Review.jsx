@@ -1,17 +1,18 @@
-import React from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import React, { useState } from "react";
 import { size, weight } from "../../../styles/fonts";
 import { colors } from "../../../styles/colors";
-import ReviewItem from "./ReviewItem";
-import GetReview from "./GetReview";
+import MyReviewItem from "./MyReviewItem";
+import GetMyReview from "./GetMyReview";
+import LoadingContainer from "../../Common/LoadingContainer";
 
-const ReviewContainer = () => {
-  const data = GetReview();
-
+const Review = () => {
+  const [loading, setLoading] = useState(true);
+  const data = GetMyReview({ setLoading });
   const reviewList = data?.map((item, index) => {
     return (
       <React.Fragment key={item.reviewId}>
-        <ReviewItem data={item} />
+        <MyReviewItem data={item} />
         {index !== data.length - 1 && <Line />}
       </React.Fragment>
     );
@@ -20,13 +21,17 @@ const ReviewContainer = () => {
     <Container>
       <ReviewHeading>이용 후기</ReviewHeading>
       <ReviewCount>{data?.length} 건</ReviewCount>
-      <GreenLine />
-      <ReviewList>{reviewList}</ReviewList>
+      <BoldLine />
+      {loading ? (
+        <LoadingContainer />
+      ) : (
+        <ReviewList>{reviewList || "작성한 이용후기가 없습니다"}</ReviewList>
+      )}
     </Container>
   );
 };
 
-export default ReviewContainer;
+export default Review;
 
 const Container = styled.div`
   margin-bottom: 40px;
@@ -53,7 +58,7 @@ const Line = styled.div`
   border: 0.5px solid ${colors.gray10};
 `;
 
-const GreenLine = styled.div`
+const BoldLine = styled.div`
   border: 1px solid ${colors.black};
   margin-bottom: 16px;
 `;

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../styles/colors";
 import { size, weight } from "../styles/fonts";
@@ -9,11 +9,12 @@ import Host from "../components/RoomDetail/Host";
 import ReviewContainer from "../components/RoomDetail/Review/ReviewContainer";
 import ImgContainer from "../components/RoomDetail/RoomImg/ImgContainer";
 import LocationContainer from "../components/RoomDetail/Map/LocationContainer";
+import LoadingContainer from "../components/Common/LoadingContainer";
 import HeartContainer from "../components/RoomDetail/Likes/HeartContainer";
 
 const RoomDetail = () => {
-  const roomId = Number(useParams().roomId);
-  const data = RoomDetailAPI();
+  const [loading, setLoading] = useState(true);
+  const data = RoomDetailAPI({ setLoading });
   const roomName = data?.partyRoomDto?.partyRoomName;
   const region = data?.partyRoomLocationDto?.sigungu;
   const guestCapacity = data?.partyRoomDto?.guestCapacity;
@@ -24,33 +25,39 @@ const RoomDetail = () => {
   ));
   return (
     <>
-      <ImgContainer data={data} />
-      <Contents>
-        <LeftContents>
-          <Intro>
-            <Title>
-              <RoomName>{roomName}</RoomName>
-              <HeartContainer data={data?.bookmared} />
-            </Title>
-            <Summary>
-              {region} • 최대 인원 {guestCapacity} 명
-            </Summary>
-            <TagList>{tagList}</TagList>
-          </Intro>
-          <DescriptionContainer>
-            <Subheading>공간 설명</Subheading>
-            <Description>{partyRoomDesc}</Description>
-          </DescriptionContainer>
-          <LocationContainer data={data} />
-          <ReviewContainer />
-        </LeftContents>
-        <RightContents>
-          <RightInner>
-            <Booking data={data} roomId={roomId} />
-            <Host data={data?.partyRoomDto?.partyRoomHost} />
-          </RightInner>
-        </RightContents>
-      </Contents>
+      {loading ? (
+        <LoadingContainer />
+      ) : (
+        <>
+          <ImgContainer data={data} />
+          <Contents>
+            <LeftContents>
+              <Intro>
+                <Title>
+                  <RoomName>{roomName}</RoomName>
+                  <HeartContainer data={data} />
+                </Title>
+                <Summary>
+                  {region} • 최대 인원 {guestCapacity} 명
+                </Summary>
+                <TagList>{tagList}</TagList>
+              </Intro>
+              <DescriptionContainer>
+                <Subheading>공간 설명</Subheading>
+                <Description>{partyRoomDesc}</Description>
+              </DescriptionContainer>
+              <LocationContainer data={data} />
+              <ReviewContainer />
+            </LeftContents>
+            <RightContents>
+              <RightInner>
+                <Booking data={data} />
+                <Host data={data?.partyRoomDto?.partyRoomHost} />
+              </RightInner>
+            </RightContents>
+          </Contents>
+        </>
+      )}
     </>
   );
 };
@@ -113,7 +120,6 @@ const Description = styled.div`
 
 const RightContents = styled(LeftContents)`
   margin-bottom: 0;
-  /* border: 1px solid green; */
   flex: 1;
   padding: 0;
 `;

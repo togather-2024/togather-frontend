@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
 import ReservationItem from "./ReservationItem";
+import GetReservationList from "./GetReservationList";
+import LoadingContainer from "../../Common/LoadingContainer";
 
 const Reservations = () => {
   const [active, setActive] = useState("all");
-  const reservationData = Array(5)
-    .fill(0)
-    .map((_, idx) => idx + 1);
+  const [loading, setLoading] = useState(true);
+  const data = GetReservationList({ setLoading });
+  const filteredData = data?.filter(
+    (data) => data?.partyRoomReservationDto?.paymentStatus !== "PENDING"
+  );
 
-  const reservationList = reservationData?.map((list, idx) => (
-    <ReservationItem key={idx} />
-  ));
+  const completeData = data?.filter(
+    (data) => data?.partyRoomReservationDto?.paymentStatus === "COMPLETE"
+  );
+  const canceledData = data?.filter(
+    (data) => data?.partyRoomReservationDto?.paymentStatus === "CANCELED"
+  );
+
+  const renderReservationList = (reservationData) =>
+    reservationData?.map((data, index) => (
+      <Link
+        to={`/reservation/${data?.partyRoomReservationDto?.reservationId}`}
+        key={index}
+      >
+        <ReservationItem data={data} />
+      </Link>
+    ));
   return (
     <Wrapper>
       <Nav>
@@ -31,7 +49,15 @@ const Reservations = () => {
           취소된 예약
         </Menu>
       </Nav>
-      <ListContainer>{reservationList}</ListContainer>
+      {!loading ? (
+        <ListContainer>
+          {active === "all" && renderReservationList(filteredData)}
+          {active === "reservated" && renderReservationList(completeData)}
+          {active === "canceled" && renderReservationList(canceledData)}
+        </ListContainer>
+      ) : (
+        <LoadingContainer />
+      )}
     </Wrapper>
   );
 };

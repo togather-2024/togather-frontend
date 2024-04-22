@@ -6,6 +6,7 @@ import { FaHeart } from "react-icons/fa";
 import { AiFillMessage } from "react-icons/ai";
 import { FaCalendarCheck } from "react-icons/fa6";
 import { IoMdPerson } from "react-icons/io";
+import { FaPen } from "react-icons/fa";
 
 const Sidebar = ({ active }) => {
   const navigate = useNavigate();
@@ -18,11 +19,11 @@ const Sidebar = ({ active }) => {
     <Wrapper>
       <List>
         <Menu
-          active={active === "favorites"}
-          onClick={() => handleMenuClick("favorites")}
+          active={active === "bookmark"}
+          onClick={() => handleMenuClick("bookmark")}
         >
           <FaHeart />
-          찜한 숙소
+          찜한 목록
         </Menu>
         <Menu
           active={active === "messages"}
@@ -37,6 +38,13 @@ const Sidebar = ({ active }) => {
         >
           <FaCalendarCheck />
           예약관리
+        </Menu>
+        <Menu
+          active={active === "review"}
+          onClick={() => handleMenuClick("review")}
+        >
+          <FaPen />
+          리뷰관리
         </Menu>
         <Menu
           active={active === "profile"}

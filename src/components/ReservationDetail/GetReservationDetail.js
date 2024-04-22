@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
-
-const RoomDetailAPI = ({ setLoading }) => {
+const GetReservationDetail = ({ reservationId, setLoading }) => {
   const [data, setData] = useState(null);
-  const params = useParams();
   const token = localStorage.getItem("refresh_token");
 
   useEffect(() => {
-    const getDetail = async () => {
+    const getData = async () => {
       try {
         const res = await axios.get(
-          `/api/partyroom/detail/${Number(params.roomId)}`,
-          { headers: { Authorization: token } }
+          `/partyroom/reservation/my/${Number(reservationId)}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
         );
         setData(res.data);
         console.log(res.data);
@@ -22,11 +23,9 @@ const RoomDetailAPI = ({ setLoading }) => {
         setLoading(false);
       }
     };
-
-    getDetail();
-  }, [params.roomId]);
-
+    getData();
+  }, []);
   return data;
 };
 
-export default RoomDetailAPI;
+export default GetReservationDetail;

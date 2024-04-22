@@ -4,7 +4,7 @@ import { size, weight } from "../../../styles/fonts";
 import { colors } from "../../../styles/colors";
 import profile from "../../../assets/profile.png";
 
-const ReviewItem = ({ data }) => {
+const MyReviewItem = ({ data }) => {
   function formatDate(inputDateString) {
     const date = new Date(inputDateString);
     const year = date.getFullYear();
@@ -19,41 +19,33 @@ const ReviewItem = ({ data }) => {
   const createdDateString = data?.createdAt;
   const reviewContent = data?.reviewDesc;
 
-  const reviewer = data?.reviewer?.memberName;
-  const profilePic = data?.reviewer?.profilePicFile;
+  const { partyRoomName } = data?.partyRoomDto;
+
   return (
     <Review>
       <ReviewInfo>
-        <ReviewProfile>
-          {profilePic ? (
-            <ProfileImg src={profilePic} alt="profile" />
-          ) : (
-            <ProfileImg src={profile} alt="profile" />
-          )}{" "}
-          {reviewer}
-        </ReviewProfile>
+        <PartyRoomName>{partyRoomName}</PartyRoomName>
         <CreatedAt>{formatDate(createdDateString)}</CreatedAt>
       </ReviewInfo>
       <UsedAt>{formatDate(usedDateString)} 이용</UsedAt>
       <ReviewContent>{reviewContent}</ReviewContent>
+      <ButtonWrapper>
+        <Button>수정</Button>
+        <Button>삭제</Button>
+      </ButtonWrapper>
     </Review>
   );
 };
 
-export default ReviewItem;
+export default MyReviewItem;
 
 const Review = styled.div``;
 
 const ReviewInfo = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   align-items: center;
-`;
-
-const ReviewProfile = styled.div`
-  font-weight: ${weight.medium};
-  display: flex;
 `;
 
 const CreatedAt = styled.div`
@@ -67,8 +59,28 @@ const UsedAt = styled(CreatedAt)`
 
 const ReviewContent = styled.div``;
 
-const ProfileImg = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+const PartyRoomName = styled.p`
+  font-size: ${size.h4};
+  font-weight: ${weight.semibold};
+  cursor: pointer;
+`;
+
+const ButtonWrapper = styled.div`
+  width: fit-content;
+  display: flex;
+  gap: 6px;
+  margin-top: 20px;
+  margin-left: auto;
+`;
+const Button = styled.button`
+  all: unset;
+  background: ${colors.gray10};
+  color: ${colors.gray50};
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: ${size.caption};
+  cursor: pointer;
+  &:hover {
+    background-color: ${colors.hover02};
+  }
 `;

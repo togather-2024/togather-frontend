@@ -17,3 +17,28 @@ export const deleteBookmark = async (roomId) => {
     },
   });
 };
+
+export const getBookmarkList = async () => {
+  return await axios.get(`/partyroom/bookmark`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
+
+export const editReview = async (params, reviewId) => {
+  return await axios.post(`/api/review/modify/${reviewId}`, "", {
+    headers: {
+      Authorization: token,
+    },
+    params: params,
+  });
+};
+
+export const deleteReview = async (reviewId) => {
+  return await axios.delete(`api/review/delete/${reviewId}`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
