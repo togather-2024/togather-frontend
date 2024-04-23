@@ -12,7 +12,7 @@ const ProfileDropdown = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsDropped(false);
-    localStorage.removeItem("refresh_token");
+    localStorage.clear();
     window.location.replace("/");
   };
 

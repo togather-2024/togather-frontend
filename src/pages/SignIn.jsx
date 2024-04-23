@@ -6,7 +6,6 @@ import { loginState } from "../recoil/atoms/loginState";
 import axios from "axios";
 import { getUserInfo } from "../api/api";
 import { profileInfoState } from "../recoil/atoms/profileState";
-import useFetchUserInfo from "../hooks/useFetchUserInfo";
 
 const initialState = {
   email: "",
