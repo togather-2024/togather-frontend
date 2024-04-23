@@ -15,7 +15,6 @@ const Reservations = () => {
       data?.partyRoomReservationDto?.paymentStatus !== "NOT_PAYED" &&
       data?.partyRoomReservationDto?.paymentStatus !== "PENDING"
   );
-  console.log(data);
 
   const completeData = data?.filter(
     (data) => data?.partyRoomReservationDto?.paymentStatus === "COMPLETE"

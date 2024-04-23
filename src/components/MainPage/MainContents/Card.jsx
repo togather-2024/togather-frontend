@@ -14,9 +14,9 @@ const Card = ({ info }) => {
   const id = info.partyRoomDto.partyRoomId;
   const title = info.partyRoomDto.partyRoomName;
   const price = info.partyRoomDto.price;
-  const thumbnail = info?.partyRoomImage?.thumbnail;
+  const thumbnail = info?.partyRoomImage?.thumbnail || info?.partyRoomImageDto;
   const customTags = info.customTags;
-  const sigungu = info.sigungu;
+  const sigungu = info.sigungu || info.partyRoomLocationDto.sigungu;
   const reviewCount = info.reviewCount;
   const bookmarkCount = info.bookmarkCount;
   const showCustomTags = info?.customTags?.slice(0, 3);
@@ -29,7 +29,7 @@ const Card = ({ info }) => {
     navigate(`/detail/${id}`);
   };
 
-  const [isBookmarked, setIsBookmarked] = useState(info.bookmarked);
+  const [isBookmarked, setIsBookmarked] = useState(info.bookmarked || true);
 
   const handleAddFavorite = async () => {
     if (loginValue) {
@@ -107,16 +107,18 @@ const Card = ({ info }) => {
           <Price>
             ₩{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}/ 시간
           </Price>
-          <Into>
-            <div>
-              <CiHeart></CiHeart>
-              <span>{bookmarkCount}</span>
-            </div>
-            <div>
-              <FaRegComment />
-              <span>{reviewCount}</span>
-            </div>
-          </Into>
+          {reviewCount && bookmarkCount && (
+            <Into>
+              <div>
+                <CiHeart></CiHeart>
+                <span>{bookmarkCount}</span>
+              </div>
+              <div>
+                <FaRegComment />
+                <span>{reviewCount}</span>
+              </div>
+            </Into>
+          )}
         </Footer>
       </CardDescription>
     </Container>
