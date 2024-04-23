@@ -34,7 +34,7 @@ const Header = () => {
         {!loginValue ? (
           <MenuContainer>
             <Link to={`/signin`}>
-              <Menu>숙소 등록</Menu>
+              <Menu>파티룸 등록</Menu>
             </Link>
             <Link to={`/signin`}>
               <Menu>로그인</Menu>
@@ -46,7 +46,7 @@ const Header = () => {
         ) : (
           <MenuContainer>
             <Link to={`/registration`}>
-              <Menu>숙소 등록</Menu>
+              <Menu>파티룸 등록</Menu>
             </Link>
             <Menu onClick={handleDropDown}>
               <ProfileImg src={profile} alt="프로필" /> {name} 님
