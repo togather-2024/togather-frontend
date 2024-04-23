@@ -74,32 +74,34 @@ const RoomRegistration = () => {
     };
 
     return (
-        <Container>
-            <Title>{compObj[compIdx].title}</Title>
+        <>
+            {/* <Title>{compObj[compIdx].title}</Title> */}
+            <Title>파티룸 등록하기</Title>
+            <Container>
+                {compObj[compIdx].comp}
 
-            {compObj[compIdx].comp}
-
-            <Footer>
-                {/* button의 타입을 제대로 설정해주지 않으면 submit 효과가 발생할 수 있음. */}
-                {compIdx > 0 && (
-                    <PrevButton
+                <Footer>
+                    {/* button의 타입을 제대로 설정해주지 않으면 submit 효과가 발생할 수 있음. */}
+                    {compIdx > 0 && (
+                        <PrevButton
+                            type="button"
+                            onClick={() => setCompIdx((prev) => prev - 1)}
+                        >
+                            {"< 이전"}
+                        </PrevButton>
+                    )}
+                    <NextButton
                         type="button"
-                        onClick={() => setCompIdx((prev) => prev - 1)}
+                        /* 이 부분에서 유효성 검사 및 input 값 입력해야 함*/
+                        onClick={handleNextButton}
                     >
-                        이전
-                    </PrevButton>
-                )}
-                <NextButton
-                    type="button"
-                    /* 이 부분에서 유효성 검사 및 input 값 입력해야 함*/
-                    onClick={handleNextButton}
-                >
-                    {compIdx === Object.entries(compObj).length - 1
-                        ? "등록하기"
-                        : "다음"}
-                </NextButton>
-            </Footer>
-        </Container>
+                        {compIdx === Object.entries(compObj).length - 1
+                            ? "등록하기"
+                            : "다음 >"}
+                    </NextButton>
+                </Footer>
+            </Container>
+        </>
     );
 };
 
@@ -107,10 +109,13 @@ export default RoomRegistration;
 
 const Container = styled.form`
     width: 65vw;
-    height: 60vh;
-    border: 1px solid black;
+    height: 65vh;
+    border-radius: 20px;
     margin: 0 auto;
-    margin-top: 15vh;
+    padding: 20px 0;
+    margin-top: 2vh;
+    background-color: ${colors.hover01};
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
     display: flex;
     flex-direction: column;
@@ -120,46 +125,54 @@ const Container = styled.form`
 const Title = styled.div`
     width: 100%;
     height: 20%;
-    border-bottom: 1px solid black;
     display: flex;
+    margin-top: 10vh;
     justify-content: center;
     align-items: center;
     font-size: ${size.h1};
 `;
 
 const Footer = styled.footer`
-    width: 100%;
-    height: 10vh;
+    width: 70%;
+    height: 8vh;
     position: relative;
     display: flex;
     align-items: center;
     padding: 1.5rem 0;
+    margin-bottom: 1vh;
 `;
 
 const PrevButton = styled.button`
-    position: absolute;
     font-size: 1rem;
-
-    left: 10px;
     width: 6vw;
-    height: 7vh;
-    background-color: ${colors.hover01};
+    height: 5vh;
+    background-color: #a2de56;
     border: 1px solid #bcef7b;
     border-radius: 0.4rem;
-    color: rgba(0, 0, 0, 1);
+    color: white;
     cursor: pointer;
+    position: absolute;
+    left: 10px;
+    &:hover {
+        background-color: white;
+        color: black;
+    }
 `;
 
 const NextButton = styled.button`
-    position: absolute;
     font-size: 1rem;
-
+    position: absolute;
     right: 10px;
     width: 6vw;
-    height: 7vh;
-    background-color: ${colors.hover01};
+    height: 5vh;
+    background-color: #a2de56;
     border: 1px solid #bcef7b;
     border-radius: 0.4rem;
-    color: rgba(0, 0, 0, 1);
+    color: white;
     cursor: pointer;
+
+    &:hover {
+        background-color: white;
+        color: black;
+    }
 `;

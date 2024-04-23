@@ -35,7 +35,6 @@ const RoomInfo = () => {
                         onChange={handlePartyRoomNameChange}
                         required
                     />
-                    <Button>중복 확인</Button>
                 </InputBox>
             </Content>
             <Content>
@@ -55,7 +54,7 @@ export default RoomInfo;
 
 const ContentsBox = styled.div`
     width: 70%;
-    height: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
 `;
@@ -67,12 +66,10 @@ const Content = styled.div`
 `;
 const InputTitle = styled.div`
     height: 5vh;
-    border-bottom: 1px solid black;
-    line-height: 5vh;
-    font-size: ${size.h3};
+    line-height: 8vh;
+    font-size: ${size.h4};
 `;
 const InputBox = styled.div`
-    // padding: 0.5rem 0;
     height: 8vh;
     width: 100%;
     display: flex;
@@ -81,10 +78,12 @@ const InputBox = styled.div`
 `;
 
 const Input = styled.input`
-    width: 80%;
+    width: 100%;
     height: 5vh;
     padding: 0 0.5rem;
     font-size: 1rem;
+    border: 1px solid #89d825;
+    border-radius: 10px;
 `;
 
 const Button = styled.button`
@@ -102,4 +101,6 @@ const TextArea = styled.textarea`
     height: 12rem;
     margin-top: 1rem;
     padding: 0.5rem 0.5rem;
+    border: 1px solid #89d825;
+    border-radius: 10px;
 `;

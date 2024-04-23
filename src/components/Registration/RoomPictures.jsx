@@ -13,30 +13,31 @@ const RoomInfo = () => {
             return;
         }
         const file = e.target.files[0];
+        if (file) {
+            const fileRead = new FileReader();
+            fileRead.readAsDataURL(file);
+            fileRead.onload = () => {
+                const base64String = fileRead.result;
+                // Base64 문자열을 Blob 객체로 변환
+                const blob = base64StringToBlob(base64String);
 
-        const fileRead = new FileReader();
-        fileRead.readAsDataURL(file);
-        fileRead.onload = () => {
-            const base64String = fileRead.result;
-            // Base64 문자열을 Blob 객체로 변환
-            const blob = base64StringToBlob(base64String);
-
-            setRegistrationImageState((prev) => {
-                if (!prev.images || prev.images.length === 0) {
-                    return {
-                        ...prev,
-                        mainImage: blob,
-                        images: [base64String],
-                    };
-                } else {
-                    return {
-                        ...prev,
-                        subImages: [...prev.subImages, blob],
-                        images: [...prev.images, base64String],
-                    };
-                }
-            });
-        };
+                setRegistrationImageState((prev) => {
+                    if (!prev.images || prev.images.length === 0) {
+                        return {
+                            ...prev,
+                            mainImage: blob,
+                            images: [base64String],
+                        };
+                    } else {
+                        return {
+                            ...prev,
+                            subImages: [...prev.subImages, blob],
+                            images: [...prev.images, base64String],
+                        };
+                    }
+                });
+            };
+        }
     };
 
     // Base64 문자열을 Blob 객체로 변환하는 함수
@@ -102,18 +103,20 @@ const RoomInfo = () => {
 export default RoomInfo;
 
 const ContentsBox = styled.div`
-    width: 70%;
-    height: 80%;
+    width: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: 4px dashed #8db161;
 `;
 const Gallery = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    padding-top: 0.5rem;
+    padding: 4vh 2vw;
 `;
 const Input = styled.input`
     display: none;
@@ -125,10 +128,14 @@ const Label = styled.label`
     height: 7rem;
     background: url(${cameraAddImg});
     background-size: cover;
+    background-color: white;
     cursor: pointer;
     background-position: center;
     border-radius: 10px;
     margin: 0.5rem;
+    &:hover {
+        background-color: #a2de56;
+    }
 `;
 const ImgBox = styled.div`
     width: 7rem;
@@ -142,7 +149,7 @@ const Img = styled.img`
     height: 7rem;
     object-fit: cover;
     border: ${(props) =>
-        props.count === 0 ? "3px solid black" : "1px solid rgba(0,0,0,0.5)"};
+        props.count === 0 ? "3px solid  #a2de56" : "1px solid rgba(0,0,0,0.5)"};
     border-radius: 10px;
 `;
 const Button = styled.button`
@@ -159,4 +166,9 @@ const Button = styled.button`
     align-items: center;
     font-size: 12px;
     cursor: pointer;
+
+    &:hover {
+        background-color: black;
+        color: white;
+    }
 `;

@@ -85,7 +85,7 @@ const RoomInfo = () => {
                 <InputTitle>숙소 운영 시간 및 날짜</InputTitle>
                 <SelectContainer>
                     <SelectBox>
-                        <span>시작</span>
+                        <span style={{ width: "30px" }}>시작</span>
                         <Select name="openingHour" onChange={handleTime}>
                             {Array(24)
                                 .fill(0)
@@ -127,11 +127,6 @@ const RoomInfo = () => {
                 <InputBox>
                     <Input
                         type="text"
-                        name="min_head"
-                        placeholder="최소 수용 인원"
-                    />
-                    <Input
-                        type="text"
                         name="max_head"
                         placeholder="최대 수용 인원"
                         onChange={handleHeadcountChange}
@@ -146,7 +141,7 @@ const RoomInfo = () => {
 export default RoomInfo;
 const ContentsBox = styled.div`
     width: 70%;
-    height: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
 `;
@@ -155,10 +150,10 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0 1rem;
+    margin: 3vh;
 `;
 const InputTitle = styled.div`
     height: 5vh;
-    border-bottom: 1px solid black;
     line-height: 5vh;
     font-size: ${size.h3};
 `;
@@ -168,6 +163,7 @@ const InputBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 2vh;
 `;
 
 const Input = styled.input`
@@ -175,11 +171,14 @@ const Input = styled.input`
     height: 5vh;
     padding: 0 0.5rem;
     font-size: 1rem;
+    border: 1px solid #89d825;
+    border-radius: 10px;
 `;
 const ButtonBox = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 3vh;
 `;
 const Button = styled.button`
     width: 5vw;
@@ -202,6 +201,7 @@ const SelectContainer = styled.div`
     width: 100%;
     height: 8vh;
     align-items: center;
+    margin-top: 2vh;
 `;
 
 const SelectBox = styled.div`
@@ -218,4 +218,6 @@ const Select = styled.select`
     height: 2rem;
     font-size: 1.2rem;
     padding-left: 25px;
+    border: 1px solid #89d825;
+    border-radius: 10px;
 `;

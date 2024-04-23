@@ -93,16 +93,16 @@ export default RoomAddress;
 
 const ContentsBox = styled.div`
     width: 70%;
-    height: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 2vh 0;
 `;
 
 const InputBox = styled.div`
-    // padding: 0.5rem 0;
-    height: 8vh;
+    height: 9vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -115,7 +115,8 @@ const Input = styled.input`
     padding: 0 0.5rem;
     font-size: 1rem;
     background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: 1px solid #bcef7b;
+    border-radius: 0.4rem;
 `;
 
 const Button = styled.button`

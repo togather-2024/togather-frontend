@@ -81,7 +81,7 @@ const RoomInfo = () => {
                 </KeywordContainer>
             </Content>
             <Content>
-                <InputTitle>숙소 가격</InputTitle>
+                <InputTitle>이용 가격</InputTitle>
                 <InputBox>
                     <Input
                         type="text"
@@ -92,7 +92,7 @@ const RoomInfo = () => {
                         등록
                     </Button>
                 </InputBox>
-                <p>시간당 1인 가격{addPrice} 원</p>
+                <p style={{ fontSize: "1.2rem" }}>시간 당 가격{addPrice} 원</p>
             </Content>
         </ContentsBox>
     );
@@ -101,7 +101,7 @@ const RoomInfo = () => {
 export default RoomInfo;
 const ContentsBox = styled.div`
     width: 70%;
-    height: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
 `;
@@ -110,16 +110,16 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0 1rem;
+    margin: 2vh;
 `;
 const InputTitle = styled.div`
     height: 5vh;
-    border-bottom: 1px solid black;
     line-height: 5vh;
     font-size: ${size.h3};
 `;
 const InputBox = styled.div`
     height: 8vh;
-    width: 40%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -130,22 +130,24 @@ const Input = styled.input`
     height: 5vh;
     padding: 0 0.5rem;
     font-size: 1rem;
+    border: 1px solid #89d825;
+    border-radius: 10px;
 `;
 
 const Button = styled.button`
     width: 6vw;
     height: 5vh;
     font-size: 1rem;
-    background-color: ${colors.hover01};
+    background-color: #a2de56;
     border: 1px solid #bcef7b;
     border-radius: 0.4rem;
-    color: rgba(0, 0, 0, 1);
+    color: white;
     cursor: pointer;
     margin-left: 0.5rem;
 `;
 
 const KeywordContainer = styled.div`
-margin-top:1rem;
+    margin-top:1rem;
     width: 100%;
     display:flex;
     flex-wrap wrap;
@@ -154,7 +156,7 @@ margin-top:1rem;
 const KeywordBox = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 0.1rem 0.3rem;
-    background-color: ${colors.hover01};
+    background-color: #6c6c6c;
     height: 5vh;
     border-radius: 0.8rem;
     margin-right: 1rem;
@@ -163,10 +165,10 @@ const KeywordBox = styled.div`
 `;
 const Keyword = styled.span`
     font-size: 1.2rem;
+    color: white;
 `;
 const KeywordButton = styled.button`
     margin-left: 5px;
-    border: 1px solid black;
     width: 13px;
     height: 13px;
     background-color: transparent;
@@ -176,4 +178,10 @@ const KeywordButton = styled.button`
     align-items: center;
     font-size: 12px;
     cursor: pointer;
+    color: white;
+    border: 1px solid white;
+    &:hover {
+        background-color: white;
+        color: black;
+    }
 `;
