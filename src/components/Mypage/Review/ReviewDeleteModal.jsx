@@ -20,7 +20,7 @@ const ReviewDeleteModal = ({ setIsOpen, reviewId, setReview, review }) => {
   };
   return (
     <ModalContainer>
-      <ConfirmText>예약을 취소하시겠습니까?</ConfirmText>
+      <ConfirmText>작성하신 리뷰를 삭제하시겠습니까?</ConfirmText>
       <BtnWrapper>
         <YesBtn onClick={handleDelete}>확인</YesBtn>
         <NoBtn onClick={handleClose}>취소</NoBtn>
