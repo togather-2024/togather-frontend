@@ -6,16 +6,17 @@ import { colors } from "../../styles/colors";
 import { loginState, dropDownState } from "../../recoil/atoms/loginState";
 import { useRecoilState, useRecoilValue } from "recoil";
 import ProfileDropdown from "../Profile/ProfileDropdown";
-import useFetchUserInfo from "../../hooks/useFetchUserInfo";
 import profile from "../../assets/profile.png";
 
 const Header = () => {
   const loginValue = useRecoilValue(loginState);
-  const data = useFetchUserInfo();
+  const [isDropped, setIsDropped] = useRecoilState(dropDownState);
+  const dataString = localStorage.getItem("profileInfo");
+  const data = JSON.parse(dataString);
+  const name = data?.profileInfoState?.memberName;
   const handleDropDown = () => {
     setIsDropped(!isDropped);
   };
-  const [isDropped, setIsDropped] = useRecoilState(dropDownState);
 
   return (
     <>
@@ -42,7 +43,7 @@ const Header = () => {
               <Menu>숙소 등록</Menu>
             </Link>
             <Menu onClick={handleDropDown}>
-              <ProfileImg src={profile} alt="프로필" /> {data?.memberName} 님
+              <ProfileImg src={profile} alt="프로필" /> {name} 님
             </Menu>
             <Menu>
               <FaBell />

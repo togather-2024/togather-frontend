@@ -43,7 +43,7 @@ export const deleteReview = async (reviewId) => {
   });
 };
 
-export const getUserInfo = async () => {
+export const getUserInfo = async ({ token }) => {
   return await axios.post(`/api/member/getUserInfo`, "", {
     headers: {
       Authorization: token,
