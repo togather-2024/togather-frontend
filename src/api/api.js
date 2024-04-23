@@ -36,7 +36,7 @@ export const editReview = async (params, reviewId) => {
 };
 
 export const deleteReview = async (reviewId) => {
-  return await axios.delete(`api/review/delete/${reviewId}`, {
+  return await axios.delete(`/api/review/delete/${reviewId}`, {
     headers: {
       Authorization: token,
     },
