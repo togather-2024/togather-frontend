@@ -16,7 +16,7 @@ const Card = ({ info }) => {
   const price = info.partyRoomDto.price;
   const thumbnail = info?.partyRoomImage?.thumbnail || info?.partyRoomImageDto;
   const customTags = info.customTags;
-  const sigungu = info.sigungu || info.partyRoomLocationDto.sigungu;
+  const sigungu = info?.sigungu || info?.partyRoomLocationDto?.sigungu;
   const reviewCount = info.reviewCount;
   const bookmarkCount = info.bookmarkCount;
   const showCustomTags = info?.customTags?.slice(0, 3);
