@@ -70,3 +70,12 @@ export const updatePassword = async (requestBody) => {
     },
   });
 };
+
+export const deleteAccount = async (requestBody) => {
+  return await axios.delete(`/api/member/withdrawal`, {
+    headers: {
+      Authorization: token,
+    },
+    data: requestBody,
+  });
+};

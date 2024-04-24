@@ -6,9 +6,9 @@ import { size } from "../../../styles/fonts";
 import { updatePassword } from "../../../api/api";
 
 const PasswordModal = ({ setIsOpen }) => {
-  const [previousPassword, setPreviousPassword] = useState(null);
-  const [newPassword, setNewPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [previousPassword, setPreviousPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const requestBody = {
     previousPassword: previousPassword,

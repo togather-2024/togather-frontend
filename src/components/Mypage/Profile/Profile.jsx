@@ -1,13 +1,18 @@
 import styled from "@emotion/styled";
-import React from "react";
+import { useState } from "react";
 import { colors } from "../../../styles/colors";
 import { weight } from "../../../styles/fonts";
 import useFetchUserInfo from "../../../hooks/useFetchUserInfo";
 import NameContainer from "./NameContainer";
 import ImageContainer from "./ImageContainer";
 import PasswordContainer from "./PasswordContainer";
+import DeleteAccountModal from "./DeleteAccountModal";
 
 const Profile = () => {
+  const [isopen, setIsOpen] = useState(false);
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
   const token = localStorage.getItem("refresh_token");
   const data = useFetchUserInfo(token);
   console.log(data);
@@ -23,7 +28,8 @@ const Profile = () => {
         <InfoText>{email}</InfoText>
       </InfoWrapper>
       <PasswordContainer />
-      <LeaveBtn>회원 탈퇴</LeaveBtn>
+      <LeaveBtn onClick={handleOpen}>회원 탈퇴</LeaveBtn>
+      {isopen ? <DeleteAccountModal setIsOpen={setIsOpen} /> : ""}
     </Wrapper>
   );
 };
@@ -48,22 +54,6 @@ const InfoText = styled.p`
 
 const InfoLabel = styled.p`
   width: 80px;
-`;
-
-const EditBtn = styled.button`
-  all: unset;
-  color: ${colors.gray50};
-  height: fit-content;
-  margin-left: auto;
-  width: 100px;
-  border: 1px solid ${colors.gray50};
-  text-align: center;
-  padding: 6px 2px;
-  border-radius: 6px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${colors.gray10};
-  }
 `;
 
 const LeaveBtn = styled.button`
