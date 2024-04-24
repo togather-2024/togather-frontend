@@ -5,6 +5,7 @@ import { weight } from "../../../styles/fonts";
 import useFetchUserInfo from "../../../hooks/useFetchUserInfo";
 import NameContainer from "./NameContainer";
 import ImageContainer from "./ImageContainer";
+import PasswordContainer from "./PasswordContainer";
 
 const Profile = () => {
   const token = localStorage.getItem("refresh_token");
@@ -21,11 +22,7 @@ const Profile = () => {
         <InfoLabel>이메일</InfoLabel>
         <InfoText>{email}</InfoText>
       </InfoWrapper>
-      <InfoWrapper>
-        <InfoLabel>비밀번호</InfoLabel>
-        <InfoText>*******</InfoText>
-        <EditBtn>비밀번호 변경</EditBtn>
-      </InfoWrapper>
+      <PasswordContainer />
       <LeaveBtn>회원 탈퇴</LeaveBtn>
     </Wrapper>
   );
@@ -36,14 +33,6 @@ export default Profile;
 const Wrapper = styled.div`
   border-top: 3px solid ${colors.point03};
 `;
-
-const ProfileImg = styled.img`
-  width: 100px;
-  height: 100px;
-  background-color: ${colors.gray30};
-  border-radius: 50%;
-  margin-left: 120px;
-`; //추후 img로 변경
 
 const InfoWrapper = styled.div`
   display: flex;

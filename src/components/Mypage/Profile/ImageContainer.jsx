@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import profile from "../../../assets/profile.png";
 import { colors } from "../../../styles/colors";
 import { updateProfileImg } from "../../../api/api";
+import { size, weight } from "../../../styles/fonts";
 
 const ImageContainer = () => {
   const [image, setImage] = useState(profile);
@@ -71,30 +72,20 @@ const InfoWrapper = styled.div`
 
 const InfoLabel = styled.p`
   width: 80px;
+  font-size: ${size.body01};
+  font-weight: ${weight.medium};
 `;
 
 const EditBtn = styled.button`
   all: unset;
   color: ${colors.white};
-  height: fit-content;
   margin-left: auto;
-  width: 100px;
-  text-align: center;
-  padding: 6px 2px;
-  border-radius: 6px;
+  padding: 8px 10px;
+  border-radius: 30px;
   cursor: pointer;
-  background-color: ${colors.black};
+  background-color: ${colors.gray50};
   &:hover {
     background-color: ${colors.gray30};
-  }
-`;
-
-const SubmitBtn = styled(EditBtn)`
-  background-color: ${colors.point02};
-  color: white;
-  border: none;
-  &:hover {
-    background-color: ${colors.point01};
   }
 `;
 

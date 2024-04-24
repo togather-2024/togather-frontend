@@ -62,3 +62,11 @@ export const updateProfileImg = async (formData) => {
     headers: { Authorization: token, "Content-Type": "multipart/form-data" },
   });
 };
+
+export const updatePassword = async (requestBody) => {
+  return await axios.patch(`/api/member/update/password`, requestBody, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
