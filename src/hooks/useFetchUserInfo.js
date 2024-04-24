@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../api/api";
 
-const useFetchUserInfo = () => {
+const useFetchUserInfo = (token) => {
   const [data, setData] = useState(null);
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await getUserInfo();
+        const res = await getUserInfo({ token });
         setData(res.data);
         console.log(data);
       } catch (e) {
@@ -15,7 +15,7 @@ const useFetchUserInfo = () => {
     };
 
     getData();
-  }, []);
+  }, [token]);
   return data;
 };
 

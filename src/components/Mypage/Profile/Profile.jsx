@@ -1,24 +1,30 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { colors } from "../../styles/colors";
-import { weight } from "../../styles/fonts";
+import { colors } from "../../../styles/colors";
+import { weight } from "../../../styles/fonts";
+import useFetchUserInfo from "../../../hooks/useFetchUserInfo";
+import profile from "../../../assets/profile.png";
 
 const Profile = () => {
+  const token = localStorage.getItem("refresh_token");
+  const data = useFetchUserInfo(token);
+  const { memberName, email } = data;
+
   return (
     <Wrapper>
       <InfoWrapper>
-        <InfoLabel>사진</InfoLabel>
-        <ProfileImg></ProfileImg>
+        <InfoLabel>프로필 사진</InfoLabel>
+        <ProfileImg src={profile} alt="프로필이미지(기본)"></ProfileImg>
         <EditBtn>사진 변경</EditBtn>
       </InfoWrapper>
       <InfoWrapper>
         <InfoLabel>이름</InfoLabel>
-        <InfoText>홍길동</InfoText>
+        <InfoText>{memberName}</InfoText>
         <EditBtn>이름 변경</EditBtn>
       </InfoWrapper>
       <InfoWrapper>
         <InfoLabel>이메일</InfoLabel>
-        <InfoText>hello.gmail.com</InfoText>
+        <InfoText>{email}</InfoText>
       </InfoWrapper>
       <InfoWrapper>
         <InfoLabel>비밀번호</InfoLabel>
@@ -36,7 +42,7 @@ const Wrapper = styled.div`
   border-top: 3px solid ${colors.point03};
 `;
 
-const ProfileImg = styled.div`
+const ProfileImg = styled.img`
   width: 100px;
   height: 100px;
   background-color: ${colors.gray30};
