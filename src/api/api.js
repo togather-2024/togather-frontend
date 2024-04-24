@@ -50,3 +50,9 @@ export const getUserInfo = async ({ token }) => {
     },
   });
 };
+
+export const updateName = async (data) => {
+  return await axios.patch(`/api/member/update/name?name=${data}`, "", {
+    headers: { Authorization: token },
+  });
+};

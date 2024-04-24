@@ -4,11 +4,13 @@ import { colors } from "../../../styles/colors";
 import { weight } from "../../../styles/fonts";
 import useFetchUserInfo from "../../../hooks/useFetchUserInfo";
 import profile from "../../../assets/profile.png";
+import NameContainer from "./NameContainer";
 
 const Profile = () => {
   const token = localStorage.getItem("refresh_token");
   const data = useFetchUserInfo(token);
-  const { memberName, email } = data;
+  const memberName = data?.memberName;
+  const email = data?.email;
 
   return (
     <Wrapper>
@@ -17,11 +19,12 @@ const Profile = () => {
         <ProfileImg src={profile} alt="프로필이미지(기본)"></ProfileImg>
         <EditBtn>사진 변경</EditBtn>
       </InfoWrapper>
-      <InfoWrapper>
+      {/* <InfoWrapper>
         <InfoLabel>이름</InfoLabel>
         <InfoText>{memberName}</InfoText>
         <EditBtn>이름 변경</EditBtn>
-      </InfoWrapper>
+      </InfoWrapper> */}
+      <NameContainer memberName={memberName} />
       <InfoWrapper>
         <InfoLabel>이메일</InfoLabel>
         <InfoText>{email}</InfoText>

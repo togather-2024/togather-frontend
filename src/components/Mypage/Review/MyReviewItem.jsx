@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const MyReviewItem = ({ data }) => {
   const navigate = useNavigate();
   const [review, setReview] = useState(data);
-  console.log(review);
   const reviewContent = review?.reviewDesc;
   const [editing, setEditing] = useState(false);
   const [editContent, setEditContent] = useState(reviewContent);
@@ -92,9 +91,7 @@ const MyReviewItem = ({ data }) => {
           onChange={(e) => setEditContent(e.target.value)}
           autoFocus
           onFocus={handleFocus}
-        >
-          {editContent}
-        </EditArea>
+        ></EditArea>
       )}
       <ButtonWrapper>
         <Button
@@ -163,5 +160,4 @@ const EditArea = styled.textarea`
   width: 300px;
   border: none;
   outline: none;
-  caret-color: ${colors.point01};
 `;
