@@ -37,13 +37,12 @@ const MainContents = () => {
                     const token = localStorage.getItem("refresh_token");
                     config.headers["Authorization"] = token;
                 }
-                console.log(config);
 
                 const response = await axios.get("/api/partyroom/search", {
                     params: body,
                     headers: config.headers,
                 });
-                console.log(response);
+
                 const datas = await response.data.map((data) => ({
                     partyRoomDto: {
                         partyRoomId: data.partyRoomDto.partyRoomId,
