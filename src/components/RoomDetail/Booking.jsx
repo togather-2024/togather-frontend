@@ -18,7 +18,6 @@ const Booking = ({ data, roomId }) => {
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
   const token = localStorage.getItem("refresh_token");
   const guestCount = useRecoilValue(counterState);
-
   const operationDays = data?.operationDays;
   const daysOfWeek = [
     "SUNDAY",
