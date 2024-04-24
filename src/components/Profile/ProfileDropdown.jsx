@@ -21,7 +21,7 @@ const ProfileDropdown = () => {
     메시지: "/my/messages",
     예약관리: "/my/reservations",
     리뷰관리: "/my/review",
-    내정보: "my/profile",
+    내정보: "/my/profile",
   };
   return (
     <Container>
