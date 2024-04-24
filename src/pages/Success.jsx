@@ -25,6 +25,7 @@ const Success = () => {
           { headers: { Authorization: token } }
         );
         setData(res.data);
+        console.log(res.data);
       } catch (e) {
         console.log(e);
       } finally {
@@ -60,7 +61,9 @@ const Success = () => {
             <p>홈으로</p>
           </GoToHome>
         </Link>
-        <GoToReservaionDetail>예약 내역 바로 가기 </GoToReservaionDetail>
+        <Link to={`/my/reservations`}>
+          <GoToReservaionDetail>예약 내역 바로 가기 </GoToReservaionDetail>
+        </Link>
       </ButtonWrapper>
     </Wrapper>
   );

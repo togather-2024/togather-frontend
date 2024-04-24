@@ -11,7 +11,6 @@ const GetReview = () => {
       try {
         const res = await axios.get(`/api/review/partyroom/${Number(roomId)}`);
         setData(res.data);
-        console.log(res.data);
       } catch (e) {
         console.log(e);
       }

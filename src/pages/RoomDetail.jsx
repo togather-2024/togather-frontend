@@ -11,6 +11,7 @@ import ImgContainer from "../components/RoomDetail/RoomImg/ImgContainer";
 import LocationContainer from "../components/RoomDetail/Map/LocationContainer";
 import LoadingContainer from "../components/Common/LoadingContainer";
 import HeartContainer from "../components/RoomDetail/Likes/HeartContainer";
+import { useParams } from "react-router-dom";
 
 const RoomDetail = () => {
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,7 @@ const RoomDetail = () => {
   const region = data?.partyRoomLocationDto?.sigungu;
   const guestCapacity = data?.partyRoomDto?.guestCapacity;
   const partyRoomDesc = data?.partyRoomDto?.partyRoomDesc;
+  const { roomId } = useParams();
 
   const tagList = data?.customTags?.map((list) => (
     <TagItem key={list.tagId} data={list} />
@@ -51,7 +53,7 @@ const RoomDetail = () => {
             </LeftContents>
             <RightContents>
               <RightInner>
-                <Booking data={data} />
+                <Booking data={data} roomId={Number(roomId)} />
                 <Host data={data?.partyRoomDto?.partyRoomHost} />
               </RightInner>
             </RightContents>
