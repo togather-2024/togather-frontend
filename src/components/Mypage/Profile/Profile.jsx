@@ -3,27 +3,19 @@ import React from "react";
 import { colors } from "../../../styles/colors";
 import { weight } from "../../../styles/fonts";
 import useFetchUserInfo from "../../../hooks/useFetchUserInfo";
-import profile from "../../../assets/profile.png";
 import NameContainer from "./NameContainer";
+import ImageContainer from "./ImageContainer";
 
 const Profile = () => {
   const token = localStorage.getItem("refresh_token");
   const data = useFetchUserInfo(token);
+  console.log(data);
   const memberName = data?.memberName;
   const email = data?.email;
 
   return (
     <Wrapper>
-      <InfoWrapper>
-        <InfoLabel>프로필 사진</InfoLabel>
-        <ProfileImg src={profile} alt="프로필이미지(기본)"></ProfileImg>
-        <EditBtn>사진 변경</EditBtn>
-      </InfoWrapper>
-      {/* <InfoWrapper>
-        <InfoLabel>이름</InfoLabel>
-        <InfoText>{memberName}</InfoText>
-        <EditBtn>이름 변경</EditBtn>
-      </InfoWrapper> */}
+      <ImageContainer />
       <NameContainer memberName={memberName} />
       <InfoWrapper>
         <InfoLabel>이메일</InfoLabel>

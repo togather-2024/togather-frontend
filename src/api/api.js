@@ -56,3 +56,9 @@ export const updateName = async (data) => {
     headers: { Authorization: token },
   });
 };
+
+export const updateProfileImg = async (formData) => {
+  return await axios.patch(`/api/member/update/profileImage`, formData, {
+    headers: { Authorization: token, "Content-Type": "multipart/form-data" },
+  });
+};

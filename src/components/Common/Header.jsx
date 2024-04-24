@@ -49,7 +49,7 @@ const Header = () => {
               <Menu>파티룸 등록</Menu>
             </Link>
             <Menu onClick={handleDropDown}>
-              <ProfileImg src={profile} alt="프로필" /> {name} 님
+              <ProfileImg src={profile} alt="프로필" /> <p>{name} 님</p>
             </Menu>
             <Menu>
               <FaBell />
@@ -85,6 +85,8 @@ const MenuContainer = styled.div`
 `;
 const Menu = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 6px;
   color: #333333;
   border-radius: 10px;
