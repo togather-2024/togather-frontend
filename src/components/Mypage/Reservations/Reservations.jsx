@@ -11,12 +11,15 @@ const Reservations = () => {
   const [loading, setLoading] = useState(true);
   const data = GetReservationList({ setLoading });
   const filteredData = data?.filter(
-    (data) => data?.partyRoomReservationDto?.paymentStatus !== "PENDING"
+    (data) =>
+      data?.partyRoomReservationDto?.paymentStatus !== "NOT_PAYED" &&
+      data?.partyRoomReservationDto?.paymentStatus !== "PENDING"
   );
 
   const completeData = data?.filter(
     (data) => data?.partyRoomReservationDto?.paymentStatus === "COMPLETE"
   );
+
   const canceledData = data?.filter(
     (data) => data?.partyRoomReservationDto?.paymentStatus === "CANCELED"
   );
