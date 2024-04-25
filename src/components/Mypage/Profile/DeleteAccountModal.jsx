@@ -10,7 +10,6 @@ import { loginState } from "../../../recoil/atoms/loginState";
 const DeleteAccountModal = ({ setIsOpen }) => {
   const setIsLoggedIn = useSetRecoilState(loginState);
   const [password, setPassword] = useState("");
-  console.log(password);
   const handleClose = () => {
     setIsOpen(false);
   };

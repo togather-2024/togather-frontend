@@ -10,6 +10,9 @@ const PasswordModal = ({ setIsOpen }) => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const regex = /\d/g;
+  const matches = newPassword.match(regex);
+
   const requestBody = {
     previousPassword: previousPassword,
     newPassword: newPassword,
@@ -53,10 +56,18 @@ const PasswordModal = ({ setIsOpen }) => {
           onChange={(e) => setNewPassword(e.target.value)}
         />
       </InputWrapper>
-      {previousPassword === newPassword && previousPassword !== null ? (
+      {previousPassword === newPassword && previousPassword !== "" ? (
         <ErrorMessage>현재 비밀번호와 동일합니다.</ErrorMessage>
       ) : (
         ""
+      )}
+      {newPassword === "" ||
+      (newPassword?.length >= 6 && matches?.length >= 3) ? (
+        ""
+      ) : (
+        <ErrorMessage>
+          올바르지 않은 비밀번호 형식입니다. (숫자3개를 포함한 6자리)
+        </ErrorMessage>
       )}
       <InputWrapper>
         <Label for="confirm">새 비밀번호 확인</Label>
@@ -67,7 +78,7 @@ const PasswordModal = ({ setIsOpen }) => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </InputWrapper>
-      {newPassword === confirmPassword ? (
+      {confirmPassword !== 0 || newPassword === confirmPassword ? (
         ""
       ) : (
         <ErrorMessage>새 비밀번호가 일치하지 않습니다.</ErrorMessage>

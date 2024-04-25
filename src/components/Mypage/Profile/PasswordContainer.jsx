@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
-import { size, weight } from "../../../styles/fonts";
+import { weight } from "../../../styles/fonts";
 import PasswordModal from "./PasswordModal";
 
 const PasswordContainer = () => {
