@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const token = localStorage.getItem("refresh_token");
-
 export const addBookmark = async (roomId) => {
   return await axios.post(`/partyroom/bookmark/${Number(roomId)}`, "", {
     headers: {
@@ -59,7 +58,10 @@ export const updateName = async (data) => {
 
 export const updateProfileImg = async (formData) => {
   return await axios.patch(`/api/member/update/profileImage`, formData, {
-    headers: { Authorization: token, "Content-Type": "multipart/form-data" },
+    headers: {
+      Authorization: token,
+      "Content-Type": "multipart/form-data",
+    },
   });
 };
 
