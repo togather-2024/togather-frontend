@@ -9,12 +9,10 @@ const domNode = document.getElementById("root");
 const root = createRoot(domNode);
 
 root.render(
-  <RecoilRoot>
-    <React.StrictMode>
-      <GlobalStyles></GlobalStyles>
-      <BrowserRouter>
-        <Routing />
-      </BrowserRouter>
-    </React.StrictMode>
-  </RecoilRoot>
+    <RecoilRoot>
+        <GlobalStyles></GlobalStyles>
+        <BrowserRouter>
+            <Routing />
+        </BrowserRouter>
+    </RecoilRoot>
 );

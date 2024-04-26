@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Card from "../../components/MainPage/MainContents/Card";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { searchValueState } from "../../recoil/atoms/searchValueState";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../recoil/atoms/loginState";
@@ -9,14 +9,16 @@ import axios from "axios";
 
 const MainContents = () => {
     const [cardInfo, setCardInfo] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(null);
     const [page, setPage] = useState(1);
+
     const searchValue = useRecoilValue(searchValueState);
     const loginValue = useRecoilValue(loginState);
 
-    /* pagination에 따른 데이터를 로드합니다. */
-    const fetchDatas = useCallback(async () => {
-        setIsLoading(true);
+    /* 데이터 호출 */
+    const fetchDatas = async () => {
+        setIsLoading(false);
+        console.log(page);
         try {
             const body = {
                 sido: searchValue.sido,
@@ -62,47 +64,44 @@ const MainContents = () => {
             }));
 
             setCardInfo((prevData) => [...prevData, ...datas]);
+            setIsLoading(true);
         } catch (e) {
             console.log(e);
         }
-        setIsLoading(false);
-    }, [page, searchValue, loginValue]);
-    /* 첫 렌더링 포함 */
-    // 첫 렌더링 이후에 하면 안되나 ?
+    };
+
+    // isLoading이 참으로 바뀌면 관찰을 시작하고 아니면 관찰을 종료하면 되잖아
     useEffect(() => {
         fetchDatas();
-    }, [page, searchValue, loginValue]);
-
-    /* 검색창에 검색 값을 입력하면 기존 데이터들을 배우고 새로운 데이터를 받아옵니다.*/
+    }, [searchValue, page, loginState]);
     useEffect(() => {
         setPage(1);
         setCardInfo([]);
     }, [searchValue]);
 
-    /* 지정한 div(#observer)와 스크롤의 위치가 교차하게 되면 page를 증가시킵니다.*/
     const handleObserver = (entries) => {
         const target = entries[0];
-        if (target.isIntersecting && !isLoading) {
+        if (target.isIntersecting && isLoading) {
             setPage((prevPage) => prevPage + 1);
         }
     };
 
     useEffect(() => {
         const observer = new IntersectionObserver(handleObserver, {
-            threshold: 0,
+            threshold: 0.2,
         });
         const observerTarget = document.getElementById("observer");
         if (observerTarget) {
             observer.observe(observerTarget);
         }
-    }, []);
+    });
 
     return (
         <>
             <Container>
                 {cardInfo && cardInfo.map((info) => <Card info={info}></Card>)}
             </Container>
-            <div id="observer" style={{ height: "20px" }}></div>
+            {isLoading && <div id="observer" style={{ height: "30px" }}></div>}
         </>
     );
 };

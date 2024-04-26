@@ -75,7 +75,9 @@ const SignUp = () => {
         let isValid = false;
         switch (name) {
             case "email":
-                if (value.includes("@") && value.includes(".com")) {
+                const pattern =
+                    /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+                if (pattern.test(value)) {
                     isValid = true;
                 } else {
                     errorMessage = "형식에 맞지 않는 이메일입니다.";
@@ -245,7 +247,7 @@ const SignUp = () => {
                     <input
                         type="password"
                         name="password"
-                        placeholder="비밀번호"
+                        placeholder="비밀번호 (숫자 3개를 포함한 6자리 이상)"
                         onChange={(e) => {
                             handleChange(e);
                         }}
