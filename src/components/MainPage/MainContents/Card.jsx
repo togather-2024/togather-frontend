@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { IoLocationSharp } from "react-icons/io5";
-import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../../recoil/atoms/loginState";
@@ -21,7 +21,6 @@ const Card = ({ info }) => {
     const reviewCount = info.reviewCount;
     const bookmarkCount = info.bookmarkCount;
     const showCustomTags = info?.customTags?.slice(0, 3);
-
     const loginValue = useRecoilValue(loginState);
     const navigate = useNavigate();
 
@@ -112,18 +111,17 @@ const Card = ({ info }) => {
                         {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         / 시간
                     </Price>
-                    {reviewCount && bookmarkCount && (
-                        <Into>
-                            <div>
-                                <CiHeart></CiHeart>
-                                <span>{bookmarkCount}</span>
-                            </div>
-                            <div>
-                                <FaRegComment />
-                                <span>{reviewCount}</span>
-                            </div>
-                        </Into>
-                    )}
+
+                    <Into>
+                        <div>
+                            <FaRegHeart></FaRegHeart>
+                            <span>{bookmarkCount}</span>
+                        </div>
+                        <div style={{ marginLeft: "5px" }}>
+                            <FaRegComment />
+                            <span>{reviewCount}</span>
+                        </div>
+                    </Into>
                 </Footer>
             </CardDescription>
         </Container>
@@ -217,9 +215,10 @@ const Keywords = styled.div`
     display: flex;
 `;
 const Keyword = styled.div`
+    height: 1.2rem;
     padding: 0 5px;
     font-size: 0.6rem;
-    line-height: 230%;
+    line-height: 200%;
     text-align: center;
     border: 1px solid black;
     border-radius: 5px;
