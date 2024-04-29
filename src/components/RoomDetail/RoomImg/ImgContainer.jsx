@@ -5,6 +5,7 @@ import { colors } from "../../../styles/colors";
 
 const ImgContainer = ({ data }) => {
   const image = data?.partyRoomImageDtoList;
+  console.log(image);
   const mainImg = image?.find((img) => img?.partyRoomImageType === "MAIN");
   const subImgList = image?.filter(
     (el) => el?.partyRoomImageType === "SECONDARY"
