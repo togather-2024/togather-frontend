@@ -15,7 +15,6 @@ const Profile = () => {
   };
   const token = localStorage.getItem("refresh_token");
   const data = useFetchUserInfo(token);
-  console.log(data);
   const memberName = data?.memberName;
   const email = data?.email;
   const profilePic = data?.profilePicFile;

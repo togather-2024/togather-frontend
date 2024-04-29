@@ -8,7 +8,6 @@ const useFetchUserInfo = (token) => {
       try {
         const res = await getUserInfo({ token });
         setData(res.data);
-        console.log(res.data);
       } catch (e) {
         console.error(e);
       }

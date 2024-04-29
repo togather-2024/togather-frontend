@@ -3,10 +3,14 @@ import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
 import { size, weight } from "../../../styles/fonts";
 import { updateName } from "../../../api/api";
+import { getUserInfo } from "../../../api/api";
+import { useSetRecoilState } from "recoil";
+import { profileInfoState } from "../../../recoil/atoms/profileState";
 
 const NameContainer = ({ memberName }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(null);
+  const setProfileInfo = useSetRecoilState(profileInfoState);
 
   useEffect(() => {
     setName(memberName);
@@ -22,6 +26,8 @@ const NameContainer = ({ memberName }) => {
         await updateName(name);
       }
       setIsEditing(false);
+      const userInfo = await getUserInfo();
+      setProfileInfo(userInfo.data);
     } catch (e) {
       console.error(e);
     }

@@ -13,7 +13,7 @@ const Header = () => {
   const loginValue = useRecoilValue(loginState);
   const [isDropped, setIsDropped] = useRecoilState(dropDownState);
 
-  const profileInfo = useRecoilState(profileInfoState);
+  const profileInfo = useRecoilValue(profileInfoState);
 
   const getImageUrl = (fileName) => {
     return `https://s3.ap-northeast-2.amazonaws.com/togather-2024/${fileName}`;
@@ -21,10 +21,10 @@ const Header = () => {
   const dataString = localStorage.getItem("profileInfo");
   const data = JSON.parse(dataString);
   const image =
-    data?.profileInfoState?.profilePicFile || profileInfo[0]?.profilePicFile;
+    data?.profileInfoState?.profilePicFile || profileInfo?.profilePicFile;
 
   //로컬스토리지가 업데이트되기 전까지는 리코일에 저장된 데이터 사용
-  const name = data?.profileInfoState?.memberName || profileInfo[0]?.memberName;
+  const name = data?.profileInfoState?.memberName || profileInfo?.memberName;
   const handleDropDown = () => {
     setIsDropped(!isDropped);
   };
@@ -107,4 +107,5 @@ const Menu = styled.div`
 const ProfileImg = styled.img`
   width: 20px;
   height: 20px;
+  border-radius: 50%;
 `;

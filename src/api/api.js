@@ -42,12 +42,18 @@ export const deleteReview = async (reviewId) => {
   });
 };
 
-export const getUserInfo = async ({ token }) => {
-  return await axios.post(`/api/member/getUserInfo`, "", {
-    headers: {
-      Authorization: token,
-    },
-  });
+export const getUserInfo = async ({ tokenProps } = {}) => {
+  if (tokenProps) {
+    return await axios.post(`/api/member/getUserInfo`, "", {
+      headers: {
+        Authorization: tokenProps,
+      },
+    });
+  } else {
+    return await axios.post(`/api/member/getUserInfo`, "", {
+      headers: { Authorization: token },
+    });
+  }
 };
 
 export const updateName = async (data) => {

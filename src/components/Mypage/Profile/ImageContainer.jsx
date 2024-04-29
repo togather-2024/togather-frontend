@@ -4,12 +4,15 @@ import profile from "../../../assets/profile.png";
 import { colors } from "../../../styles/colors";
 import { updateProfileImg } from "../../../api/api";
 import { size, weight } from "../../../styles/fonts";
+import { getUserInfo } from "../../../api/api";
+import { useSetRecoilState } from "recoil";
+import { profileInfoState } from "../../../recoil/atoms/profileState";
 
 const ImageContainer = ({ profilePic }) => {
   const [loading, setLoading] = useState(true);
   const [image, setImage] = useState(null);
-  const [file, setFile] = useState(null);
   const fileInput = useRef(null);
+  const setProfileInfo = useSetRecoilState(profileInfoState);
 
   const getImageUrl = (fileName) => {
     return `https://s3.ap-northeast-2.amazonaws.com/togather-2024/${fileName}`;
@@ -25,10 +28,8 @@ const ImageContainer = ({ profilePic }) => {
   };
 
   const handleChange = async (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-    } else {
+    const selectedFile = e?.target.files[0];
+    if (!selectedFile) {
       return null;
     }
     const formData = new FormData();
@@ -42,6 +43,8 @@ const ImageContainer = ({ profilePic }) => {
         }
       };
       reader.readAsDataURL(selectedFile);
+      const userInfo = await getUserInfo();
+      setProfileInfo(userInfo.data);
     } catch (e) {
       console.error(e);
     }

@@ -39,7 +39,7 @@ const PasswordModal = ({ setIsOpen }) => {
   return (
     <ModalContainer>
       <InputWrapper>
-        <Label for="previousPw">현재 비밀번호</Label>
+        <Label htmlFor="previousPw">현재 비밀번호</Label>
         <PasswordInput
           type="password"
           name="previousPw"
@@ -48,7 +48,7 @@ const PasswordModal = ({ setIsOpen }) => {
         />
       </InputWrapper>
       <InputWrapper>
-        <Label for="newPw">새 비밀번호</Label>
+        <Label htmlFor="newPw">새 비밀번호</Label>
         <PasswordInput
           type="password"
           name="newPw"
@@ -70,7 +70,7 @@ const PasswordModal = ({ setIsOpen }) => {
         </ErrorMessage>
       )}
       <InputWrapper>
-        <Label for="confirm">새 비밀번호 확인</Label>
+        <Label htmlFor="confirm">새 비밀번호 확인</Label>
         <PasswordInput
           type="password"
           name="confirm"
