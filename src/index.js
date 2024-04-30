@@ -1,9 +1,18 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import Routing from "./routes/Routing";
+import GlobalStyles from "./styles/GlobalStyles.styles";
+import { RecoilRoot } from "recoil";
 
-ReactDOM.render(
-    <React.StrictMode>
-        <h1>Togather FrontEnd 초기 상태입니다.</h1>
-    </React.StrictMode>,
-    document.getElementById("root")
+const domNode = document.getElementById("root");
+const root = createRoot(domNode);
+
+root.render(
+    <RecoilRoot>
+        <GlobalStyles></GlobalStyles>
+        <BrowserRouter>
+            <Routing />
+        </BrowserRouter>
+    </RecoilRoot>
 );
