@@ -15,9 +15,6 @@ const Header = () => {
 
   const profileInfo = useRecoilValue(profileInfoState);
 
-  const getImageUrl = (fileName) => {
-    return `https://s3.ap-northeast-2.amazonaws.com/togather-2024/${fileName}`;
-  };
   const dataString = localStorage.getItem("profileInfo");
   const data = JSON.parse(dataString);
   const image =
@@ -54,7 +51,7 @@ const Header = () => {
               <Menu>파티룸 등록</Menu>
             </Link>
             <Menu onClick={handleDropDown}>
-              <ProfileImg src={getImageUrl(image) || profile} alt="프로필" />{" "}
+              <ProfileImg src={image || profile} alt="프로필" />{" "}
               <p>{name} 님</p>
             </Menu>
             <Menu>
