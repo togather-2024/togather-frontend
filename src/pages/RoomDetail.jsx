@@ -21,6 +21,7 @@ const RoomDetail = () => {
   const guestCapacity = data?.partyRoomDto?.guestCapacity;
   const partyRoomDesc = data?.partyRoomDto?.partyRoomDesc;
   const { roomId } = useParams();
+  const reviewCount = data?.reviewCount;
 
   const tagList = data?.customTags?.map((list) => (
     <TagItem key={list.tagId} data={list} />
@@ -40,7 +41,8 @@ const RoomDetail = () => {
                   <HeartContainer data={data} />
                 </Title>
                 <Summary>
-                  {region} • 최대 인원 {guestCapacity} 명
+                  {region} • 최대 인원 {guestCapacity} 명 • 이용후기{" "}
+                  {reviewCount} 건
                 </Summary>
                 <TagList>{tagList}</TagList>
               </Intro>
