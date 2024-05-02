@@ -16,25 +16,26 @@ const ProfileDropdown = () => {
         window.location.replace("/");
     };
 
-    const links = {
-        찜한목록: "/my/bookmark",
-        메시지: "/my/messages",
-        예약관리: "/my/reservations",
-        리뷰관리: "/my/review",
-        내정보: "my/profile",
-    };
-    return (
-        <Container>
-            {Object.entries(links).map(([label, path], index) => (
-                <Link to={path} key={index} onClick={() => setIsDropped(false)}>
-                    <Box>{label}</Box>
-                </Link>
-            ))}
-            <LogoutButton type="button" onClick={handleLogout}>
-                로그아웃
-            </LogoutButton>
-        </Container>
-    );
+
+  const links = {
+    찜한목록: "/my/bookmark",
+    메시지: "/my/messages",
+    예약관리: "/my/reservations",
+    리뷰관리: "/my/review",
+    내정보: "/my/profile",
+  };
+  return (
+    <Container>
+      {Object.entries(links).map(([label, path], index) => (
+        <Link to={path} key={index} onClick={() => setIsDropped(false)}>
+          <Box>{label}</Box>
+        </Link>
+      ))}
+      <LogoutButton type="button" onClick={handleLogout}>
+        로그아웃
+      </LogoutButton>
+    </Container>
+  );
 };
 
 export default ProfileDropdown;

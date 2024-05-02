@@ -16,7 +16,6 @@ const GetReservationDetail = ({ reservationId, setLoading }) => {
           }
         );
         setData(res.data);
-        console.log(res.data);
       } catch (e) {
         console.log(e);
       } finally {

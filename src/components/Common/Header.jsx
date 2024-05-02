@@ -13,13 +13,18 @@ const Header = () => {
   const loginValue = useRecoilValue(loginState);
   const [isDropped, setIsDropped] = useRecoilState(dropDownState);
 
-  const profileInfo = useRecoilState(profileInfoState);
+  const profileInfo = useRecoilValue(profileInfoState);
 
+  const getImageUrl = (fileName) => {
+    return `https://s3.ap-northeast-2.amazonaws.com/togather-2024/${fileName}`;
+  };
   const dataString = localStorage.getItem("profileInfo");
   const data = JSON.parse(dataString);
+  const image =
+    data?.profileInfoState?.profilePicFile || profileInfo?.profilePicFile;
 
-  //로컬스테이지가 업데이트되기 전까지는 리코일에 저장된 데이터 사용
-  const name = data?.profileInfoState?.memberName || profileInfo[0]?.memberName;
+  //로컬스토리지가 업데이트되기 전까지는 리코일에 저장된 데이터 사용
+  const name = data?.profileInfoState?.memberName || profileInfo?.memberName;
   const handleDropDown = () => {
     setIsDropped(!isDropped);
   };
@@ -49,7 +54,8 @@ const Header = () => {
               <Menu>파티룸 등록</Menu>
             </Link>
             <Menu onClick={handleDropDown}>
-              <ProfileImg src={profile} alt="프로필" /> {name} 님
+              <ProfileImg src={getImageUrl(image) || profile} alt="프로필" />{" "}
+              <p>{name} 님</p>
             </Menu>
             <Menu>
               <FaBell />
@@ -85,6 +91,8 @@ const MenuContainer = styled.div`
 `;
 const Menu = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 6px;
   color: #333333;
   border-radius: 10px;
@@ -99,4 +107,5 @@ const Menu = styled.div`
 const ProfileImg = styled.img`
   width: 20px;
   height: 20px;
+  border-radius: 50%;
 `;

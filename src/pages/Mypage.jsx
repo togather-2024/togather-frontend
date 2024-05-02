@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Mypage/Sidebar";
 import Reservations from "../components/Mypage/Reservations/Reservations";
-import Profile from "../components/Mypage/Profile";
+import Profile from "../components/Mypage/Profile/Profile";
 import Review from "../components/Mypage/Review/Review";
 import Bookmark from "../components/Mypage/Bookmark/Bookmark";
 
