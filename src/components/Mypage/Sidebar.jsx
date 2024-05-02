@@ -15,9 +15,9 @@ const Sidebar = ({ active }) => {
   const navigate = useNavigate();
 
   const handleMenuClick = (menu) => {
-    navigate(`/my/${menu}`); // 해당 메뉴에 대한 URL로 이동
-  };
-  const handleToSignin = () => {
+    if (isLoggedIn) {
+      navigate(`/my/${menu}`); // 해당 메뉴에 대한 URL로 이동
+    }
     alert("로그인 후 이용 가능합니다.");
     navigate("/signin");
   };
@@ -32,10 +32,7 @@ const Sidebar = ({ active }) => {
           <FaHeart />
           찜한 목록
         </Menu>
-        <Menu
-          active={active === "messages"}
-          onClick={() => handleMenuClick("messages")}
-        >
+        <Menu active={active === "messages"}>
           <AiFillMessage />
           메시지
         </Menu>
@@ -55,9 +52,7 @@ const Sidebar = ({ active }) => {
         </Menu>
         <Menu
           active={active === "profile"}
-          onClick={
-            isLoggedIn ? () => handleMenuClick("profile") : handleToSignin
-          }
+          onClick={() => handleMenuClick("profile")}
         >
           <IoMdPerson />내 정보
         </Menu>
