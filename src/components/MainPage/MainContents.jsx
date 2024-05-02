@@ -18,7 +18,6 @@ const MainContents = () => {
     /* 데이터 호출 */
     const fetchDatas = async () => {
         setIsLoading(false);
-        console.log(page);
         try {
             const body = {
                 sido: searchValue.sido,
@@ -70,7 +69,6 @@ const MainContents = () => {
         }
     };
 
-    // isLoading이 참으로 바뀌면 관찰을 시작하고 아니면 관찰을 종료하면 되잖아
     useEffect(() => {
         fetchDatas();
     }, [searchValue, page, loginState]);
