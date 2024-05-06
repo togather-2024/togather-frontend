@@ -37,7 +37,7 @@ const HeartContainer = ({ data }) => {
 
   return (
     <Container>
-      {isBookmarked && bookmarked ? (
+      {isBookmarked ? (
         <FaHeart size="15" color="#ff5353" onClick={handleDeleteBookmark} />
       ) : (
         <FaHeart size="15" color="#c6c6c6" onClick={handleBookmark} />
@@ -52,7 +52,6 @@ const Container = styled.div`
   border-radius: 50%;
   border: 1px solid ${colors.point04};
   padding: 10px;
-  /* position: absolute; */
   right: 0;
   top: 10px;
   display: flex;
