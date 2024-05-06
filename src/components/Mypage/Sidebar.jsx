@@ -17,9 +17,10 @@ const Sidebar = ({ active }) => {
   const handleMenuClick = (menu) => {
     if (isLoggedIn) {
       navigate(`/my/${menu}`); // 해당 메뉴에 대한 URL로 이동
+    } else {
+      alert("로그인 후 이용 가능합니다.");
+      navigate("/signin");
     }
-    alert("로그인 후 이용 가능합니다.");
-    navigate("/signin");
   };
 
   return (
