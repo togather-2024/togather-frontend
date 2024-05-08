@@ -14,12 +14,8 @@ const ImageContainer = ({ profilePic }) => {
   const fileInput = useRef(null);
   const setProfileInfo = useSetRecoilState(profileInfoState);
 
-  const getImageUrl = (fileName) => {
-    return `https://s3.ap-northeast-2.amazonaws.com/togather-2024/${fileName}`;
-  };
-
   useEffect(() => {
-    setImage(getImageUrl(profilePic));
+    setImage(profilePic);
     setLoading(false);
   }, [profilePic]);
 

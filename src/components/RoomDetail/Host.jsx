@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { CgProfile } from "react-icons/cg";
 import { size, weight } from "../../styles/fonts";
 import { colors } from "../../styles/colors";
 import profile from "../../assets/profile.png";
@@ -41,7 +40,6 @@ const HostName = styled.div`
 const Text = styled.div`
   color: ${colors.dark};
   margin-left: auto;
-  cursor: pointer;
 `;
 
 const Subheading = styled.div`
