@@ -98,6 +98,9 @@ const Booking = ({ data, roomId }) => {
       setSelectedRange({ start: null, end: null });
       navigate(`/reservate/${response.data}`);
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        alert("로그인 후 이용이 가능합니다.");
+      }
       console.error("서버 요청 중 오류 발생:", error);
     }
   };

@@ -7,12 +7,20 @@ import { AiFillMessage } from "react-icons/ai";
 import { FaCalendarCheck } from "react-icons/fa6";
 import { IoMdPerson } from "react-icons/io";
 import { FaPen } from "react-icons/fa";
+import { loginState } from "../../recoil/atoms/loginState";
+import { useRecoilValue } from "recoil";
 
 const Sidebar = ({ active }) => {
+  const isLoggedIn = useRecoilValue(loginState);
   const navigate = useNavigate();
 
   const handleMenuClick = (menu) => {
-    navigate(`/my/${menu}`); // 해당 메뉴에 대한 URL로 이동
+    if (isLoggedIn) {
+      navigate(`/my/${menu}`); // 해당 메뉴에 대한 URL로 이동
+    } else {
+      alert("로그인 후 이용 가능합니다.");
+      navigate("/signin");
+    }
   };
 
   return (
@@ -25,10 +33,7 @@ const Sidebar = ({ active }) => {
           <FaHeart />
           찜한 목록
         </Menu>
-        <Menu
-          active={active === "messages"}
-          onClick={() => handleMenuClick("messages")}
-        >
+        <Menu active={active === "messages"}>
           <AiFillMessage />
           메시지
         </Menu>

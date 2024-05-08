@@ -20,7 +20,7 @@ const Review = () => {
   return (
     <Container>
       <ReviewHeading>이용 후기</ReviewHeading>
-      <ReviewCount>{data?.length} 건</ReviewCount>
+      <ReviewCount>{data?.length || 0} 건</ReviewCount>
       <BoldLine />
       {loading ? (
         <LoadingContainer />
