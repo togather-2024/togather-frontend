@@ -54,7 +54,7 @@ const SignIn = () => {
 
         //로그인과 동시에 사용자 정보 받아서 recoil에 저장
         const token = res.headers.authorization;
-        const userInfo = await getUserInfo({ token });
+        const userInfo = await getUserInfo(token);
         setProfileInfo(userInfo.data);
 
         navigate("/");
