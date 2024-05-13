@@ -25,7 +25,9 @@ const Review = () => {
       {loading ? (
         <LoadingContainer />
       ) : (
-        <ReviewList>{reviewList || "작성한 이용후기가 없습니다"}</ReviewList>
+        <ReviewList>
+          {data?.length !== 0 ? reviewList : "작성한 이용후기가 없습니다"}
+        </ReviewList>
       )}
     </Container>
   );
