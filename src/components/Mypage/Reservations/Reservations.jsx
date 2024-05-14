@@ -54,6 +54,7 @@ const Reservations = () => {
       </Nav>
       {!loading ? (
         <ListContainer>
+          {data?.length === 0 ? "예약된 파티룸이 없습니다" : ""}
           {active === "all" && renderReservationList(filteredData)}
           {active === "reservated" && renderReservationList(completeData)}
           {active === "canceled" && renderReservationList(canceledData)}
