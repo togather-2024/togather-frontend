@@ -26,7 +26,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY}}
           script: |
             cd /home/ec2-user/togather-frontend
             npm install
