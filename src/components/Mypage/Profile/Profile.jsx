@@ -15,6 +15,7 @@ const Profile = () => {
     setIsOpen(true);
   };
   const data = useRecoilValue(profileInfoState);
+  console.log(data);
   const memberName = data?.memberName;
   const email = data?.email;
   const profilePic = data?.profilePicFile;
@@ -22,7 +23,11 @@ const Profile = () => {
   return (
     <Wrapper>
       <ImageContainer profilePic={profilePic} />
-      <NameContainer memberName={memberName} />
+      <NameContainer
+        memberName={memberName}
+        role={data?.role}
+        memberSrl={data?.memberSrl}
+      />
       <InfoWrapper>
         <InfoLabel>이메일</InfoLabel>
         <InfoText>{email}</InfoText>

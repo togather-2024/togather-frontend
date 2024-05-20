@@ -87,3 +87,9 @@ export const deleteAccount = async (requestBody) => {
     data: requestBody,
   });
 };
+
+export const switchRole = async (memberSrl) => {
+  return await axios.post(`/api/member/switch-role/${memberSrl}`, "", {
+    headers: { Authorization: token },
+  });
+};
