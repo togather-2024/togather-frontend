@@ -8,20 +8,17 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import ProfileDropdown from "../Profile/ProfileDropdown";
 import profile from "../../assets/profile.png";
 import { profileInfoState } from "../../recoil/atoms/profileState";
+import useFetchUserInfo from "../../hooks/useFetchUserInfo";
 
 const Header = () => {
   const loginValue = useRecoilValue(loginState);
   const [isDropped, setIsDropped] = useRecoilState(dropDownState);
 
+  useFetchUserInfo();
   const profileInfo = useRecoilValue(profileInfoState);
 
-  const dataString = localStorage.getItem("profileInfo");
-  const data = JSON.parse(dataString);
-  const image =
-    data?.profileInfoState?.profilePicFile || profileInfo?.profilePicFile;
-
-  //로컬스토리지가 업데이트되기 전까지는 리코일에 저장된 데이터 사용
-  const name = data?.profileInfoState?.memberName || profileInfo?.memberName;
+  const image = profileInfo?.profilePicFile;
+  const name = profileInfo?.memberName;
   const handleDropDown = () => {
     setIsDropped(!isDropped);
   };

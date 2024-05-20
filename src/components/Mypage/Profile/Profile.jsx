@@ -2,19 +2,19 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { colors } from "../../../styles/colors";
 import { weight } from "../../../styles/fonts";
-import useFetchUserInfo from "../../../hooks/useFetchUserInfo";
 import NameContainer from "./NameContainer";
 import ImageContainer from "./ImageContainer";
 import PasswordContainer from "./PasswordContainer";
 import DeleteAccountModal from "./DeleteAccountModal";
+import { useRecoilValue } from "recoil";
+import { profileInfoState } from "../../../recoil/atoms/profileState";
 
 const Profile = () => {
   const [isopen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(true);
   };
-  const token = localStorage.getItem("refresh_token");
-  const data = useFetchUserInfo(token);
+  const data = useRecoilValue(profileInfoState);
   const memberName = data?.memberName;
   const email = data?.email;
   const profilePic = data?.profilePicFile;
