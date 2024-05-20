@@ -15,7 +15,6 @@ const Profile = () => {
     setIsOpen(true);
   };
   const data = useRecoilValue(profileInfoState);
-  console.log(data);
   const memberName = data?.memberName;
   const email = data?.email;
   const profilePic = data?.profilePicFile;

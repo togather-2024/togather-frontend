@@ -9,8 +9,10 @@ import ProfileDropdown from "../Profile/ProfileDropdown";
 import profile from "../../assets/profile.png";
 import { profileInfoState } from "../../recoil/atoms/profileState";
 import useFetchUserInfo from "../../hooks/useFetchUserInfo";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const loginValue = useRecoilValue(loginState);
   const [isDropped, setIsDropped] = useRecoilState(dropDownState);
 
@@ -19,8 +21,16 @@ const Header = () => {
 
   const image = profileInfo?.profilePicFile;
   const name = profileInfo?.memberName;
+  const role = profileInfo?.role;
   const handleDropDown = () => {
     setIsDropped(!isDropped);
+  };
+  const handleNavigate = () => {
+    if (role === "GUEST") {
+      alert("호스트 계정만 파티룸 등록이 가능합니다.");
+    } else {
+      navigate(`/registration`);
+    }
   };
 
   return (
@@ -44,9 +54,7 @@ const Header = () => {
           </MenuContainer>
         ) : (
           <MenuContainer>
-            <Link to={`/registration`}>
-              <Menu>파티룸 등록</Menu>
-            </Link>
+            <Menu onClick={handleNavigate}>파티룸 등록</Menu>
             <Menu onClick={handleDropDown}>
               <ProfileImg src={image || profile} alt="프로필" />{" "}
               <p>{name} 님</p>
