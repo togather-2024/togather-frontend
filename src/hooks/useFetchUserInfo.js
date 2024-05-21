@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getUserInfo } from "../api/api";
+import { profileInfoState } from "../recoil/atoms/profileState";
+import { useSetRecoilState } from "recoil";
 
-const useFetchUserInfo = (token) => {
-  const [data, setData] = useState(null);
+const useFetchUserInfo = () => {
+  const setProfileInfo = useSetRecoilState(profileInfoState);
   useEffect(() => {
-    const getData = async () => {
+    const fetchData = async () => {
       try {
-        const res = await getUserInfo(token);
-        setData(res.data);
+        const res = await getUserInfo();
+        setProfileInfo(res.data);
       } catch (e) {
         console.error(e);
       }
     };
-
-    getData();
-  }, [token]);
-  return data;
+    fetchData();
+  }, [setProfileInfo]);
 };
 
 export default useFetchUserInfo;
