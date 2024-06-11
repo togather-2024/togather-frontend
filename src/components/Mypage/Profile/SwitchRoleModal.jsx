@@ -1,7 +1,6 @@
 import ModalContainer from "../../Common/ModalContainer";
 import styled from "@emotion/styled";
 import { colors } from "../../../styles/colors";
-import { size } from "../../../styles/fonts";
 
 const SwitchRoleModal = ({ setIsOpen, handleSwitch }) => {
   const handleClose = () => {

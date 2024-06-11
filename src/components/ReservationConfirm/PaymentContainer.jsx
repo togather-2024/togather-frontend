@@ -5,6 +5,7 @@ import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import { colors } from "../../styles/colors";
 import { size, weight } from "../../styles/fonts";
 import axios from "axios";
+import { paymentRequestToServer } from "../../api/api";
 
 const PaymentContainer = ({ data }) => {
   const [paymentWidget, setPaymentWidget] = useState(null);
@@ -62,12 +63,9 @@ const PaymentContainer = ({ data }) => {
       failUrl: `${window.location.origin}/fail`,
       reservationId: reservationId,
     };
-    const token = localStorage.getItem("refresh_token");
 
     try {
-      const response = await axios.post("/payment/toss", requestBody, {
-        headers: { Authorization: token },
-      });
+      const response = await paymentRequestToServer(requestBody);
       const data = await response.data;
       return data;
     } catch (error) {

@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const token = localStorage.getItem("refresh_token");
+
+//bookmark
 export const addBookmark = async (roomId) => {
   return await axios.post(`/partyroom/bookmark/${Number(roomId)}`, "", {
     headers: {
@@ -25,6 +27,7 @@ export const getBookmarkList = async () => {
   });
 };
 
+//review
 export const editReview = async (params, reviewId) => {
   return await axios.post(`/api/review/modify/${reviewId}`, "", {
     headers: {
@@ -41,6 +44,8 @@ export const deleteReview = async (reviewId) => {
     },
   });
 };
+
+//user
 
 export const getUserInfo = async (tokenProps) => {
   if (tokenProps) {
@@ -90,6 +95,25 @@ export const deleteAccount = async (requestBody) => {
 
 export const switchRole = async (memberSrl) => {
   return await axios.post(`/api/member/switch-role/${memberSrl}`, "", {
+    headers: { Authorization: token },
+  });
+};
+
+//payment
+export const paymentRequestToServer = async (requestBody) => {
+  return await axios.post(`/payment/toss`, requestBody, {
+    headers: { Authorization: token },
+  });
+};
+
+export const cancelPayment = async (paymentKey, requestBody) => {
+  return await axios.post(`/payment/toss/cancel/${paymentKey}`, requestBody, {
+    headers: { Authorization: token },
+  });
+};
+
+export const reservatePartyroom = async (requestBody) => {
+  return await axios.post(`/partyroom/reservation/registration`, requestBody, {
     headers: { Authorization: token },
   });
 };

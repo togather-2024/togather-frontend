@@ -1,16 +1,15 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { colors } from "../../styles/colors";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ModalContainer from "../Common/ModalContainer";
+import { cancelPayment } from "../../api/api";
 
 const CancelModal = ({ setIsOpen, data }) => {
   const [cancelReason, setCancelReason] = useState("");
   const { paymentKey } = data;
 
   const navigate = useNavigate();
-  const token = localStorage.getItem("refresh_token");
 
   const handleClose = () => {
     setIsOpen(false);
@@ -19,22 +18,9 @@ const CancelModal = ({ setIsOpen, data }) => {
     cancelReason: cancelReason,
   };
 
-  const cancelPayment = async () => {
-    try {
-      await axios.post(`/payment/toss/cancel/${paymentKey}`, requestBody, {
-        headers: {
-          Authorization: token,
-        },
-      });
-    } catch (e) {
-      console.error(e);
-      throw e;
-    }
-  };
-
   const handleCancel = async () => {
     try {
-      await cancelPayment();
+      await cancelPayment(paymentKey, requestBody);
       setIsOpen(false);
       alert("예약이 취소되었습니다.");
       navigate(`/my/reservations`);

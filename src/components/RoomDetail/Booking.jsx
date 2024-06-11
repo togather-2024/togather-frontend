@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import axios from "axios";
 import styled from "@emotion/styled";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { colors } from "../../styles/colors";
@@ -11,12 +10,12 @@ import DateContainer from "./Date/DateContainer";
 import PersonnelContainer from "./Personnel/PersonnelContainer";
 import { counterState } from "../../recoil/atoms/counterState";
 import { selectedDateState } from "../../recoil/atoms/selectedDate";
+import { reservatePartyroom } from "../../api/api";
 
 const Booking = ({ data, roomId }) => {
   const navigate = useNavigate();
   const [selectedRange, setSelectedRange] = useRecoilState(timeRangeState);
   const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState);
-  const token = localStorage.getItem("refresh_token");
   const guestCount = useRecoilValue(counterState);
   const operationDays = data?.operationDays;
   const daysOfWeek = [
@@ -88,13 +87,7 @@ const Booking = ({ data, roomId }) => {
         totalPrice: totalPrice,
       };
 
-      const url = "/partyroom/reservation/registration";
-      const headers = {
-        Authorization: token,
-      };
-      const response = await axios.post(url, reservationData, {
-        headers: headers,
-      });
+      const response = await reservatePartyroom(reservationData);
       setSelectedRange({ start: null, end: null });
       navigate(`/reservate/${response.data}`);
     } catch (error) {
